@@ -1,0 +1,35 @@
+.aside {
+    background: #d08400;
+    min-width: 285px;
+    min-height: 640px;
+}
+
+.aside li {
+    list-style: none;
+    padding: 1em;
+}
+
+.aside li a {
+    text-decoration: none;
+    color: azure;
+    display: flex;
+    font-size: 1.5rem;
+    gap: 0.3em;
+    transition-duration: .2s;
+}
+
+.aside li a:hover {
+    color: #ADADAD;
+}
+
+.aside li a.active {
+    color: #000000;
+}
+
+.active{
+    color: #000;
+}
+
+.noPage{
+    display: none !important;
+}

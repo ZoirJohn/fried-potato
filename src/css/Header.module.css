@@ -1,0 +1,22 @@
+.header {
+    width: 100%;
+    background: #d08400;
+    padding: 1rem 0;
+}
+
+.header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header a {
+    color: azure;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logo {
+    width: 50px;
+    border-radius: 50%;
+}

@@ -1,0 +1,74 @@
+.users{
+    padding: 1em 0;
+    position: relative;
+}
+.usersBox {
+    padding: 1em ;
+    display: grid;
+    grid-template-columns: repeat(4, 200px);
+    gap: 1em;
+    overflow-x: hidden;
+    max-height: 600px;
+}
+
+.usersBox::-webkit-scrollbar {
+    width: 10px;
+    background: #e5e5e5;
+}
+
+.usersBox::-webkit-scrollbar-thumb {
+    height: 20px;
+    background: #9b9b9b;
+    border-radius: 50px;
+}
+
+.usersBox::-webkit-scrollbar-button {
+    display: none;
+}
+
+.user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em 0;
+    box-shadow: 0 0 5px #000;
+    padding: 1em;
+    transition: 200ms;
+    text-decoration: none;
+    color: #000;
+}
+
+.user:hover {
+    box-shadow: 0 0 8px #000;
+}
+
+.user img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.pageButton{
+    width: 2em;
+    height: 2em;
+    font-size: 1rem;
+    margin: 0 0 0 1em;
+}
+
+.pageButton.current{
+    transform: scale(120%);
+}
+#prev{
+    right: 20%;
+}
+#next{
+    right: 10%;
+    margin: 0 0 0 1em;
+}
+.paginatorScrollButton{
+    position: absolute;
+    width: 75px;
+    height: 25px;
+    right: 0;
+}

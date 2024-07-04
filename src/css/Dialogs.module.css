@@ -1,0 +1,27 @@
+.dialogs {
+    order: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1em;
+}
+
+.item:not(:last-child), .chatTabs:not(:last-child) {
+    margin: 0 0 1em;
+}
+
+.item a {
+    color: #000;
+    text-decoration: none;
+}
+
+.contacts {
+}
+
+.names {
+}
+
+.chats {
+}
+
+.chatTabs {
+}
