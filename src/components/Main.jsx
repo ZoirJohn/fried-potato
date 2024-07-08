@@ -9,12 +9,12 @@ import Music from './music/Music';
 import Settings from './settings/Settings';
 import { lazy,Suspense } from 'react';
 
-const DialogsContainer = lazy(() => import('./dialogs/DialogsContainer'));
+const DialogsContainer = lazy(()=>import('./dialogs/DialogsContainer'));
 
 
 const Main = (props) => {
 	return (<main className={styles.main}>
-		<Suspense>
+		<Suspense fallback={<p>Loading...</p>}>
 			<Routes>
 				<Route path={'/'}
 					element={<ProfileContainer />} />
@@ -35,8 +35,6 @@ const Main = (props) => {
 				{/*No render is here*/}
 				<Route path="/login"
 					element={<Login />} />
-
-
 			</Routes>
 		</Suspense>
 
