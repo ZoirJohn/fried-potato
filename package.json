@@ -2,7 +2,7 @@
   "name": "fried-potato",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ZoirJohn.github.io/fried-potato",
+  "homepage": "https://zoirjohn.github.io/fried-potato",
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",
     "@testing-library/jest-dom": "^5.17.0",
