@@ -1,10 +1,10 @@
-import {default as axios} from 'axios';
+import { default as axios } from 'axios';
 
 
 const instance = axios.create({
 	baseURL: 'https://social-network.samuraijs.com/api/1.0',
 	withCredentials: true,
-	headers: {'API-KEY': '7eb291b4-dad0-4e4f-9b01-2c556d91e838'},
+	headers: { 'API-KEY': '7eb291b4-dad0-4e4f-9b01-2c556d91e838' },
 });
 
 export const usersAPI = {
@@ -29,14 +29,14 @@ export const profileAPI = {
 	}, GET_PROFILE_STATUS: (userId) => {
 		return instance.get(`profile/status/${userId}`);
 	}, UPDATE_PROFILE_STATUS: (status) => {
-		return instance.put(`profile/status`, {status});
+		return instance.put(`profile/status`, { status });
 	},
 };
 
 export const loginAPI = {
 	LOGIN: (email, password) => {
-		return instance.post(`auth/login`, {email, password}, {}).then(response => response.data);
+		return instance.post(`auth/login`, { email, password }, {}).then(response => response.data);
 	}, LOGOUT: (email, password) => {
-		return instance.delete(`auth/login`, ).then(response => response.data);
+		return instance.delete(`auth/login`,).then(response => response.data);
 	},
 };

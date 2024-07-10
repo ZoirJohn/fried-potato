@@ -7,9 +7,9 @@ import Login from './login/Login';
 import News from './news/News';
 import Music from './music/Music';
 import Settings from './settings/Settings';
-import { lazy,Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 
-const DialogsContainer = lazy(()=>import('./dialogs/DialogsContainer'));
+const DialogsContainer = lazy(() => import('./dialogs/DialogsContainer'));
 
 
 const Main = (props) => {
