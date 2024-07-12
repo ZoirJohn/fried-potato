@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import styles from '../css/Main.module.css';
 import ProfileContainer from './profile/ProfileContainer';
@@ -16,8 +17,10 @@ const Main = (props) => {
 	return (<main className={styles.main}>
 		<Suspense fallback={<p>Loading...</p>}>
 			<Routes>
-				<Route path={'/'}
-					element={<ProfileContainer />} />
+				{/* <Route path={'/'}
+					element={<ProfileContainer />} /> */}
+				<Route index path={'*'}
+					element={<Navigate to="/profile" replace />} />
 				<Route path={'/profile/:userId?'}
 					element={<ProfileContainer />} />
 

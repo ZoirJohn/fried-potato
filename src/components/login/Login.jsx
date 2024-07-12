@@ -1,17 +1,19 @@
 import styles from '../../css/Login.module.css';
-import {Field, reduxForm} from 'redux-form';
-import {sendAuthData} from '../../redux/auth-reducer';
-import {connect} from 'react-redux';
-import {Navigate} from 'react-router-dom';
+import { Field, reduxForm } from 'redux-form';
+import { sendAuthData } from '../../redux/auth-reducer';
+import { connect } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 const Login = (props) => {
 	return <div>
 		<h1 >Login</h1>
 		<form onSubmit={props.handleSubmit} className={styles.form} action="#">
-			<Field component="input" name="login" type="text" placeholder="Login"/>
-			<Field component="input" name="password" type="password" placeholder="Password"/>
-			<Field component="input" type="checkbox" name="remember"/>
-			<button>Submit</button>
+			<Field component="input" name="login" type="text" placeholder="Login" />
+			<Field component="input" name="password" type="password" placeholder="Password" />
+			<Field component="input" type="checkbox" name="remember" />
+			<button>Login</button>
+
+			<a className={styles.noAccount} href="https://social-network.samuraijs.com/" target='_blank'>Don't have an account? Please register</a>
 		</form>
 	</div>;
 };
@@ -22,9 +24,9 @@ const LoginForm = reduxForm({
 
 const LoginContainer = (props) => {
 	if (props.auth) {
-		return <Navigate to={'/profile'}/>;
+		return <Navigate to={'/profile'} />;
 	}
-	return <LoginForm onSubmit={(formData) => props.sendAuthData(formData.login, formData.password)}/>;
+	return <LoginForm onSubmit={(formData) => props.sendAuthData(formData.login, formData.password)} />;
 };
 
 const mapStateToProps = (state) => {
@@ -34,4 +36,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, {sendAuthData})(LoginContainer);
+export default connect(mapStateToProps, { sendAuthData })(LoginContainer);

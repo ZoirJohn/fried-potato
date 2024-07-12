@@ -87,9 +87,10 @@ ul {
 .statusBox{
     display: flex;
     align-items: center;
+    gap: 0 0.1em;
 }
 .status-word{
     display: inline-block;
     width: 100px;
-    height: 10.4px;
+    height: 22px;
 }
