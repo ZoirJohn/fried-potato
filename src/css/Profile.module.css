@@ -84,3 +84,12 @@ ul {
     top: 60%;
     left: 0;
 }
+.statusBox{
+    display: flex;
+    align-items: center;
+}
+.status-word{
+    display: inline-block;
+    width: 100px;
+    height: 10.4px;
+}
