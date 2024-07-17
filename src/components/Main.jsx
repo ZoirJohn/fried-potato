@@ -17,8 +17,6 @@ const Main = (props) => {
 	return (<main className={styles.main}>
 		<Suspense fallback={<p>Loading...</p>}>
 			<Routes>
-				{/* <Route path={'/'}
-					element={<ProfileContainer />} /> */}
 				<Route index path={'*'}
 					element={<Navigate to="/profile" replace />} />
 				<Route path={'/profile/:userId?'}

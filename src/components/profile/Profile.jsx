@@ -7,6 +7,7 @@ import AddPostRedux from './ProfileForm';
 
 
 const Profile = (props) => {
+	console.log(props.photos);
 	let [edit, setStatus] = useState(false);
 	let [currentWord, setCurrentWord] = useState('');
 	let [word, setWord] = useState(props.status);

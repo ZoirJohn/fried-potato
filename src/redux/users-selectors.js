@@ -1,4 +1,4 @@
-import {createSelector} from 'reselect';
+import { createSelector } from 'reselect';
 
 export const getUsersList = (state) => {
 	return state.users.usersList;
@@ -21,5 +21,5 @@ export const getInProgress = (state) => {
 
 
 export const getUsersListSelector = createSelector(getUsersList, (users) => {
-	return users.filter((user) => user);
-});
+	return users.filter(user => user);
+}); // Complicated selector that uses primitive selector as a parameter

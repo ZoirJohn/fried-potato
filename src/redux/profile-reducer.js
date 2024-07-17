@@ -1,15 +1,16 @@
-import {profileAPI} from '../api/api';
+import { profileAPI } from '../api/api';
 
 const ADD_POST_PROFILE = 'profile/ADD-POST-PROFILE';
 const DELETE_POST_PROFILE = 'profile/DELETE-POST-PROFILE';
 const SET_PROFILE = 'profile/SET-PROFILE';
 const SET_STATUS = 'profile/SET-STATUS';
+const SET_PROFILE_PHOTO = 'profile/SET-PROFILE-PHOTO';
 
 let initialState = {
 	posts: [
-		{text: 'Hello', likeNumber: 12, id: 1},
-		{text: 'How do you do?', likeNumber: 18, id: 2},
-		{text: 'Pretty fine', likeNumber: 4, id: 3},
+		{ text: 'Hello', likeNumber: 12, id: 1 },
+		{ text: 'How do you do?', likeNumber: 18, id: 2 },
+		{ text: 'Pretty fine', likeNumber: 4, id: 3 },
 	],
 	profileUser: null,
 	status: '',
@@ -17,22 +18,26 @@ let initialState = {
 const profile_reducer = (_state = initialState, action) => {
 	switch (action.type) {
 		case ADD_POST_PROFILE:
-			let newPost = {text: action.text, likeNumber: Math.floor(Math.random() * 10)};
-			return {..._state, posts: [..._state.posts, newPost]};
+			let newPost = { text: action.text, likeNumber: Math.floor(Math.random() * 10) };
+			return { ..._state, posts: [..._state.posts, newPost] };
 		case DELETE_POST_PROFILE:
-			return {..._state, posts: _state.posts.filter(post => post.id !== action.id)};
+			return { ..._state, posts: _state.posts.filter(post => post.id !== action.id) };
 		case SET_PROFILE:
-			return {..._state, profileUser: action.profileUser};
+			return { ..._state, profileUser: action.profileUser };
 		case SET_STATUS:
-			return {..._state, status: action.status};
+			return { ..._state, status: action.status };
+		case SET_PROFILE_PHOTO:
+			return { ..._state, profileUser: { ..._state.profileUser, photos: action.photo } };
 		default:
 			return _state;
 	}
 };
-const addPost = (text) => ({type: ADD_POST_PROFILE, text});
-const deletePost = (id) => ({type: DELETE_POST_PROFILE, id});
-const setProfileDone = (profileUser) => ({type: SET_PROFILE, profileUser});
-const setStatusDone = (status) => ({type: SET_STATUS, status});
+const addPost = (text) => ({ type: ADD_POST_PROFILE, text });
+const deletePost = (id) => ({ type: DELETE_POST_PROFILE, id });
+const setProfileDone = (profileUser) => ({ type: SET_PROFILE, profileUser });
+const setStatusDone = (status) => ({ type: SET_STATUS, status });
+const setProfilePhotoDone = (photo) => ({ type: SET_PROFILE_PHOTO, photo });
+
 const setProfile = (userId) => (dispatch) => {
 	profileAPI.GET_PROFILE_USER(userId).then(response => {
 		if (response.status === 200) {
@@ -54,5 +59,13 @@ const updateStatus = (status) => (dispatch) => {
 	});
 };
 
+const savePhoto = (photo) => (dispatch) => {
+	profileAPI.UPDATE_PROFILE_PHOTO(photo).then(response => {
+		console.log(photo,response.data);
+		if (response.status === 200) {
+			dispatch(setProfilePhotoDone(response.data.data));
+		}
+	});
+};
 
-export {profile_reducer, addPost, deletePost, setProfile, setStatus, updateStatus} ;
+export { profile_reducer, addPost, deletePost, setProfile, setStatus, updateStatus, savePhoto };
