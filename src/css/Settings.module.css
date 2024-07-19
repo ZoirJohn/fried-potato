@@ -1,0 +1,25 @@
+.settingsBox {
+        position: relative;
+}
+
+.warning {
+        position: absolute;
+        right: 1em;
+        top: -2.5em;
+        color: #fff;
+        background: #f00;
+        transition: 200ms;
+        padding: 0.25em;
+}
+.warning span{
+        padding: 0 1em 0 0;
+        cursor: pointer;
+}
+.warn{
+        top: .5em;
+        z-index: 1;
+        transition: 200ms;
+}
+.hideWarn{
+        top: -2.5em;
+}

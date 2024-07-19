@@ -9,7 +9,7 @@ const minimum = minLength(2);
 const AddPostForm = (props) => {
 	return <form action="" onSubmit={props.handleSubmit} className={styles.messagesForm}>
 		<Field component={Input} type="text" placeholder="Enter text..." name="AddPostForm"
-			   className={styles.inputText} validate={[maximum, minimum, required]}/>
+			   className={styles.inputText} validate={[maximum, minimum]}/>
 		<button>Submit</button>
 	</form>;
 };

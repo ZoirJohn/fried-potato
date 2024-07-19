@@ -61,9 +61,8 @@ const updateStatus = (status) => (dispatch) => {
 
 const savePhoto = (photo) => (dispatch) => {
 	profileAPI.UPDATE_PROFILE_PHOTO(photo).then(response => {
-		console.log(photo,response.data);
 		if (response.status === 200) {
-			dispatch(setProfilePhotoDone(response.data.data));
+			dispatch(setProfilePhotoDone(response.data.data.photos));
 		}
 	});
 };

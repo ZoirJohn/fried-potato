@@ -2,6 +2,8 @@
     width: 100%;
     background: #d08400;
     padding: 1rem 0;
+    z-index: 2;
+    position: relative;
 }
 
 .header .container {
