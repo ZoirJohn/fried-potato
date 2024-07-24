@@ -14,21 +14,17 @@ class ProfileContainer extends Component {
 		this.props.setProfile(id);
 		this.props.setStatus(id);
 	}
-
 	componentDidMount() {
 		this.refreshProfile();
 	}
-
 	shouldComponentUpdate(nextProps, nextState, nextContext) {
 		return nextProps.status === this.props.status;
 	}
-
 	componentDidUpdate(prevProps, prevState, snapshot) {
 		if (this.props.router.params.userId != prevProps.router.params.userId) {
 			this.refreshProfile();
 		}
 	}
-
 	render() {
 		if (!this.props.profileUser) {
 			return <Loader isFetching={true} />;
@@ -37,8 +33,6 @@ class ProfileContainer extends Component {
 		return <Profile {...this.props} />;
 	}
 }
-
-
 const mapStateToProps = (state) => {
 	return {
 		posts: state.profile.posts,

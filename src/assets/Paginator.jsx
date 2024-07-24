@@ -1,5 +1,5 @@
 import styles from '../css/Users.module.css';
-import {useState} from 'react';
+import { useState } from 'react';
 
 const Paginator = (props) => {
 	let items = Math.ceil(props.overall / props.pageSize);
@@ -23,8 +23,8 @@ const Paginator = (props) => {
 
 		{pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber).map((b, id) => {
 			return <button key={id}
-						   className={`${props.currentPage === b ? styles.current : ''} ${styles.pageButton}`}
-						   onClick={(e) => props.setCurrentPageUsers(b)}>{b}</button>;
+				className={`${props.currentPage === b ? styles.current : ''} ${styles.pageButton}`}
+				onClick={(e) => props.setCurrentPageUsers(b)}>{b}</button>;
 		})}
 
 		{portions > portionNumber &&

@@ -38,33 +38,29 @@ const setProfileDone = (profileUser) => ({ type: SET_PROFILE, profileUser });
 const setStatusDone = (status) => ({ type: SET_STATUS, status });
 const setProfilePhotoDone = (photo) => ({ type: SET_PROFILE_PHOTO, photo });
 
-const setProfile = (userId) => (dispatch) => {
-	profileAPI.GET_PROFILE_USER(userId).then(response => {
-		if (response.status === 200) {
-			dispatch(setProfileDone(response.data));
-		}
-	});
+const setProfile = (userId) => async (dispatch) => {
+	const response = await profileAPI.GET_PROFILE_USER(userId);
+	if (response.status === 200) {
+		dispatch(setProfileDone(response.data));
+	}
 
 };
-const setStatus = (userId) => (dispatch) => {
-	profileAPI.GET_PROFILE_STATUS(userId).then(response => {
-		if (response.status === 200) {
-			dispatch(setStatusDone(response.data));
-		}
-	});
+const setStatus = (userId) => async (dispatch) => {
+	const response = await profileAPI.GET_PROFILE_STATUS(userId);
+	if (response.status === 200) {
+		dispatch(setStatusDone(response.data));
+	}
 };
-const updateStatus = (status) => (dispatch) => {
-	profileAPI.UPDATE_PROFILE_STATUS(status).then(response => {
+const updateStatus = (status) => async (dispatch) => {
+	const response = await profileAPI.UPDATE_PROFILE_STATUS(status);
+	if (response.status === 200) {
 		dispatch(setStatusDone(status));
-	});
+	}
 };
-
-const savePhoto = (photo) => (dispatch) => {
-	profileAPI.UPDATE_PROFILE_PHOTO(photo).then(response => {
-		if (response.status === 200) {
-			dispatch(setProfilePhotoDone(response.data.data.photos));
-		}
-	});
+const savePhoto = (photo) => async (dispatch) => {
+	const response = await profileAPI.UPDATE_PROFILE_PHOTO(photo);
+	if (response.status === 200) {
+		dispatch(setProfilePhotoDone(response.data.data.photos));
+	}
 };
-
 export { profile_reducer, addPost, deletePost, setProfile, setStatus, updateStatus, savePhoto };

@@ -11,15 +11,35 @@
         transition: 200ms;
         padding: 0.25em;
 }
-.warning span{
+
+.warning span {
         padding: 0 1em 0 0;
         cursor: pointer;
 }
-.warn{
+
+.warn {
         top: .5em;
         z-index: 1;
         transition: 200ms;
 }
-.hideWarn{
+
+.hideWarn {
         top: -2.5em;
+}
+
+.fieldForm{
+        padding: 1em 0 0;
+}
+
+.fieldLabel {
+        display: flex;
+        gap: 0.5em;
+        width: 100%;
+        padding: 0.5em 0 0 2em;
+        font-weight: 700;
+        font-family: sans-serif;
+}
+
+.fieldLabel div {
+        width: 40%;
 }
