@@ -1,5 +1,6 @@
 .settingsBox {
         position: relative;
+        padding: 0.5em 0;
 }
 
 .warning {
@@ -27,7 +28,7 @@
         top: -2.5em;
 }
 
-.fieldForm{
+.fieldForm {
         padding: 1em 0 0;
 }
 
@@ -42,4 +43,15 @@
 
 .fieldLabel div {
         width: 40%;
+}
+
+.fieldLabel input{
+        border-radius: 6px;
+        padding: 0.4em;
+        width: 70%;
+        border: 1px solid #000;
+}
+
+button[type]{
+        margin: 0.75em 0 0;
 }

@@ -1,8 +1,8 @@
 import { Field } from "redux-form";
-import Input from "./Input";
+import { Input, InputCheckbox } from "./Input";
 
-const createField = (name) => {
-        return <Field name={name} component={Input} />;
+const createField = (name, placeholder, type) => {
+        return <Field name={name} component={type ? Input : InputCheckbox} placeholder={placeholder} />;
 };
 
 export default createField;

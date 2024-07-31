@@ -1,6 +1,6 @@
 import {maxLength, minLength} from '../../assets/Validators';
 import {Field, reduxForm} from 'redux-form';
-import Input from '../../assets/Input';
+import {Input} from '../../assets/Input';
 
 const maximum = maxLength(30);
 const minimum = minLength(2);

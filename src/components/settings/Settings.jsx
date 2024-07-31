@@ -1,7 +1,7 @@
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { savePhoto } from '../../redux/profile-reducer';
+import { savePhoto, saveProfile } from '../../redux/profile-reducer';
 import { Component } from 'react';
 import styles from '../../css/Settings.module.css';
 import createField from '../../assets/createField';
@@ -34,6 +34,9 @@ class Settings extends Component {
 		const uploadPhoto = (e) => {
 			this.props.savePhoto(e.target.files[0]);
 		};
+		const formDataSubmit = (formData) => {
+			this.props.saveProfile(formData);
+		};
 		return (
 			<ul className={styles.settingsBox}>
 				<p className={`${styles.warning} ${this.state.warning && styles.warn} ${this.state.hideWarning && styles.hideWarn}`}><span onClick={this.setHideWarning}>X</span>Picture has been replaced!</p>
@@ -41,9 +44,8 @@ class Settings extends Component {
 					this.props.ownId === this.props.uploadedId ?
 						<>
 							<li><input onChange={uploadPhoto} type="file" placeholder='Change profile photo' /></li>
-							{/* <li><button onClick={this.showForm}>Change profile</button></li> */}
 							<li>
-								<SetProfileRedux onSubmit={(formData) => console.log(formData)} />
+								<SetProfileRedux onSubmit={formDataSubmit} />
 							</li>
 						</> : 'Switch to your account (Go to profile and come back)'
 				}
@@ -56,16 +58,25 @@ const ProfileReset = (props) => {
 	return <form onSubmit={props.handleSubmit} className={styles.fieldForm}>
 		<h3>Profile Settings</h3>
 		<label className={styles.fieldLabel}>
-			Looking for a job: {createField('lookingForAJob')}
+			{createField('lookingForAJob', 'Looking for a job', false)}
 		</label>
 		<label className={styles.fieldLabel}>
-			Looking for a job description: {createField('lookingForAJobDescription')}
+			{createField('lookingForAJobDescription', 'Description', true)}
 		</label>
 		<label className={styles.fieldLabel}>
-			Full name: {createField('fullName')}
+			{createField('fullName', 'Full name', true)}
 		</label>
 		<label className={styles.fieldLabel}>
-			Contacts: {createField('contacts')}
+			{createField('aboutMe', 'About me', true)}
+		</label>
+		<label className={styles.fieldLabel}>
+			{createField('github', 'GitHub', true)}
+		</label>
+		<label className={styles.fieldLabel}>
+			{createField('instagram', 'Instagram', true)}
+		</label>
+		<label className={styles.fieldLabel}>
+			{createField('twitter', 'Twitter', true)}
 		</label>
 		<button type='submit'>Submit</button>
 	</form>;
@@ -81,4 +92,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default compose(connect(mapStateToProps, { savePhoto }), withAuthRedirect)(Settings);
+export default compose(connect(mapStateToProps, { savePhoto, saveProfile }), withAuthRedirect)(Settings);

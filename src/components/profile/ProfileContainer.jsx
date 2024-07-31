@@ -34,6 +34,7 @@ class ProfileContainer extends Component {
 	}
 }
 const mapStateToProps = (state) => {
+	console.log(state);
 	return {
 		posts: state.profile.posts,
 		newPost: state.profile.newPost,
