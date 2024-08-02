@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { savePhoto, saveProfile } from '../../redux/profile-reducer';
 import { Component } from 'react';
 import styles from '../../css/Settings.module.css';
-import createField from '../../assets/createField';
+import SettingsFormRedux from './SetttingsForm';
 import { reduxForm } from 'redux-form';
 
 
@@ -35,7 +35,7 @@ class Settings extends Component {
 			this.props.savePhoto(e.target.files[0]);
 		};
 		const formDataSubmit = (formData) => {
-			this.props.saveProfile(formData);
+			this.props.saveProfile({ ...formData, contacts: { twitter: formData.twitter, instagram: formData.instagram, github: formData.github, } });
 		};
 		return (
 			<ul className={styles.settingsBox}>
@@ -45,7 +45,7 @@ class Settings extends Component {
 						<>
 							<li><input onChange={uploadPhoto} type="file" placeholder='Change profile photo' /></li>
 							<li>
-								<SetProfileRedux onSubmit={formDataSubmit} />
+								<SettingsFormRedux onSubmit={formDataSubmit} />
 							</li>
 						</> : 'Switch to your account (Go to profile and come back)'
 				}
@@ -53,37 +53,6 @@ class Settings extends Component {
 		);
 	}
 }
-
-const ProfileReset = (props) => {
-	return <form onSubmit={props.handleSubmit} className={styles.fieldForm}>
-		<h3>Profile Settings</h3>
-		<label className={styles.fieldLabel}>
-			{createField('lookingForAJob', 'Looking for a job', false)}
-		</label>
-		<label className={styles.fieldLabel}>
-			{createField('lookingForAJobDescription', 'Description', true)}
-		</label>
-		<label className={styles.fieldLabel}>
-			{createField('fullName', 'Full name', true)}
-		</label>
-		<label className={styles.fieldLabel}>
-			{createField('aboutMe', 'About me', true)}
-		</label>
-		<label className={styles.fieldLabel}>
-			{createField('github', 'GitHub', true)}
-		</label>
-		<label className={styles.fieldLabel}>
-			{createField('instagram', 'Instagram', true)}
-		</label>
-		<label className={styles.fieldLabel}>
-			{createField('twitter', 'Twitter', true)}
-		</label>
-		<button type='submit'>Submit</button>
-	</form>;
-};
-
-const SetProfileRedux = reduxForm({ form: 'profile_data' })(ProfileReset);
-
 const mapStateToProps = (state) => {
 	return {
 		ownId: state.auth.id,

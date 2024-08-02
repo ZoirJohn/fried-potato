@@ -29,12 +29,10 @@ class ProfileContainer extends Component {
 		if (!this.props.profileUser) {
 			return <Loader isFetching={true} />;
 		}
-
 		return <Profile {...this.props} />;
 	}
 }
 const mapStateToProps = (state) => {
-	console.log(state);
 	return {
 		posts: state.profile.posts,
 		newPost: state.profile.newPost,

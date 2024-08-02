@@ -22,6 +22,7 @@ const Profile = (props) => {
 	const handleWord = () => {
 		setWord(word = currentWord);
 	};
+	console.log(props.profileUser.contacts);
 	return (<section className={styles.profile}>
 		<img src={background} alt="background" />
 		<div className={styles.dataBox}>
@@ -38,6 +39,9 @@ const Profile = (props) => {
 					</pre>
 				</div>
 				<p><span>Education:</span> Embry-Riddle</p>
+				<p><span>About Me:</span> {props.profileUser.aboutMe}</p>
+				<p><span>Instagram:</span> <a href={props.profileUser.contacts.instagram} target='_blank'>Link</a></p>
+				<p><span>Twitter:</span> <a href={props.profileUser.contacts.twitter} target='_blank'>Link</a></p>
 			</div>
 		</div>
 		<div className={styles.messages}>
