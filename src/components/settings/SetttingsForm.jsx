@@ -1,6 +1,7 @@
 import { reduxForm } from "redux-form";
 import styles from '../../css/Settings.module.css';
 import createField from '../../assets/createField';
+import { minLength, required } from "../../assets/Validators";
 
 const inputFields = [
         ['lookingForAJob', 'Looking for a job', true],
@@ -12,14 +13,16 @@ const inputFields = [
         ['twitter', 'Twitter']
 ];
 
+const minimum = minLength(10);
+
 const SettingsForm = (props) => {
         return <form onSubmit={props.handleSubmit} className={styles.fieldForm}>
                 <h3>Profile Settings</h3>
-                        {inputFields.map((input, id) => {
-                                return <label key={id} className={styles.fieldLabel}>
-                                        {createField(input[0], input[1], input[2])}
-                                </label>;
-                        })}
+                {inputFields.map((input, id) => {
+                        return <label key={id} className={styles.fieldLabel}>
+                                {createField(input[0], input[1], input[2], [required])}
+                        </label>;
+                })}
                 <button type='submit'>Submit</button>
         </form>;
 };

@@ -22,7 +22,6 @@ const Profile = (props) => {
 	const handleWord = () => {
 		setWord(word = currentWord);
 	};
-	console.log(props.profileUser.contacts);
 	return (<section className={styles.profile}>
 		<img src={background} alt="background" />
 		<div className={styles.dataBox}>

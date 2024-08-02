@@ -42,16 +42,22 @@
 }
 
 .fieldLabel div {
-        width: 40%;
+        width: 100%;
+        position: relative;
 }
 
-.fieldLabel input{
+.fieldLabel input {
+        width: 30% !important;
         border-radius: 6px;
         padding: 0.4em;
         width: 70%;
         border: 1px solid #000;
 }
 
-button[type]{
+.fieldLabel span {
+        top: 25%;
+        left: 35%;
+}
+button[type] {
         margin: 0.75em 0 0;
 }
