@@ -40,9 +40,11 @@ export const profileAPI = {
 };
 
 export const loginAPI = {
-	LOGIN: (email, password) => {
-		return instance.post(`auth/login`, { email, password }, {}).then(response => response.data);
+	LOGIN: (email, password, captcha) => {
+		return instance.post(`auth/login`, { email, password, captcha }, {}).then(response => response.data);
 	}, LOGOUT: (email, password) => {
 		return instance.delete(`auth/login`,).then(response => response.data);
-	},
+	}, CAPTCHA: () => {
+		return instance.get(`security/get-captcha-url`);
+	}
 };

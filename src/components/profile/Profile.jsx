@@ -38,6 +38,7 @@ const Profile = (props) => {
 					</pre>
 				</div>
 				<p><span>Education:</span> Embry-Riddle</p>
+				<p><span>Job Hunting:</span> {props.profileUser.lookingForAJob ? 'Yes' : 'No'}</p>
 				<p><span>About Me:</span> {props.profileUser.aboutMe}</p>
 				<p><span>Instagram:</span> <a href={props.profileUser.contacts.instagram} target='_blank'>Link</a></p>
 				<p><span>Twitter:</span> <a href={props.profileUser.contacts.twitter} target='_blank'>Link</a></p>

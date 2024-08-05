@@ -13,3 +13,7 @@
 .form button{
     display: block;
 }
+
+.error{
+    color: #f00;
+}
