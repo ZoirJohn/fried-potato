@@ -62,12 +62,12 @@ const setUserData = () => (dispatch) => {
 };
 
 const sendAuthData = (email, password, captcha) => (dispatch) => {
-	loginAPI.LOGIN(email, password, captcha).then(data => {
-		if (data.resultCode === 0) {
+	loginAPI.LOGIN(email, password, captcha).then(response => {
+		if (response.data.resultCode === 0) {
 			dispatch(setUserData());
 		} else {
-			let message = data.messages[0];
-			if (data.resultCode === 10) {
+			let message = response.data.messages[0];
+			if (response.data.resultCode === 10) {
 				dispatch(getCaptcha());
 			}
 			dispatch(stopSubmit('login', { _error: message }));
@@ -76,8 +76,8 @@ const sendAuthData = (email, password, captcha) => (dispatch) => {
 };
 
 const deleteAuthData = (email, password) => (dispatch) => {
-	loginAPI.LOGOUT(email, password).then(data => {
-		if (data.resultCode === 0) {
+	loginAPI.LOGOUT(email, password).then(response => {
+		if (response.data.resultCode === 0) {
 			dispatch(setUserDataDone(null, null, null, false));
 		}
 	});
