@@ -1,3 +1,4 @@
+import { reset } from 'redux-form';
 import { profileAPI } from '../api/api';
 
 const ADD_POST_PROFILE = 'profile/ADD-POST-PROFILE';
@@ -56,17 +57,21 @@ const setStatus = (userId) => async (dispatch) => {
 };
 const updateStatus = (status) => async (dispatch) => {
 	const response = await profileAPI.UPDATE_PROFILE_STATUS(status);
-	if (response.status === 200) {
+	if (response.resultCode === 0) {
 		dispatch(setStatusDone(status));
 	}
 };
 const savePhoto = (photo) => async (dispatch) => {
 	const response = await profileAPI.UPDATE_PROFILE_PHOTO(photo);
-	if (response.status === 200) {
-		dispatch(setProfilePhotoDone(response.data.data.photos));
+	if (response.resultCode === 0) {
+		dispatch(setProfilePhotoDone(response.data.photos));
 	}
 };
 const saveProfile = (data) => async (dispatch) => {
 	const response = await profileAPI.UPDATE_PROFILE(data);
+	if (response.resultCode === 0) {
+		dispatch(reset('settings_data'));
+	}
 };
+
 export { profile_reducer, addPost, deletePost, setProfile, setStatus, updateStatus, savePhoto, saveProfile };

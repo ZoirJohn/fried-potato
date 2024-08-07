@@ -25,26 +25,26 @@ export const authAPI = {
 
 export const profileAPI = {
 	GET_PROFILE_USER: (userId) => {
-		return instance.get(`profile/${userId}`);
+		return instance.get(`profile/${userId}`).then(response => response);
 	}, GET_PROFILE_STATUS: (userId) => {
-		return instance.get(`profile/status/${userId}`);
+		return instance.get(`profile/status/${userId}`).then(response => response);
 	}, UPDATE_PROFILE_STATUS: (status) => {
-		return instance.put(`profile/status`, { status });
+		return instance.put(`profile/status`, { status }).then(response => response.data);
 	}, UPDATE_PROFILE_PHOTO: (photo) => {
 		let formData = new FormData();
 		formData.append('image', photo);
-		return instance.put(`profile/photo`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+		return instance.put(`profile/photo`, formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => response.data);
 	}, UPDATE_PROFILE: (data) => {
-		return instance.put('profile', data);
+		return instance.put('profile', data).then(response => response.data);
 	}
 };
 
 export const loginAPI = {
 	LOGIN: (email, password, captcha) => {
-		return instance.post(`auth/login`, { email, password, captcha }, {});
+		return instance.post(`auth/login`, { email, password, captcha }, {}).then(response => response.data);
 	}, LOGOUT: (email, password) => {
-		return instance.delete(`auth/login`,);
+		return instance.delete(`auth/login`,).then(response => response.data);
 	}, CAPTCHA: () => {
-		return instance.get(`security/get-captcha-url`);
+		return instance.get(`security/get-captcha-url`).then(response => response.data);
 	}
 };

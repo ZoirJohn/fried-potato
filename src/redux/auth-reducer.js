@@ -46,9 +46,9 @@ const auth_reducer = (_state = initialState, action) => {
 const setUserDataDone = (id, login, email, isAuthorized) => ({ type: SET_USER_DATA, id, login, email, isAuthorized });
 const setCaptchaDone = (url) => ({ type: SET_CAPTCHA, url });
 
-const getCaptcha = () => (dispatch) => {
+const setCaptcha = () => (dispatch) => {
 	loginAPI.CAPTCHA().then(response => {
-		dispatch(setCaptchaDone(response.data.url));
+		dispatch(setCaptchaDone(response.url));
 	});
 };
 
@@ -63,12 +63,12 @@ const setUserData = () => (dispatch) => {
 
 const sendAuthData = (email, password, captcha) => (dispatch) => {
 	loginAPI.LOGIN(email, password, captcha).then(response => {
-		if (response.data.resultCode === 0) {
+		if (response.resultCode === 0) {
 			dispatch(setUserData());
 		} else {
-			let message = response.data.messages[0];
-			if (response.data.resultCode === 10) {
-				dispatch(getCaptcha());
+			const message = response.messages[0];
+			if (response.resultCode === 10) {
+				dispatch(setCaptcha());
 			}
 			dispatch(stopSubmit('login', { _error: message }));
 		}
@@ -77,7 +77,8 @@ const sendAuthData = (email, password, captcha) => (dispatch) => {
 
 const deleteAuthData = (email, password) => (dispatch) => {
 	loginAPI.LOGOUT(email, password).then(response => {
-		if (response.data.resultCode === 0) {
+		console.log(response);
+		if (response.resultCode === 0) {
 			dispatch(setUserDataDone(null, null, null, false));
 		}
 	});
