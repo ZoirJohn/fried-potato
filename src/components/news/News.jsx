@@ -1,8 +1,8 @@
-import {CgNotes} from 'react-icons/cg';
-import {withAuthRedirect} from '../../hoc/withAuthRedirect';
+import { FaExclamationCircle } from 'react-icons/fa';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 
 const News = () => {
-	return <h1><CgNotes/></h1>;
+	return <h1 className='fa_exclamation'><FaExclamationCircle /><p>Closed for further development</p></h1>;
 };
 
 export default withAuthRedirect(News);

@@ -13,3 +13,21 @@
     display: flex;
 }
 
+.fa_exclamation {
+    font-size: 15rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.1em 0;
+}
+
+.fa_exclamation svg {
+    color: #cd0000;
+}
+
+.fa_exclamation p {
+    font-size: 2rem;
+    font-family: 'Bahnschrift';
+}
