@@ -13,7 +13,7 @@ const Profile = (props) => {
 	const handleStatus = () => {
 		setStatus(edit => !edit);
 		if (edit) {
-			props.updateStatus(currentWord);
+			props.updateStatus(currentWord,props.id);
 		}
 	};
 	const handleClick = (e) => {

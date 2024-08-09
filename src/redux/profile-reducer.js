@@ -55,10 +55,10 @@ const setStatus = (userId) => async (dispatch) => {
 		dispatch(setStatusDone(response.data));
 	}
 };
-const updateStatus = (status) => async (dispatch) => {
+const updateStatus = (status, id) => async (dispatch) => {
 	const response = await profileAPI.UPDATE_PROFILE_STATUS(status);
 	if (response.resultCode === 0) {
-		dispatch(setStatusDone(status));
+		dispatch(setStatus(id));
 	}
 };
 const savePhoto = (photo) => async (dispatch) => {
