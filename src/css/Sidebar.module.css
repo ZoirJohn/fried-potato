@@ -1,5 +1,5 @@
 .aside {
-    background: #6667ab;
+    background: var(--primary-color);
     min-width: 285px;
     min-height: 640px;
 }

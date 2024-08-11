@@ -4,6 +4,10 @@
     font-family: sans-serif;
 }
 
+:root {
+    --primary-color: #6667ab;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
