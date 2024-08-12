@@ -1,12 +1,12 @@
 import Main from './components/Main';
 import Sidebar from './components/Sidebar';
 import HeaderComponent from './components/header/HeaderComponent';
-import {useEffect} from 'react';
-import {compose} from 'redux';
-import {connect} from 'react-redux';
-import {initializeApp} from './redux/app-reducer';
+import { useEffect } from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { initializeApp } from './redux/app-reducer';
 import Loader from './assets/Loader';
-import {withRouter} from './hoc/withRouter';
+import { withRouter } from './hoc/withRouter';
 
 
 const App = (props) => {
@@ -15,15 +15,15 @@ const App = (props) => {
 	}, []);
 
 	if (!props.initialized) {
-		return <Loader/>;
+		return <Loader />;
 	}
 	return (
 		<div data-testid="app" className="App">
-			<HeaderComponent imgLogo={props.imgLogo}/>
+			<HeaderComponent imgLogo={props.imgLogo} />
 			<div data-testid="container" className="container">
 				<Main
-					state={props.state}/>
-				<Sidebar/>
+					state={props.state} />
+				<Sidebar />
 			</div>
 		</div>
 	);
@@ -41,6 +41,6 @@ const Wrapper = compose(withRouter, connect(mapStateToProps,
 		initializeApp,
 	},
 ))
-(App);
+	(App);
 
 export default Wrapper;

@@ -5,7 +5,7 @@ import { savePhoto, saveProfile } from '../../redux/profile-reducer';
 import { Component } from 'react';
 import styles from '../../css/Settings.module.css';
 import SettingsFormRedux from './SetttingsForm';
-
+import classNames from 'classnames';
 
 class Settings extends Component {
 	constructor(props) {
@@ -38,7 +38,7 @@ class Settings extends Component {
 		};
 		return (
 			<ul className={styles.settingsBox}>
-				<p className={`${styles.warning} ${this.state.warning && styles.warn} ${this.state.hideWarning && styles.hideWarn}`}><span onClick={this.setHideWarning}>X</span>Picture has been replaced!</p>
+				<p className={classNames(styles.warning, { [styles.warn]: this.state.warning, [styles.hideWarn]: this.state.hideWarning })}><span onClick={this.setHideWarning}>X</span>Picture has been replaced!</p>
 				{
 					this.props.ownId === this.props.uploadedId ?
 						<>
