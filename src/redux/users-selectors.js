@@ -22,4 +22,4 @@ export const getInProgress = (state) => {
 
 export const getUsersListSelector = createSelector(getUsersList, (users) => {
 	return users.filter(user => user);
-}); // Complicated selector that uses primitive selector as a parameter
+}); // * Complicated selector that uses primitive selector as a parameter

@@ -1,5 +1,6 @@
 import { reset } from 'redux-form';
 import { profileAPI } from '../api/api';
+import reducerCreator from '../assets/reducerCreator';
 
 const ADD_POST_PROFILE = 'profile/ADD-POST-PROFILE';
 const DELETE_POST_PROFILE = 'profile/DELETE-POST-PROFILE';
@@ -42,31 +43,10 @@ const setProfileDone = (profileUser) => ({ type: SET_PROFILE, profileUser });
 const setStatusDone = (status) => ({ type: SET_STATUS, status });
 const setProfilePhotoDone = (photo) => ({ type: SET_PROFILE_PHOTO, photo });
 
-const setProfile = (userId) => async (dispatch) => {
-	const response = await profileAPI.GET_PROFILE_USER(userId);
-	if (response.status === 200) {
-		dispatch(setProfileDone(response.data));
-	}
-
-};
-const setStatus = (userId) => async (dispatch) => {
-	const response = await profileAPI.GET_PROFILE_STATUS(userId);
-	if (response.status === 200) {
-		dispatch(setStatusDone(response.data));
-	}
-};
-const updateStatus = (status, id) => async (dispatch) => {
-	const response = await profileAPI.UPDATE_PROFILE_STATUS(status);
-	if (response.resultCode === 0) {
-		dispatch(setStatus(id));
-	}
-};
-const savePhoto = (photo) => async (dispatch) => {
-	const response = await profileAPI.UPDATE_PROFILE_PHOTO(photo);
-	if (response.resultCode === 0) {
-		dispatch(setProfilePhotoDone(response.data.photos));
-	}
-};
+const setProfile = (userId) => reducerCreator(profileAPI.GET_PROFILE_USER, setProfileDone, userId);
+const setStatus = (userId) => reducerCreator(profileAPI.UPDATE_PROFILE_STATUS, setStatus, userId);
+const updateStatus = (status, id) => reducerCreator(profileAPI.GET_PROFILE_STATUS, setStatusDone, status, id);
+const savePhoto = (photo) => reducerCreator(profileAPI.UPDATE_PROFILE_PHOTO, setProfilePhotoDone, photo);
 const saveProfile = (data) => async (dispatch) => {
 	const response = await profileAPI.UPDATE_PROFILE(data);
 	if (response.resultCode === 0) {
