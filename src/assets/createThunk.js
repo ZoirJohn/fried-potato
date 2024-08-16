@@ -1,4 +1,4 @@
-const reducerCreator = (apiRequest, actionCreator, ...args) => async (dispatch) => {
+const createThunk = (apiRequest, actionCreator, ...args) => async (dispatch) => {
         try {
                 const response = await apiRequest(...args);
                 if (response.status || response.data.resultCode) {
@@ -9,4 +9,4 @@ const reducerCreator = (apiRequest, actionCreator, ...args) => async (dispatch) 
         }
 };
 
-export default reducerCreator;
+export default createThunk;

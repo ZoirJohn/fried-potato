@@ -1,6 +1,6 @@
 import { reset } from 'redux-form';
 import { profileAPI } from '../api/api';
-import reducerCreator from '../assets/reducerCreator';
+import createThunk from '../assets/createThunk';
 
 const ADD_POST_PROFILE = 'profile/ADD-POST-PROFILE';
 const DELETE_POST_PROFILE = 'profile/DELETE-POST-PROFILE';
@@ -37,16 +37,19 @@ const profile_reducer = (_state = initialState, action) => {
 			return _state;
 	}
 };
+
+// Action creators
 const addPost = (text) => ({ type: ADD_POST_PROFILE, text });
 const deletePost = (id) => ({ type: DELETE_POST_PROFILE, id });
 const setProfileDone = (profileUser) => ({ type: SET_PROFILE, profileUser });
 const setStatusDone = (status) => ({ type: SET_STATUS, status });
 const setProfilePhotoDone = (photo) => ({ type: SET_PROFILE_PHOTO, photo });
 
-const setProfile = (userId) => reducerCreator(profileAPI.GET_PROFILE_USER, setProfileDone, userId);
-const setStatus = (userId) => reducerCreator(profileAPI.UPDATE_PROFILE_STATUS, setStatus, userId);
-const updateStatus = (status, id) => reducerCreator(profileAPI.GET_PROFILE_STATUS, setStatusDone, status, id);
-const savePhoto = (photo) => reducerCreator(profileAPI.UPDATE_PROFILE_PHOTO, setProfilePhotoDone, photo);
+// Thunks
+const setProfile = (userId) => createThunk(profileAPI.GET_PROFILE_USER, setProfileDone, userId);
+const setStatus = (userId) => createThunk(profileAPI.GET_PROFILE_STATUS, setStatusDone, userId);
+const updateStatus = (status) => createThunk(profileAPI.UPDATE_PROFILE_STATUS, setStatusDone, status);
+const savePhoto = (photo) => createThunk(profileAPI.UPDATE_PROFILE_PHOTO, setProfilePhotoDone, photo);
 const saveProfile = (data) => async (dispatch) => {
 	const response = await profileAPI.UPDATE_PROFILE(data);
 	if (response.resultCode === 0) {
