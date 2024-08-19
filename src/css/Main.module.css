@@ -1,3 +1,9 @@
-.main{
+.main {
     flex-grow: 2;
+}
+
+@media (max-width: 820px) {
+    [data-testid='container'] {
+        padding: 0;
+    }
 }

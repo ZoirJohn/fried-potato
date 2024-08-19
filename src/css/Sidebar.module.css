@@ -26,10 +26,45 @@
     color: #000000;
 }
 
-.active{
+.active {
     color: #000;
 }
 
-.noPage{
+.noPage {
     display: none !important;
+}
+
+.arrow {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .aside {
+        min-width: 205px;
+    }
+
+    .aside li a {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 620px) {
+    .aside {
+        position: absolute;
+        right: -100%;
+        z-index: 2;
+        transition: all 400ms ease;
+    }
+    .aside .visible{
+        right: 0;
+    }
+    .aside .arrow {
+        position: absolute;
+        display: block;
+        left: -1em;
+        top: 30%;
+        border-top: 1em solid transparent;
+        border-bottom: 1em solid transparent;
+        border-right: 1em solid var(--primary-color);
+    }
 }

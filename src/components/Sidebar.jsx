@@ -4,9 +4,11 @@ import { FaRegMessage } from 'react-icons/fa6';
 import styles from '../css/Sidebar.module.css';
 import { NavLink } from 'react-router-dom';
 import { FaUsers } from 'react-icons/fa';
+import classNames from 'classnames';
+import { useState } from 'react';
 
 const Sidebar = (props) => {
-
+	let [btn, sidebarSwitch] = useState(true);
 	return (
 		<aside className={styles.aside}>
 			<ul>
@@ -34,6 +36,7 @@ const Sidebar = (props) => {
 						className={({ isActive }) => isActive ? styles.active : ''}><FaUsers />Users</NavLink>
 				</li>
 			</ul>
+			<span className={classNames(styles.arrow, { [styles.visible]: btn })} onClick={() => sidebarSwitch(false)}></span>
 		</aside>
 	);
 };
