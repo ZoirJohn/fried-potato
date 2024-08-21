@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/fried-potato/static/css/main.b85f5ddd.css",
-    "main.js": "/fried-potato/static/js/main.16cf2c2e.js",
+    "main.css": "/fried-potato/static/css/main.d50fd17a.css",
+    "main.js": "/fried-potato/static/js/main.9670fde0.js",
     "static/css/612.27092c65.chunk.css": "/fried-potato/static/css/612.27092c65.chunk.css",
     "static/js/612.63d2ee93.chunk.js": "/fried-potato/static/js/612.63d2ee93.chunk.js",
     "static/media/background.jpeg": "/fried-potato/static/media/background.61e275cb1347fde0ec96.jpeg",
@@ -10,13 +10,13 @@
     "static/media/loader.gif": "/fried-potato/static/media/loader.8b78b0f8132300b57ca5.gif",
     "static/media/profile-user.webp": "/fried-potato/static/media/profile-user.6252b62039c5640b09b1.webp",
     "index.html": "/fried-potato/index.html",
-    "main.b85f5ddd.css.map": "/fried-potato/static/css/main.b85f5ddd.css.map",
-    "main.16cf2c2e.js.map": "/fried-potato/static/js/main.16cf2c2e.js.map",
+    "main.d50fd17a.css.map": "/fried-potato/static/css/main.d50fd17a.css.map",
+    "main.9670fde0.js.map": "/fried-potato/static/js/main.9670fde0.js.map",
     "612.27092c65.chunk.css.map": "/fried-potato/static/css/612.27092c65.chunk.css.map",
     "612.63d2ee93.chunk.js.map": "/fried-potato/static/js/612.63d2ee93.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b85f5ddd.css",
-    "static/js/main.16cf2c2e.js"
+    "static/css/main.d50fd17a.css",
+    "static/js/main.9670fde0.js"
   ]
 }
