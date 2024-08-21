@@ -1,63 +1,68 @@
 .settingsBox {
-        position: relative;
-        padding: 0.5em 0;
+  position: relative;
+  padding: 0.5em 0;
 }
 
 .warning {
-        position: absolute;
-        right: 1em;
-        top: -2.5em;
-        color: #fff;
-        background: #08e800;
-        transition: 200ms;
-        padding: 0.25em;
+  position: absolute;
+  right: 1em;
+  top: -2.5em;
+  color: #fff;
+  background: #08e800;
+  transition: 200ms;
+  padding: 0.25em;
 }
 
 .warning span {
-        padding: 0 1em 0 0;
-        cursor: pointer;
+  padding: 0 1em 0 0;
+  cursor: pointer;
 }
 
 .warn {
-        top: .5em;
-        z-index: 1;
-        transition: 200ms;
+  top: 0.5em;
+  z-index: 1;
+  transition: 200ms;
 }
 
 .hideWarn {
-        top: -2.5em;
+  top: -2.5em;
 }
 
 .fieldForm {
-        padding: 1em 0 0;
+  padding: 1em 0 0;
 }
 
 .fieldLabel {
-        display: flex;
-        gap: 0.5em;
-        width: 100%;
-        padding: 0.5em 0 0 2em;
-        font-weight: 700;
-        font-family: sans-serif;
+  display: flex;
+  gap: 0.5em;
+  width: 100%;
+  padding: 0.5em 0 0 2em;
+  font-weight: 700;
+  font-family: sans-serif;
 }
 
 .fieldLabel div {
-        width: 100%;
-        position: relative;
+  width: 100%;
+  position: relative;
 }
 
 .fieldLabel input {
-        width: 30% !important;
-        border-radius: 6px;
-        padding: 0.4em;
-        width: 70%;
-        border: 1px solid #000;
+  width: 30% !important;
+  border-radius: 6px;
+  padding: 0.4em;
+  width: 70%;
+  border: 1px solid #000;
 }
 
 .fieldLabel span {
-        top: 25%;
-        left: 35%;
+  top: 25%;
+  left: 35%;
 }
 button[type] {
-        margin: 0.75em 0 0;
+  margin: 0.75em 0 0;
+}
+@media (max-width:820px) {
+  .fieldLabel input{
+    width: 60% !important;
+  }
 }

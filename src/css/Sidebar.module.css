@@ -1,70 +1,103 @@
 .aside {
-    background: var(--primary-color);
-    min-width: 285px;
-    min-height: 640px;
+  background: var(--primary-color);
+  min-width: 285px;
+  min-height: 640px;
 }
 
 .aside li {
-    list-style: none;
-    padding: 1em;
+  list-style: none;
+  padding: 1em;
 }
 
 .aside li a {
-    text-decoration: none;
-    color: azure;
-    display: flex;
-    font-size: 1.5rem;
-    gap: 0.3em;
-    transition-duration: .2s;
+  text-decoration: none;
+  color: azure;
+  display: flex;
+  font-size: 1.5rem;
+  gap: 0.3em;
+  transition-duration: 0.2s;
 }
 
 .aside li a:hover {
-    color: #ADADAD;
+  color: #adadad;
 }
 
 .aside li a.active {
-    color: #000000;
+  color: #000000;
 }
 
 .active {
-    color: #000;
+  color: #000;
 }
 
 .noPage {
-    display: none !important;
+  display: none !important;
 }
 
 .arrow {
-    display: none;
+  display: none;
 }
 
 @media (max-width: 768px) {
-    .aside {
-        min-width: 205px;
-    }
+  .aside {
+    min-width: 205px;
+  }
 
-    .aside li a {
-        font-size: 1.2rem;
-    }
+  .aside li a {
+    font-size: 1.2rem;
+  }
 }
 
 @media (max-width: 620px) {
-    .aside {
-        position: absolute;
-        right: -100%;
-        z-index: 2;
-        transition: all 400ms ease;
-    }
-    .aside .visible{
-        right: 0;
-    }
-    .aside .arrow {
-        position: absolute;
-        display: block;
-        left: -1em;
-        top: 30%;
-        border-top: 1em solid transparent;
-        border-bottom: 1em solid transparent;
-        border-right: 1em solid var(--primary-color);
-    }
+  .aside {
+    position: absolute;
+    right: -205px;
+    transition: all 400ms ease;
+  }
+
+  .visible {
+    right: 0 !important;
+  }
+
+  .aside .arrow {
+    position: fixed;
+    display: block;
+    left: 30px;
+    top: 60%;
+    width: 30px;
+    height: 3px;
+    z-index: 2;
+    background: var(--primary-color);
+  }
+
+  .aside .arrow::after,
+  .aside .arrow::before {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 3px;
+    z-index: 2;
+    background: var(--primary-color);
+  }
+
+  .arrow.active::after {
+    transform: rotate(45deg);
+    bottom: 0;
+    top: 0;
+  }
+  .arrow.active::before {
+    transform: rotate(-45deg);
+    bottom: 0;
+    top: 0;
+  }
+  .arrow.active{
+    width: 0;
+  }
+  .arrow::after {
+    top: 6px;
+  }
+
+  .arrow::before {
+    bottom: 6px;
+  }
 }

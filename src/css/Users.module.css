@@ -1,9 +1,10 @@
-.users{
+.users {
     padding: 1em 0;
     position: relative;
 }
+
 .usersBox {
-    padding: 1em ;
+    padding: 1em;
     display: grid;
     grid-template-columns: repeat(4, 200px);
     gap: 1em;
@@ -49,26 +50,52 @@
     border-radius: 50%;
 }
 
-.pageButton{
+.pageButton {
     width: 2em;
     height: 2em;
     font-size: 1rem;
     margin: 0 0 0 1em;
 }
 
-.pageButton.current{
+.pageButton.current {
     transform: scale(120%);
 }
-#prev{
+
+#prev {
     right: 20%;
 }
-#next{
+
+#next {
     right: 10%;
     margin: 0 0 0 1em;
 }
-.paginatorScrollButton{
+
+.paginatorScrollButton {
     position: absolute;
     width: 75px;
     height: 25px;
     right: 0;
+}
+
+@media (max-width:1200px) {
+    .usersBox {
+        grid-template-columns: repeat(3, 200px);
+    }
+}
+
+@media (max-width:1024px) {
+    .usersBox {
+        grid-template-columns: repeat(2, 200px);
+    }
+}
+
+@media (max-width:768px) {
+    .usersBox {
+        grid-template-columns: repeat(2, 150px);
+        padding: 1em 0.5em;
+        gap: 0.5em 1em;
+    }
+    .user{
+        padding: 0.5em;
+    }
 }

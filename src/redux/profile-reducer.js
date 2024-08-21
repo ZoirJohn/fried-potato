@@ -38,18 +38,18 @@ const profile_reducer = (_state = initialState, action) => {
 	}
 };
 
-// Action creators
+// ? Action creators
 const addPost = (text) => ({ type: ADD_POST_PROFILE, text });
 const deletePost = (id) => ({ type: DELETE_POST_PROFILE, id });
 const setProfileDone = (profileUser) => ({ type: SET_PROFILE, profileUser });
 const setStatusDone = (status) => ({ type: SET_STATUS, status });
 const setProfilePhotoDone = (photo) => ({ type: SET_PROFILE_PHOTO, photo });
 
-// Thunks
+// ? Thunks
 const setProfile = (userId) => createThunk(profileAPI.GET_PROFILE_USER, setProfileDone, userId);
 const setStatus = (userId) => createThunk(profileAPI.GET_PROFILE_STATUS, setStatusDone, userId);
-const updateStatus = (status) => createThunk(profileAPI.UPDATE_PROFILE_STATUS, setStatusDone, status);
 const savePhoto = (photo) => createThunk(profileAPI.UPDATE_PROFILE_PHOTO, setProfilePhotoDone, photo);
+const updateStatus = (status) => createThunk(profileAPI.UPDATE_PROFILE, setStatusDone, status);
 const saveProfile = (data) => async (dispatch) => {
 	const response = await profileAPI.UPDATE_PROFILE(data);
 	if (response.resultCode === 0) {

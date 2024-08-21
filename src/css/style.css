@@ -8,6 +8,10 @@
     --primary-color: #6667ab;
 }
 
+#root {
+    min-height: 100vh;
+}
+
 .container {
     max-width: 1230px;
     margin: 0 auto;
@@ -35,4 +39,9 @@
 .fa_exclamation p {
     font-size: 2rem;
     font-family: 'Bahnschrift';
+    text-align: center;
+}
+
+[data-testid='container'] {
+    min-height: calc(100vh);
 }
