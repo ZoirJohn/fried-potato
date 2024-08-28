@@ -7,14 +7,27 @@ const SET_CURRENT_PAGE = "users/SET-CURRENT-PAGE";
 const SET_FETCHING = "users/SET-FETCHING";
 const SET_IN_PROGRESS = "users/SET-IN-PROGRESS";
 
+type PhotosType = {
+      small: string | null;
+      large: string | null;
+};
+
+type UsersType = {
+      name: string;
+      id: number;
+      photos: PhotosType;
+      status: string;
+      followed: boolean;
+};
+
 let initialState = {
-      usersList: [],
-      overall: 40,
-      pageSize: 5,
-      currentPage: 1,
-      page: 1,
-      isFetching: true,
-      inProgress: [],
+      usersList: [] as Array<UsersType>,
+      overall: 40 as number | null,
+      pageSize: 5 as number | null,
+      currentPage: 1 as number | null,
+      page: 1 as number | null,
+      isFetching: null as boolean | null,
+      inProgress: [] as Array<number>, // ? Array of user ids that are being processed by following or unfollowing
 };
 
 type actionTypeProp = {
@@ -23,9 +36,9 @@ type actionTypeProp = {
 type actionOtherProp = {
       [key: string]: any;
 };
-const users_reducer = (_state = initialState, action: actionTypeProp & actionOtherProp) => {
-      console.log(action);
+type InitialStateType = typeof initialState;
 
+const users_reducer = (_state = initialState, action: actionTypeProp & actionOtherProp): InitialStateType => {
       switch (action.type) {
             case FOLLOW: {
                   return {
@@ -81,31 +94,24 @@ const users_reducer = (_state = initialState, action: actionTypeProp & actionOth
       }
 };
 
-const followDone = (userId: number) => ({
-      type: FOLLOW,
-      userId: userId,
-});
-const unfollowDone = (userId: number) => ({
-      type: UNFOLLOW,
-      userId: userId,
-});
-const setUsers = (users: Array<object>) => ({
-      type: SET_USERS,
-      users,
-});
-const setCurrentPage = (thisPageNumber: number) => ({
-      type: SET_CURRENT_PAGE,
-      thisPageNumber,
-});
-const setFetching = (isFetching: boolean) => ({
-      type: SET_FETCHING,
-      isFetching,
-});
-const setInProgress = (isInProgress: boolean, id: number) => ({
-      type: SET_IN_PROGRESS,
-      isInProgress,
-      id,
-});
+type actionTypeCreator = (params: any) => {
+      type: string;
+      userId?: number;
+      thisPageNumber?: number;
+      isFethcing?: boolean;
+      isInProgress?: boolean;
+      id?: number;
+};
+// type actionObject = {
+//       type: string;
+//       userId: number;
+// };
+const followDone: actionTypeCreator = (userId: number) => ({ type: FOLLOW, userId: userId });
+const unfollowDone: actionTypeCreator = (userId: number) => ({ type: UNFOLLOW, userId: userId });
+const setUsers: actionTypeCreator = (users: Array<object>) => ({ type: SET_USERS, users });
+const setCurrentPage: actionTypeCreator = (thisPageNumber: number) => ({ type: SET_CURRENT_PAGE, thisPageNumber });
+const setFetching: actionTypeCreator = (isFetching: boolean) => ({ type: SET_FETCHING, isFetching });
+const setInProgress = (isInProgress: boolean, id: number) => ({ isInProgress, id });
 
 const getUsersThunk = (currentPage: number, pageSize: number) => (dispatch: Function) => {
       dispatch(setFetching(true));
