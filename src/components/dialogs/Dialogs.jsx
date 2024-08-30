@@ -13,7 +13,7 @@ const Dialogs = (props) => {
 				</ul>
 			</div>
 			<div className={styles.chats}>
-				{props.texts.map((t, id) => <Text text={t.content} key={id}/>)}
+				{props.texts.map((t, id) => <Text text={t.text} key={id}/>)}
 			</div>
 			<AddMessageRedux onSubmit={(formData) => props.addMessage(formData.AddMessageForm)}/>
 		</section>

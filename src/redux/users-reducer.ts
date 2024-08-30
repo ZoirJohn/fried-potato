@@ -1,24 +1,11 @@
 import { usersAPI } from "../api/api";
-
+import { UsersType } from "../types";
 const FOLLOW = "users/ADD-POST-PROFILE";
 const UNFOLLOW = "users/UPDATE-POST-PROFILE";
 const SET_USERS = "users/SET-USERS";
 const SET_CURRENT_PAGE = "users/SET-CURRENT-PAGE";
 const SET_FETCHING = "users/SET-FETCHING";
 const SET_IN_PROGRESS = "users/SET-IN-PROGRESS";
-
-type PhotosType = {
-      small: string | null;
-      large: string | null;
-};
-
-type UsersType = {
-      name: string;
-      id: number;
-      photos: PhotosType;
-      status: string;
-      followed: boolean;
-};
 
 let initialState = {
       usersList: [] as Array<UsersType>,
@@ -36,9 +23,9 @@ type actionTypeProp = {
 type actionOtherProp = {
       [key: string]: any;
 };
-type InitialStateType = typeof initialState;
+export type InitialStateUsersType = typeof initialState;
 
-const users_reducer = (_state = initialState, action: actionTypeProp & actionOtherProp): InitialStateType => {
+const users_reducer = (_state = initialState, action: actionTypeProp & actionOtherProp): InitialStateUsersType => {
       switch (action.type) {
             case FOLLOW: {
                   return {
@@ -94,24 +81,36 @@ const users_reducer = (_state = initialState, action: actionTypeProp & actionOth
       }
 };
 
-type actionTypeCreator = (params: any) => {
-      type: string;
-      userId?: number;
-      thisPageNumber?: number;
-      isFethcing?: boolean;
-      isInProgress?: boolean;
-      id?: number;
-};
-// type actionObject = {
+// type actionTypeCreator = (params: any) => {
 //       type: string;
-//       userId: number;
+//       userId?: number;
+//       thisPageNumber?: number;
+//       isFethcing?: boolean;
+//       isInProgress?: boolean;
+//       id?: number;
 // };
-const followDone: actionTypeCreator = (userId: number) => ({ type: FOLLOW, userId: userId });
-const unfollowDone: actionTypeCreator = (userId: number) => ({ type: UNFOLLOW, userId: userId });
-const setUsers: actionTypeCreator = (users: Array<object>) => ({ type: SET_USERS, users });
-const setCurrentPage: actionTypeCreator = (thisPageNumber: number) => ({ type: SET_CURRENT_PAGE, thisPageNumber });
-const setFetching: actionTypeCreator = (isFetching: boolean) => ({ type: SET_FETCHING, isFetching });
-const setInProgress = (isInProgress: boolean, id: number) => ({ isInProgress, id });
+
+type followDoneType = { type: typeof FOLLOW; userId: number };
+const followDone = (userId: number): followDoneType => ({ type: FOLLOW, userId: userId });
+
+type unfollowDoneType = { type: typeof UNFOLLOW; userId: number };
+const unfollowDone = (userId: number): unfollowDoneType => ({ type: UNFOLLOW, userId: userId });
+
+type setUsersType = { type: typeof SET_USERS; users: Array<UsersType> };
+const setUsers = (users: Array<UsersType>): setUsersType => ({ type: SET_USERS, users });
+
+type setCurrentPage = { type: typeof SET_CURRENT_PAGE; thisPageNumber: number };
+const setCurrentPage = (thisPageNumber: number): setCurrentPage => ({ type: SET_CURRENT_PAGE, thisPageNumber });
+
+type setFetchingType = { type: typeof SET_FETCHING; isFetching: boolean };
+const setFetching = (isFetching: boolean): setFetchingType => ({ type: SET_FETCHING, isFetching });
+
+type setInProgressType = { type: typeof SET_IN_PROGRESS; isInProgress: boolean; id: number };
+const setInProgress = (isInProgress: boolean, id: number): setInProgressType => ({
+      type: SET_IN_PROGRESS,
+      isInProgress,
+      id,
+});
 
 const getUsersThunk = (currentPage: number, pageSize: number) => (dispatch: Function) => {
       dispatch(setFetching(true));
@@ -138,4 +137,5 @@ const follow = (userId: number) => (dispatch: Function) => {
             }
       });
 };
+
 export { users_reducer, setUsers, setCurrentPage, getUsersThunk, follow, unfollow };

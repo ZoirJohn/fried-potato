@@ -1,6 +1,7 @@
 import { reset } from "redux-form";
 import { profileAPI } from "../api/api";
 import createThunk from "../assets/createThunk";
+import { MessageType, PhotosType, ProfileType } from "../types";
 
 const ADD_POST_PROFILE = "profile/ADD-POST-PROFILE";
 const DELETE_POST_PROFILE = "profile/DELETE-POST-PROFILE";
@@ -14,11 +15,14 @@ let initialState = {
             { text: "Hello", likeNumber: 12, id: 1 },
             { text: "How do you do?", likeNumber: 18, id: 2 },
             { text: "Pretty fine", likeNumber: 4, id: 3 },
-      ],
-      profileUser: null,
-      status: "",
+      ] as Array<MessageType>,
+      profileUser: null as ProfileType | null,
+      status: null as string | null,
 };
-const profile_reducer = (_state= initialState, action) => {
+
+export type InitialStateProfileType = typeof initialState;
+
+const profile_reducer = (_state = initialState, action: any) => {
       switch (action.type) {
             case ADD_POST_PROFILE:
                   let newPost = { text: action.text, likeNumber: Math.floor(Math.random() * 10) };
@@ -39,18 +43,28 @@ const profile_reducer = (_state= initialState, action) => {
 };
 
 // ? Action creators
-const addPost = (text) => ({ type: ADD_POST_PROFILE, text });
-const deletePost = (id) => ({ type: DELETE_POST_PROFILE, id });
-const setProfileDone = (profileUser) => ({ type: SET_PROFILE, profileUser });
-const setStatusDone = (status) => ({ type: SET_STATUS, status });
-const setProfilePhotoDone = (photo) => ({ type: SET_PROFILE_PHOTO, photo });
+type addPostType = { type: typeof ADD_POST_PROFILE; text: string };
+const addPost = (text: string): addPostType => ({ type: ADD_POST_PROFILE, text });
+
+type deletePostType = { type: typeof DELETE_POST_PROFILE; id: number };
+const deletePost = (id: number): deletePostType => ({ type: DELETE_POST_PROFILE, id });
+
+type setProfileDoneType = { type: typeof SET_PROFILE; profileUser: ProfileType };
+const setProfileDone = (profileUser: ProfileType): setProfileDoneType => ({ type: SET_PROFILE, profileUser });
+
+type setStatusDoneType = { type: typeof SET_STATUS; status: string };
+const setStatusDone = (status: string): setStatusDoneType => ({ type: SET_STATUS, status });
+
+type setProfilePhotoDoneType = { type: typeof SET_PROFILE_PHOTO; photo: PhotosType };
+const setProfilePhotoDone = (photo: PhotosType): setProfilePhotoDoneType => ({ type: SET_PROFILE_PHOTO, photo });
 
 // ? Thunks
-const setProfile = (userId) => createThunk(profileAPI.GET_PROFILE_USER, setProfileDone, userId);
-const setStatus = (userId) => createThunk(profileAPI.GET_PROFILE_STATUS, setStatusDone, userId);
-const savePhoto = (photo) => createThunk(profileAPI.UPDATE_PROFILE_PHOTO, setProfilePhotoDone, photo);
-const updateStatus = (status) => createThunk(profileAPI.UPDATE_PROFILE_STATUS, setStatusDone, status);
-const saveProfile = (data) => async (dispatch) => {
+const setProfile = (userId: number) => createThunk(profileAPI.GET_PROFILE_USER, setProfileDone, userId);
+const setStatus = (userId: number) => createThunk(profileAPI.GET_PROFILE_STATUS, setStatusDone, userId);
+const savePhoto = (photo: PhotosType) => createThunk(profileAPI.UPDATE_PROFILE_PHOTO, setProfilePhotoDone, photo);
+const updateStatus = (status: string) => createThunk(profileAPI.UPDATE_PROFILE_STATUS, setStatusDone, status);
+
+const saveProfile = (data: ProfileType) => async (dispatch: Function) => {
       const response = await profileAPI.UPDATE_PROFILE(data);
       if (response.resultCode === 0) {
             dispatch(reset("settings_data"));
