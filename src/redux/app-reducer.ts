@@ -25,6 +25,7 @@ type setInitializedType = {
 const setInitialized = (): setInitializedType => ({ type: INIT_SUCCESS });
 
 const initializeApp = () => (dispatch: Function) => {
+      console.log("Promise");
       const promise = dispatch(setUserData());
       Promise.all([promise]).then(() => {
             dispatch(setInitialized());
