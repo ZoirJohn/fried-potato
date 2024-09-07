@@ -3,7 +3,7 @@ export type PhotosType = {
       large: string | null;
 };
 
-export type UsersType = {
+export type UserType = {
       name: string;
       id: number;
       photos: PhotosType;

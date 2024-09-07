@@ -1,5 +1,5 @@
 import { usersAPI } from "../api/api";
-import { UsersType } from "../types";
+import { UserType } from "../types";
 const FOLLOW = "users/ADD-POST-PROFILE";
 const UNFOLLOW = "users/UPDATE-POST-PROFILE";
 const SET_USERS = "users/SET-USERS";
@@ -8,7 +8,7 @@ const SET_FETCHING = "users/SET-FETCHING";
 const SET_IN_PROGRESS = "users/SET-IN-PROGRESS";
 
 let initialState = {
-      usersList: [] as Array<UsersType>,
+      usersList: [] as Array<UserType>,
       overall: 40 as number | null,
       pageSize: 5 as number | null,
       currentPage: 1 as number | null,
@@ -96,8 +96,8 @@ const followDone = (userId: number): followDoneType => ({ type: FOLLOW, userId: 
 type unfollowDoneType = { type: typeof UNFOLLOW; userId: number };
 const unfollowDone = (userId: number): unfollowDoneType => ({ type: UNFOLLOW, userId: userId });
 
-type setUsersType = { type: typeof SET_USERS; users: Array<UsersType> };
-const setUsers = (users: Array<UsersType>): setUsersType => ({ type: SET_USERS, users });
+type setUsersType = { type: typeof SET_USERS; users: Array<UserType> };
+const setUsers = (users: Array<UserType>): setUsersType => ({ type: SET_USERS, users });
 
 type setCurrentPage = { type: typeof SET_CURRENT_PAGE; thisPageNumber: number };
 const setCurrentPage = (thisPageNumber: number): setCurrentPage => ({ type: SET_CURRENT_PAGE, thisPageNumber });
