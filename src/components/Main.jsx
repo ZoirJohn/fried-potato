@@ -1,17 +1,16 @@
-import { Route, Routes } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
-import styles from '../css/Main.module.css';
-import ProfileContainer from './profile/ProfileContainer';
-import UsersContainer from './users/UsersContainer';
-import Login from './login/Login';
-import News from './news/News';
-import Music from './music/Music';
-import Settings from './settings/Settings';
-import { lazy, Suspense } from 'react';
+import styles from '../css/Main.module.css'
+import ProfileContainer from './profile/ProfileContainer'
+import Login from './login/Login'
+import { lazy, Suspense } from 'react'
 
-const DialogsContainer = lazy(() => import('./dialogs/DialogsContainer'));
-
+const Dialogs = lazy(() => import('./dialogs/DialogsContainer'))
+const News = lazy(() => import('./news/News'))
+const Music = lazy(() => import('./music/Music'))
+const Settings = lazy(() => import('./settings/Settings'))
+const Users = lazy(() => import('./users/UsersContainer'))
 
 const Main = (props) => {
 	return (<main className={styles.main}>
@@ -23,7 +22,7 @@ const Main = (props) => {
 					element={<ProfileContainer />} />
 
 				<Route path="/dialogs"
-					element={<DialogsContainer />} />
+					element={<Dialogs />} />
 				<Route path="/news"
 					element={<News />} />
 				<Route path="/music"
@@ -31,8 +30,7 @@ const Main = (props) => {
 				<Route path="/settings"
 					element={<Settings />} />
 				<Route path="/users"
-					element={<UsersContainer />} />
-
+					element={<Users />} />
 				{/*No render is here*/}
 				<Route path="/login"
 					element={<Login />} />
@@ -40,6 +38,6 @@ const Main = (props) => {
 		</Suspense>
 
 
-	</main>);
-};
-export default Main;
+	</main>)
+}
+export default Main
