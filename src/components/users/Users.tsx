@@ -3,16 +3,21 @@ import { NavLink } from "react-router-dom"
 import Paginator from "../../assets/Paginator"
 import React from "react"
 import { UserType } from "../../types"
-import { PropsType } from "../../assets/Paginator"
 
-type LocalPropsType = {
+type PropsType = {
+      overall: number
+      pageSize: number
+      portionSize?: number
+      currentPage: number
       usersList: Array<UserType>
+      inProgress: Array<number>
       follow: (id: number) => void
       unfollow: (id: number) => void
-      inProgress: Array<number>
+      setCurrentPageUsers: (b: number) => void
+      setInProgress: (p: number) => void
 }
 
-const Users: React.FC<PropsType & LocalPropsType> = (props) => {
+const Users: React.FC<PropsType> = (props) => {
       return (
             <section className={styles.users}>
                   <Paginator overall={props.overall} pageSize={props.pageSize} currentPage={props.currentPage} setCurrentPageUsers={props.setCurrentPageUsers} portionSize={3} />

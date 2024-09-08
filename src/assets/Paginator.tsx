@@ -1,20 +1,20 @@
-import styles from "../css/Users.module.css";
-import React, { useState } from "react";
+import styles from "../css/Users.module.css"
+import React, { useState } from "react"
 
-export type PropsType = { overall: number; pageSize: number; portionSize: number; currentPage: number; setCurrentPageUsers: (b:number)=>void };
+type PropsType = { overall: number; pageSize: number; portionSize: number; currentPage: number; setCurrentPageUsers: (b: number) => void }
 
 const Paginator: React.FC<PropsType> = ({ overall, pageSize, portionSize, currentPage, setCurrentPageUsers }) => {
-      let items = Math.ceil(overall / pageSize);
-      let pages = [];
+      let items = Math.ceil(overall / pageSize)
+      let pages = []
 
       for (let i = 1; i <= items; i++) {
-            pages.push(i);
+            pages.push(i)
       }
 
-      const portions = Math.ceil(items / portionSize);
-      let [portionNumber, setPortionNumber] = useState(1);
-      let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
-      let rightPortionPageNumber = portionNumber * portionSize;
+      const portions = Math.ceil(items / portionSize)
+      let [portionNumber, setPortionNumber] = useState(1)
+      let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
+      let rightPortionPageNumber = portionNumber * portionSize
 
       return (
             <>
@@ -23,7 +23,7 @@ const Paginator: React.FC<PropsType> = ({ overall, pageSize, portionSize, curren
                               className={styles.paginatorScrollButton}
                               id={styles.prev}
                               onClick={() => {
-                                    setPortionNumber(portionNumber - 1);
+                                    setPortionNumber(portionNumber - 1)
                               }}
                         >
                               {"<< PREV"}
@@ -37,7 +37,7 @@ const Paginator: React.FC<PropsType> = ({ overall, pageSize, portionSize, curren
                                     <button key={id} className={`${currentPage === b ? styles.current : ""} ${styles.pageButton}`} onClick={(e) => setCurrentPageUsers(b)}>
                                           {b}
                                     </button>
-                              );
+                              )
                         })}
 
                   {portions > portionNumber && (
@@ -45,14 +45,14 @@ const Paginator: React.FC<PropsType> = ({ overall, pageSize, portionSize, curren
                               className={styles.paginatorScrollButton}
                               id={styles.next}
                               onClick={() => {
-                                    setPortionNumber(portionNumber + 1);
+                                    setPortionNumber(portionNumber + 1)
                               }}
                         >
                               {"NEXT >>"}
                         </button>
                   )}
             </>
-      );
-};
+      )
+}
 
-export default Paginator;
+export default Paginator
