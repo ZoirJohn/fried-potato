@@ -10,19 +10,25 @@ import { getCurrentPage, getInProgress, getIsFetching, getOverall, getPageSize, 
 import { UserType } from "../../types"
 import { rootStateType } from "../../redux/store"
 
-type PropsType = {
-      currentPage: number
-      pageSize: number
+type MapStateToProps = {
+      usersList: Array<UserType>
       overall: number
+      pageSize: number
+      currentPage: number
       isFetching: boolean
       inProgress: Array<number>
-      usersList: Array<UserType>
+}
+
+type MapDispatchToProps = {
       getUsersThunk: (currentPage: number, pageSize: number) => void
-      setCurrentPage: (number: number) => void
+      setCurrentPage: (p: number) => void
       follow: (id: number) => void
       unfollow: (id: number) => void
-      setInProgress: (p: number) => void
 }
+
+type OwnPropsType = {}
+
+type PropsType = MapStateToProps & MapDispatchToProps & OwnPropsType
 
 class UsersContainer extends Component<PropsType> {
       componentDidMount() {
@@ -38,13 +44,13 @@ class UsersContainer extends Component<PropsType> {
             return (
                   <>
                         <Loader isFetching={this.props.isFetching} />
-                        <Users overall={this.props.overall} pageSize={this.props.pageSize} currentPage={this.props.currentPage} usersList={this.props.usersList} setCurrentPageUsers={this.setCurrentPageUsers} follow={this.props.follow} unfollow={this.props.unfollow} setInProgress={this.props.setInProgress} inProgress={this.props.inProgress} />
+                        <Users overall={this.props.overall} pageSize={this.props.pageSize} currentPage={this.props.currentPage} usersList={this.props.usersList} setCurrentPageUsers={this.setCurrentPageUsers} follow={this.props.follow} unfollow={this.props.unfollow} inProgress={this.props.inProgress} />
                   </>
             )
       }
 }
 
-const mapStateToProps = (state: rootStateType) => {
+const mapStateToProps = (state: rootStateType): MapStateToProps => {
       return {
             usersList: getUsersListSelector(state),
             overall: getOverall(state),
@@ -56,7 +62,7 @@ const mapStateToProps = (state: rootStateType) => {
 }
 
 export default compose(
-      connect(mapStateToProps, {
+      connect<MapStateToProps, MapDispatchToProps, OwnPropsType, rootStateType>(mapStateToProps, {
             follow,
             unfollow,
             setCurrentPage,

@@ -6,19 +6,7 @@ import styles from "../../css/Profile.module.css"
 import AddPostRedux from "./ProfileForm"
 import { MessageType, ProfileType } from "../../types"
 
-type PropsType = {
-      profileUser: ProfileType
-      id: number
-      status: string
-      posts: Array<MessageType>
-      profilePhoto: any
-      updateStatus: (currentWord: string, id: number) => void
-      addPost: (text: string) => void
-}
-type FormDataType = {
-      AddPostForm: string
-}
-const Profile: React.FC<PropsType> = (props) => {
+const Profile = (props) => {
       let [edit, setStatus] = useState(false)
       let [currentWord, setCurrentWord] = useState("")
       let [word, setWord] = useState(props.status)
@@ -28,13 +16,12 @@ const Profile: React.FC<PropsType> = (props) => {
                   props.updateStatus(currentWord, props.id)
             }
       }
-      const handleClick = (e: ChangeEvent<HTMLInputElement>) => {
+      const handleClick = (e) => {
             setCurrentWord((currentWord = e.target.value))
       }
       const handleWord = () => {
             setWord((word = currentWord))
       }
-      console.log(props.profilePhoto)
       return (
             <section className={styles.profile}>
                   <img src={background} alt='background' />
@@ -89,7 +76,7 @@ const Profile: React.FC<PropsType> = (props) => {
                   </div>
                   <div className={styles.messages}>
                         <AddPostRedux
-                              onSubmit={(formData: FormDataType) => {
+                              onSubmit={(formData) => {
                                     props.addPost(formData.AddPostForm)
                               }}
                         />

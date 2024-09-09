@@ -1,18 +1,19 @@
 import { maxLength, minLength, required } from "../../assets/Validators"
 import styles from "../../css/Profile.module.css"
-import { Field, reduxForm } from "redux-form"
+import { Field, InjectedFormProps, reduxForm } from "redux-form"
 import { Input } from "../../assets/Input"
 import React from "react"
 
 const maximum = maxLength(30)
 const minimum = minLength(2)
 
-type PropsType = {
-}
-type FormDataType = {
+type PropsType = {}
+
+type AddPostFormType = {
       AddPostForm: string
 }
-const AddPostForm: React.FC<any> = (props) => {
+
+const AddPostForm: React.FC<InjectedFormProps<AddPostFormType>> = (props) => {
       return (
             <form action='' onSubmit={props.handleSubmit} className={styles.messagesForm}>
                   <Field component={Input} type='text' placeholder='Enter text...' name='AddPostForm' className={styles.inputText} validate={[maximum, minimum]} />
@@ -21,6 +22,6 @@ const AddPostForm: React.FC<any> = (props) => {
       )
 }
 
-const AddPostRedux = reduxForm<FormDataType>({ form: "AddPostForm" })(AddPostForm)
+const AddPostRedux = reduxForm<AddPostFormType>({ form: "AddPostForm" })(AddPostForm)
 
 export default AddPostRedux

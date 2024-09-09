@@ -14,7 +14,6 @@ type PropsType = {
       follow: (id: number) => void
       unfollow: (id: number) => void
       setCurrentPageUsers: (b: number) => void
-      setInProgress: (p: number) => void
 }
 
 const Users: React.FC<PropsType> = (props) => {
