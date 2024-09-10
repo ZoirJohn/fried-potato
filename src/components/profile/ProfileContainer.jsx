@@ -17,10 +17,10 @@ class ProfileContainer extends Component {
 	componentDidMount() {
 		this.refreshProfile()
 	}
-	shouldComponentUpdate(nextProps, nextState, nextContext) {
+	shouldComponentUpdate(nextProps) {
 		return nextProps.status === this.props.status
 	}
-	componentDidUpdate(prevProps, prevState, snapshot) {
+	componentDidUpdate(prevProps) {
 		if (this.props.router.params.userId != prevProps.router.params.userId) {
 			this.refreshProfile()
 		}

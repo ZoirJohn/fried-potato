@@ -5,8 +5,21 @@ import React, { ChangeEvent, useState } from "react"
 import styles from "../../css/Profile.module.css"
 import AddPostRedux from "./ProfileForm"
 import { MessageType, ProfileType } from "../../types"
+import { InjectedFormProps } from "redux-form"
 
-const Profile = (props) => {
+type PropsType = {
+      profileUser: ProfileType
+      status: string
+      posts: Array<MessageType>
+      id: number
+      addPost: (text: string) => void
+      updateStatus: (text: string, id: number) => void
+}
+type FormType = {
+      AddPostForm: string
+}
+
+const Profile: React.FC<PropsType> = (props) => {
       let [edit, setStatus] = useState(false)
       let [currentWord, setCurrentWord] = useState("")
       let [word, setWord] = useState(props.status)
@@ -16,7 +29,7 @@ const Profile = (props) => {
                   props.updateStatus(currentWord, props.id)
             }
       }
-      const handleClick = (e) => {
+      const handleClick = (e: ChangeEvent<HTMLInputElement>) => {
             setCurrentWord((currentWord = e.target.value))
       }
       const handleWord = () => {
@@ -76,12 +89,12 @@ const Profile = (props) => {
                   </div>
                   <div className={styles.messages}>
                         <AddPostRedux
-                              onSubmit={(formData) => {
+                              onSubmit={(formData: FormType) => {
                                     props.addPost(formData.AddPostForm)
                               }}
                         />
                         <ul className={styles.messagesBox}>
-                              {props.posts.map((p, id) => (
+                              {props.posts.map((p: MessageType, id: number) => (
                                     <PostModel text={p.text} likeNumber={p.likeNumber} key={id} />
                               ))}
                         </ul>
