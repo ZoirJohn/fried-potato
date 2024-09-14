@@ -17,7 +17,7 @@ type MapStateToProps = {
 }
 type MapDispatchToProps = {
       addPost: (formData: string) => void
-      updateStatus: () => void
+      updateStatus: (text: string, id: number) => void
       setProfile: (id: number) => void
       setStatus: (id: number) => void
 }
@@ -69,4 +69,13 @@ const mapStateToProps = (state: rootStateType): MapStateToProps => {
       }
 }
 
-export default compose(connect(mapStateToProps, { addPost, setProfile, setStatus, updateStatus }), withRouter, withAuthRedirect)(ProfileContainer)
+export default compose(
+      connect<MapStateToProps, MapDispatchToProps, OwnPropsType, rootStateType>(mapStateToProps, {
+            addPost,
+            setProfile,
+            setStatus,
+            updateStatus,
+      }),
+      withRouter,
+      withAuthRedirect
+)(ProfileContainer)
