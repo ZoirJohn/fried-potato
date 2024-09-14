@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { savePhoto, saveProfile } from '../../redux/profile-reducer';
 import { Component } from 'react';
 import styles from '../../css/Settings.module.css';
-import SettingsFormRedux from './SetttingsForm';
+import SettingsFormRedux from './SettingsForm';
 import classNames from 'classnames';
 
 class Settings extends Component {
