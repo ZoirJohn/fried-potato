@@ -7,13 +7,11 @@ import React from "react"
 const maximum = maxLength(30)
 const minimum = minLength(2)
 
-type PropsType = {}
-
-type AddPostFormType = {
+type PropsType = {
       AddPostForm: string
 }
 
-const AddPostForm: React.FC<InjectedFormProps<AddPostFormType>> = (props) => {
+const AddPostForm: React.FC<InjectedFormProps<PropsType>> = (props) => {
       return (
             <form action='' onSubmit={props.handleSubmit} className={styles.messagesForm}>
                   <Field component={Input} type='text' placeholder='Enter text...' name='AddPostForm' className={styles.inputText} validate={[maximum, minimum]} />
@@ -22,6 +20,6 @@ const AddPostForm: React.FC<InjectedFormProps<AddPostFormType>> = (props) => {
       )
 }
 
-const AddPostRedux = reduxForm<AddPostFormType>({ form: "AddPostForm" })(AddPostForm)
+const AddPostRedux = reduxForm<PropsType>({ form: "AddPostForm" })(AddPostForm)
 
 export default AddPostRedux
