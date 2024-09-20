@@ -16,7 +16,9 @@ const inputFields = [
 
 const minimum = minLength(10)
 
-type PropsType = {}
+type PropsType = {
+      // settings_data: string
+}
 
 const SettingsForm: React.FC<InjectedFormProps<PropsType>> = (props) => {
       return (
@@ -34,4 +36,4 @@ const SettingsForm: React.FC<InjectedFormProps<PropsType>> = (props) => {
       )
 }
 
-export default reduxForm({ form: "settings_data" })(SettingsForm)
+export default reduxForm<PropsType>({ form: "settings_data" })(SettingsForm)
