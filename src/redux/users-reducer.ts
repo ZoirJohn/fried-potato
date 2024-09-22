@@ -21,15 +21,9 @@ let initialState = {
       inProgress: [] as Array<number>, // ? Array of user ids that are being processed by following or unfollowing
 }
 
-type actionTypeProp = {
-      type: string
-}
-type actionOtherProp = {
-      [key: string]: any
-}
 export type InitialStateUsersType = typeof initialState
 
-const users_reducer = (_state = initialState, action: actionTypeProp & actionOtherProp): InitialStateUsersType => {
+const users_reducer = (_state = initialState, action: ActionTypes): InitialStateUsersType => {
       switch (action.type) {
             case FOLLOW: {
                   return {
@@ -82,15 +76,6 @@ const users_reducer = (_state = initialState, action: actionTypeProp & actionOth
             }
       }
 }
-
-// type actionTypeCreator = (params: any) => {
-//       type: string;
-//       userId?: number;
-//       thisPageNumber?: number;
-//       isFethcing?: boolean;
-//       isInProgress?: boolean;
-//       id?: number;
-// };
 
 type followDoneType = { type: typeof FOLLOW; userId: number }
 const followDone = (userId: number): followDoneType => ({ type: FOLLOW, userId: userId })

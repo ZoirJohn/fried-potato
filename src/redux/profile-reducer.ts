@@ -58,6 +58,9 @@ const setStatusDone = (status: string): setStatusDoneType => ({ type: SET_STATUS
 type setProfilePhotoDoneType = { type: typeof SET_PROFILE_PHOTO; photo: PhotosType }
 const setProfilePhotoDone = (photo: PhotosType): setProfilePhotoDoneType => ({ type: SET_PROFILE_PHOTO, photo })
 
+export type ProfileRequests = typeof profileAPI.GET_PROFILE_USER | typeof profileAPI.GET_PROFILE_STATUS | typeof profileAPI.UPDATE_PROFILE_PHOTO | typeof profileAPI.UPDATE_PROFILE_STATUS
+export type ProfileActions = addPostType | deletePostType | setProfileDoneType | setStatusDoneType | setProfilePhotoDoneType
+
 // ? Thunks
 const setProfile = (userId: number) => createThunk(profileAPI.GET_PROFILE_USER, setProfileDone, userId)
 const setStatus = (userId: number) => createThunk(profileAPI.GET_PROFILE_STATUS, setStatusDone, userId)
