@@ -23,7 +23,7 @@ let initialState = {
 
 export type InitialStateUsersType = typeof initialState
 
-const users_reducer = (_state = initialState, action: ActionTypes): InitialStateUsersType => {
+const users_reducer = (_state = initialState, action: UsersActionsTypes): InitialStateUsersType => {
       switch (action.type) {
             case FOLLOW: {
                   return {
@@ -99,10 +99,10 @@ const setInProgress = (isInProgress: boolean, id: number): setInProgressType => 
       id,
 })
 
-type ActionTypes = followDoneType | unfollowDoneType | setUsersType | setCurrentPage | setFetchingType | setInProgressType
+type UsersActionsTypes = followDoneType | unfollowDoneType | setUsersType | setCurrentPage | setFetchingType | setInProgressType
 
 // ! One type of typization
-const getUsersThunk = (currentPage: number, pageSize: number) => async (dispatch: Dispatch<ActionTypes>, getState: rootStateType) => {
+const getUsersThunk = (currentPage: number, pageSize: number) => async (dispatch: Dispatch<UsersActionsTypes>, getState: rootStateType) => {
       dispatch(setFetching(true))
       const data = await usersAPI.GET_USERS(currentPage, pageSize)
       if (data.items) {
@@ -113,7 +113,7 @@ const getUsersThunk = (currentPage: number, pageSize: number) => async (dispatch
 
 // ! Second type of typization
 const unfollow =
-      (userId: number): ThunkAction<Promise<void>, rootStateType, unknown, ActionTypes> =>
+      (userId: number): ThunkAction<Promise<void>, rootStateType, unknown, UsersActionsTypes> =>
       async (dispatch) => {
             dispatch(setInProgress(true, userId))
             const data = await usersAPI.UNFOLLOW(userId)
@@ -124,7 +124,7 @@ const unfollow =
       }
 
 const follow =
-      (userId: number): ThunkAction<Promise<void>, rootStateType, unknown, ActionTypes> =>
+      (userId: number): ThunkAction<Promise<void>, rootStateType, unknown, UsersActionsTypes> =>
       async (dispatch) => {
             dispatch(setInProgress(true, userId))
             const data = await usersAPI.FOLLOW(userId)

@@ -22,7 +22,7 @@ let initialState = {
 
 export type InitialStateProfileType = typeof initialState
 
-const profile_reducer = (_state = initialState, action: any) => {
+const profile_reducer = (_state = initialState, action: ProfileActionsTypes): any => {
       switch (action.type) {
             case ADD_POST_PROFILE:
                   let newPost = { text: action.text, likeNumber: Math.floor(Math.random() * 10), id: 4 }
@@ -35,8 +35,8 @@ const profile_reducer = (_state = initialState, action: any) => {
                   return { ..._state, status: action.status }
             case SET_PROFILE_PHOTO:
                   return { ..._state, profileUser: { ..._state.profileUser, photos: action.photo } }
-            case SAVE_PROFILE:
-                  return { ..._state, profileUser: { ..._state.profileUser, ...action.data } }
+            // case SAVE_PROFILE:
+            //       return { ..._state, profileUser: { ..._state.profileUser, ...action.data } }
             default:
                   return _state
       }
@@ -59,7 +59,7 @@ type setProfilePhotoDoneType = { type: typeof SET_PROFILE_PHOTO; photo: PhotosTy
 const setProfilePhotoDone = (photo: PhotosType): setProfilePhotoDoneType => ({ type: SET_PROFILE_PHOTO, photo })
 
 export type ProfileRequests = typeof profileAPI.GET_PROFILE_USER | typeof profileAPI.GET_PROFILE_STATUS | typeof profileAPI.UPDATE_PROFILE_PHOTO | typeof profileAPI.UPDATE_PROFILE_STATUS
-export type ProfileActions = addPostType | deletePostType | setProfileDoneType | setStatusDoneType | setProfilePhotoDoneType
+export type ProfileActionsTypes = addPostType | deletePostType | setProfileDoneType | setStatusDoneType | setProfilePhotoDoneType
 
 // ? Thunks
 const setProfile = (userId: number) => createThunk(profileAPI.GET_PROFILE_USER, setProfileDone, userId)
