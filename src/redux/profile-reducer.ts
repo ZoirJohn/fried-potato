@@ -62,6 +62,7 @@ export type ProfileRequests = typeof profileAPI.GET_PROFILE_USER | typeof profil
 export type ProfileActionsTypes = addPostType | deletePostType | setProfileDoneType | setStatusDoneType | setProfilePhotoDoneType
 
 // ? Thunks
+// const setProfile = (userId: number) => createThunk(profileAPI.GET_PROFILE_USER, setProfileDone, userId)
 const setProfile = (userId: number) => createThunk(profileAPI.GET_PROFILE_USER, setProfileDone, userId)
 const setStatus = (userId: number) => createThunk(profileAPI.GET_PROFILE_STATUS, setStatusDone, userId)
 const savePhoto = (photo: PhotosType) => createThunk(profileAPI.UPDATE_PROFILE_PHOTO, setProfilePhotoDone, photo)

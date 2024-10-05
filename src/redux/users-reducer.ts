@@ -101,7 +101,7 @@ const setInProgress = (isInProgress: boolean, id: number): setInProgressType => 
 
 type UsersActionsTypes = followDoneType | unfollowDoneType | setUsersType | setCurrentPage | setFetchingType | setInProgressType
 
-// ! One type of typization
+// ? One type of typization
 const getUsersThunk = (currentPage: number, pageSize: number) => async (dispatch: Dispatch<UsersActionsTypes>, getState: rootStateType) => {
       dispatch(setFetching(true))
       const data = await usersAPI.GET_USERS(currentPage, pageSize)
@@ -111,7 +111,7 @@ const getUsersThunk = (currentPage: number, pageSize: number) => async (dispatch
       }
 }
 
-// ! Second type of typization
+// ? Second type of typization
 const unfollow =
       (userId: number): ThunkAction<Promise<void>, rootStateType, unknown, UsersActionsTypes> =>
       async (dispatch) => {
