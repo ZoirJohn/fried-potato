@@ -1,4 +1,3 @@
-import { Dispatch } from "redux"
 import { ProfileActionsTypes, ProfileRequests } from "../redux/profile-reducer"
 import { PhotosType } from "../types"
 import { ThunkAction } from "redux-thunk"
