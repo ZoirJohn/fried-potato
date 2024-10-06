@@ -1,9 +1,11 @@
-import { stopSubmit } from "redux-form";
-import { authAPI, loginAPI } from "../api/api";
+import { stopSubmit } from "redux-form"
+import { authAPI, loginAPI } from "../api/api"
+import { ThunkAction } from "redux-thunk"
+import { rootStateType } from "./store"
 
-const SET_USER_DATA = "auth/SET-USER-DATA";
-const DELETE_USER_DATA = "auth/DELETE-USER-DATA";
-const SET_CAPTCHA = "auth/SET-CAPTCHA";
+const SET_USER_DATA = "auth/SET-USER-DATA"
+const DELETE_USER_DATA = "auth/DELETE-USER-DATA"
+const SET_CAPTCHA = "auth/SET-CAPTCHA"
 
 let initialState = {
       id: null as number | null,
@@ -12,9 +14,9 @@ let initialState = {
       password: null as string | null,
       isAuthorized: null as boolean | null,
       captcha: null as string | null,
-};
+}
 
-export type initialStateAuthType = typeof initialState;
+export type initialStateAuthType = typeof initialState
 
 const auth_reducer = (_state = initialState, action: any) => {
       switch (action.type) {
@@ -25,7 +27,7 @@ const auth_reducer = (_state = initialState, action: any) => {
                         login: action.login,
                         email: action.email,
                         isAuthorized: action.isAuthorized,
-                  };
+                  }
             case DELETE_USER_DATA:
                   return {
                         ..._state,
@@ -33,67 +35,71 @@ const auth_reducer = (_state = initialState, action: any) => {
                         login: null,
                         email: null,
                         isAuthorized: false,
-                  };
+                  }
             case SET_CAPTCHA:
                   return {
                         ..._state,
                         captcha: action.url,
-                  };
+                  }
             default:
-                  return { ..._state };
+                  return { ..._state }
       }
-};
+}
 
 type setUserDataDoneType = {
-      type: typeof SET_USER_DATA;
-      id: number | null;
-      login: string | null;
-      email: string | null;
-      isAuthorized: boolean;
-};
+      type: typeof SET_USER_DATA
+      id: number | null
+      login: string | null
+      email: string | null
+      isAuthorized: boolean
+}
 const setUserDataDone = (id: number | null, login: string | null, email: string | null, isAuthorized: boolean): setUserDataDoneType => ({
       type: SET_USER_DATA,
       id,
       login,
       email,
       isAuthorized,
-});
+})
 
-type setCaptchaDoneType = { type: typeof SET_CAPTCHA; url: string };
-const setCaptchaDone = (url: string): setCaptchaDoneType => ({ type: SET_CAPTCHA, url });
+type setCaptchaDoneType = { type: typeof SET_CAPTCHA; url: string }
+const setCaptchaDone = (url: string): setCaptchaDoneType => ({ type: SET_CAPTCHA, url })
 
-const setCaptcha = () => (dispatch: Function) => {
-      loginAPI.CAPTCHA().then((response) => {
-            dispatch(setCaptchaDone(response.url));
-      });
-};
-const setUserData = () => (dispatch: Function) => {
-      authAPI.IS_REGISTERED().then((data) => {
+type AuthActionsType = setUserDataDoneType | setCaptchaDoneType
+
+const setCaptcha = (): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsType> => async (dispatch) => {
+      const data = await loginAPI.CAPTCHA()
+      if (data.url) {
+            dispatch(setCaptchaDone(data.url))
+      }
+}
+const setUserData = (): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsType> => async (dispatch) => {
+      const data = await authAPI.IS_REGISTERED()
+      if (data.resultCode === 0) {
+            const { id, login, email } = data.data
+            dispatch(setUserDataDone(id, login, email, true))
+      }
+}
+const sendAuthData =
+      (email: string, password: string, captcha: string): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsType> =>
+      async (dispatch: Function) => {
+            const data = await loginAPI.LOGIN(email, password, captcha)
             if (data.resultCode === 0) {
-                  const { id, login, email } = data.data;
-                  dispatch(setUserDataDone(id, login, email, true));
-            }
-      });
-};
-const sendAuthData = (email: string, password: string, captcha: string) => (dispatch: Function) => {
-      loginAPI.LOGIN(email, password, captcha).then((response) => {
-            if (response.resultCode === 0) {
-                  dispatch(setUserData());
+                  dispatch(setUserData())
             } else {
-                  const message = response.messages[0];
-                  if (response.resultCode === 10) {
-                        dispatch(setCaptcha());
+                  const message = data.messages[0]
+                  if (data.resultCode === 10) {
+                        dispatch(setCaptcha())
                   }
-                  dispatch(stopSubmit("login", { _error: message }));
+                  dispatch(stopSubmit("login", { _error: message }))
             }
-      });
-};
-const deleteAuthData = (email: string, password: string) => (dispatch: Function) => {
-      loginAPI.LOGOUT(email, password).then((response) => {
-            if (response.resultCode === 0) {
-                  dispatch(setUserDataDone(null, null, null, false));
+      }
+const deleteAuthData =
+      (email: string, password: string): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsType> =>
+      async (dispatch) => {
+            const data = await loginAPI.LOGOUT(email, password)
+            if (data.resultCode === 0) {
+                  dispatch(setUserDataDone(null, null, null, false))
             }
-      });
-};
+      }
 
-export { auth_reducer, setUserData, sendAuthData, deleteAuthData };
+export { auth_reducer, setUserData, sendAuthData, deleteAuthData }
