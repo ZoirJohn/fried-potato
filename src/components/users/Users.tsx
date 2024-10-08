@@ -24,7 +24,7 @@ const Users: React.FC<PropsType> = (props) => {
                         {props.usersList.map((u) => (
                               <li className={styles.user} key={u.id}>
                                     <NavLink to={"/profile/" + u.id}>
-                                          <img src='https://w0.peakpx.com/wallpaper/979/89/HD-wallpaper-purple-smile-design-eye-smily-profile-pic-face.jpg' alt='MyProfile' />
+                                          <img src='https://icones.pro/wp-content/uploads/2021/04/icone-sourire-violet.png' alt='MyProfile' />
                                     </NavLink>
                                     <p>{u.name}</p>
                                     {u.followed ? (
