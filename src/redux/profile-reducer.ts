@@ -8,7 +8,6 @@ const DELETE_POST_PROFILE = "profile/DELETE-POST-PROFILE"
 const SET_PROFILE = "profile/SET-PROFILE"
 const SET_STATUS = "profile/SET-STATUS"
 const SET_PROFILE_PHOTO = "profile/SET-PROFILE-PHOTO"
-const SAVE_PROFILE = "profile/SAVE-PROFILE"
 
 let initialState = {
       posts: [
@@ -35,8 +34,6 @@ const profile_reducer = (_state = initialState, action: ProfileActionsTypes): an
                   return { ..._state, status: action.status }
             case SET_PROFILE_PHOTO:
                   return { ..._state, profileUser: { ..._state.profileUser, photos: action.photo } }
-            // case SAVE_PROFILE:
-            //       return { ..._state, profileUser: { ..._state.profileUser, ...action.data } }
             default:
                   return _state
       }
@@ -58,11 +55,9 @@ const setStatusDone = (status: string): setStatusDoneType => ({ type: SET_STATUS
 type setProfilePhotoDoneType = { type: typeof SET_PROFILE_PHOTO; photo: PhotosType }
 const setProfilePhotoDone = (photo: PhotosType): setProfilePhotoDoneType => ({ type: SET_PROFILE_PHOTO, photo })
 
-export type ProfileRequests = typeof profileAPI.GET_PROFILE_USER | typeof profileAPI.GET_PROFILE_STATUS | typeof profileAPI.UPDATE_PROFILE_PHOTO | typeof profileAPI.UPDATE_PROFILE_STATUS
 export type ProfileActionsTypes = addPostType | deletePostType | setProfileDoneType | setStatusDoneType | setProfilePhotoDoneType
 
 // ? Thunks
-// const setProfile = (userId: number) => createThunk(profileAPI.GET_PROFILE_USER, setProfileDone, userId)
 const setProfile = (userId: number) => createThunk(profileAPI.GET_PROFILE_USER, setProfileDone, userId)
 const setStatus = (userId: number) => createThunk(profileAPI.GET_PROFILE_STATUS, setStatusDone, userId)
 const savePhoto = (photo: PhotosType) => createThunk(profileAPI.UPDATE_PROFILE_PHOTO, setProfilePhotoDone, photo)
@@ -75,4 +70,4 @@ const saveProfile = (data: ProfileType) => async (dispatch: Function) => {
       }
 }
 
-export { profile_reducer, addPost, deletePost, setProfile, setStatus, updateStatus, savePhoto, saveProfile }
+export { profile_reducer, addPost, deletePost, setProfile, setStatus, savePhoto, updateStatus, saveProfile }
