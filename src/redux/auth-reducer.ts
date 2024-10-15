@@ -1,5 +1,5 @@
 import { stopSubmit } from "redux-form"
-import { authAPI, loginAPI } from "../api/api"
+import { ResultCodeCaptcha, ResultCodeSuccessError, authAPI, loginAPI } from "../api/api"
 import { ThunkAction } from "redux-thunk"
 import { rootStateType } from "./store"
 
@@ -66,7 +66,7 @@ const setCaptchaDone = (url: string): setCaptchaDoneType => ({ type: SET_CAPTCHA
 
 type AuthActionsType = setUserDataDoneType | setCaptchaDoneType
 
-const setCaptcha = (): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsType> => async (dispatch) => {
+const setCaptcha = (): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsType> => async (dispatch) => {     
       const data = await loginAPI.CAPTCHA()
       if (data.url) {
             dispatch(setCaptchaDone(data.url))
@@ -74,7 +74,7 @@ const setCaptcha = (): ThunkAction<Promise<void>, rootStateType, unknown, AuthAc
 }
 const setUserData = (): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsType> => async (dispatch) => {
       const data = await authAPI.IS_REGISTERED()
-      if (data.resultCode === 0) {
+      if (data.resultCode === ResultCodeSuccessError.Success) {
             const { id, login, email } = data.data
             dispatch(setUserDataDone(id, login, email, true))
       }
@@ -83,11 +83,11 @@ const sendAuthData =
       (email: string, password: string, captcha: string): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsType> =>
       async (dispatch: Function) => {
             const data = await loginAPI.LOGIN(email, password, captcha)
-            if (data.resultCode === 0) {
+            if (data.resultCode === ResultCodeSuccessError.Success) {
                   dispatch(setUserData())
             } else {
                   const message = data.messages[0]
-                  if (data.resultCode === 10) {
+                  if (data.resultCode === ResultCodeCaptcha.Captcha) {
                         dispatch(setCaptcha())
                   }
                   dispatch(stopSubmit("login", { _error: message }))
@@ -97,7 +97,7 @@ const deleteAuthData =
       (email: string, password: string): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsType> =>
       async (dispatch) => {
             const data = await loginAPI.LOGOUT(email, password)
-            if (data.resultCode === 0) {
+            if (data.resultCode === ResultCodeSuccessError.Success) {
                   dispatch(setUserDataDone(null, null, null, false))
             }
       }

@@ -1,5 +1,5 @@
 import { reset } from "redux-form"
-import { profileAPI } from "../api/api"
+import { ResultCodeSuccessError, profileAPI } from "../api/api"
 import createThunk from "../assets/createThunk"
 import { MessageType, PhotosType, ProfileType } from "../types"
 
@@ -65,7 +65,7 @@ const updateStatus = (status: string) => createThunk(profileAPI.UPDATE_PROFILE_S
 
 const saveProfile = (data: ProfileType) => async (dispatch: Function) => {
       const response = await profileAPI.UPDATE_PROFILE(data)
-      if (response.resultCode === 0) {
+      if (response.resultCode === ResultCodeSuccessError.Success) {
             dispatch(reset("settings_data"))
       }
 }

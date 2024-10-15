@@ -1,5 +1,5 @@
 import { ThunkAction } from "redux-thunk"
-import { usersAPI } from "../api/api"
+import { ResultCodeSuccessError, usersAPI } from "../api/api"
 import { UserType } from "../types"
 import { rootStateType } from "./store"
 import { Dispatch } from "redux"
@@ -117,7 +117,7 @@ const unfollow =
       async (dispatch) => {
             dispatch(setInProgress(true, userId))
             const data = await usersAPI.UNFOLLOW(userId)
-            if (data.resultCode === 0) {
+            if (data.resultCode === ResultCodeSuccessError.Success) {
                   dispatch(unfollowDone(userId))
                   dispatch(setInProgress(false, userId))
             }
@@ -128,7 +128,7 @@ const follow =
       async (dispatch) => {
             dispatch(setInProgress(true, userId))
             const data = await usersAPI.FOLLOW(userId)
-            if (data.resultCode === 0) {
+            if (data.resultCode === ResultCodeSuccessError.Success) {
                   dispatch(followDone(userId))
                   dispatch(setInProgress(false, userId))
             }

@@ -1,4 +1,4 @@
-import { default as axios } from "axios"
+import { AxiosResponse, default as axios } from "axios"
 import { ProfileType } from "../types"
 
 const instance = axios.create({
@@ -6,6 +6,14 @@ const instance = axios.create({
       withCredentials: true,
       headers: { "API-KEY": "7eb291b4-dad0-4e4f-9b01-2c556d91e838" },
 })
+
+export enum ResultCodeSuccessError {
+      Success = 0,
+      Error = 1,
+}
+export enum ResultCodeCaptcha {
+      Captcha = 10,
+}
 
 export const usersAPI = {
       GET_USERS: (currentPage: number, pageSize: number) => {
@@ -20,7 +28,7 @@ export const usersAPI = {
 }
 
 type MeResponseType = {
-      resultCode: number
+      resultCode: ResultCodeSuccessError
       messages: Array<string>
       data: {
             id: number
@@ -28,10 +36,9 @@ type MeResponseType = {
             login: string
       }
 }
-
 export const authAPI = {
       IS_REGISTERED: () => {
-            return instance.get("auth/me").then((response) => response.data)
+            return instance.get<MeResponseType>("auth/me").then((response) => response.data)
       },
 }
 
