@@ -4,11 +4,6 @@ import {deleteAuthData, setUserData} from '../../redux/auth-reducer';
 import Header from './Header';
 
 class HeaderComponent extends Component {
-
-	componentDidMount() {
-
-	}
-
 	render() {
 		return <Header {...this.props}/>;
 	}
@@ -21,4 +16,4 @@ const mapStateToProps = (state) => {
 	}
 ;
 
-export default connect(mapStateToProps, {setUserData,deleteAuthData})(HeaderComponent);
+export default connect(mapStateToProps, {deleteAuthData})(HeaderComponent);

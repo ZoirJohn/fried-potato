@@ -66,7 +66,7 @@ const setCaptchaDone = (url: string): setCaptchaDoneType => ({ type: SET_CAPTCHA
 
 type AuthActionsType = setUserDataDoneType | setCaptchaDoneType
 
-const setCaptcha = (): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsType> => async (dispatch) => {     
+const setCaptcha = (): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsType> => async (dispatch) => {
       const data = await loginAPI.CAPTCHA()
       if (data.url) {
             dispatch(setCaptchaDone(data.url))
@@ -94,9 +94,9 @@ const sendAuthData =
             }
       }
 const deleteAuthData =
-      (email: string, password: string): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsType> =>
+      (): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsType> =>
       async (dispatch) => {
-            const data = await loginAPI.LOGOUT(email, password)
+            const data = await loginAPI.LOGOUT()
             if (data.resultCode === ResultCodeSuccessError.Success) {
                   dispatch(setUserDataDone(null, null, null, false))
             }

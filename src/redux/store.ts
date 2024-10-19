@@ -1,6 +1,6 @@
 import { profile_reducer } from "./profile-reducer"
 import { dialogs_reducer } from "./dialogs-reducer"
-import { combineReducers, configureStore } from "@reduxjs/toolkit"
+import {  combineReducers, configureStore } from "@reduxjs/toolkit"
 import { sidebar_reducer } from "./sidebar-reducer"
 import { users_reducer } from "./users-reducer"
 import { auth_reducer } from "./auth-reducer"

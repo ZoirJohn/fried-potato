@@ -9,7 +9,7 @@ const createThunk =
       async (dispatch) => {
             try {
                   const response = await request(args)
-                  if (response.status === 200 || response.resultCode === ResultCodeSuccessError.Success) {
+                  if (response.resultCode === ResultCodeSuccessError.Success || response) {
                         dispatch(action(response.data))
                   }
             } catch (error) {
