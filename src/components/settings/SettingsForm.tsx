@@ -4,7 +4,7 @@ import createField from "../../assets/createField"
 import { minLength, required } from "../../assets/Validators"
 import React from "react"
 
-const inputFields = [
+const inputFields: Array<[string, string, boolean?]> = [
       ["lookingForAJob", "Looking for a job", true],
       ["lookingForAJobDescription", "Description"],
       ["fullName", "Full name"],
@@ -17,7 +17,7 @@ const inputFields = [
 const minimum = minLength(10)
 
 type PropsType = {
-      // settings_data: string
+      settings_data: string
 }
 
 const SettingsForm: React.FC<InjectedFormProps<PropsType>> = (props) => {
@@ -27,7 +27,7 @@ const SettingsForm: React.FC<InjectedFormProps<PropsType>> = (props) => {
                   {inputFields.map((input, id) => {
                         return (
                               <label key={id} className={styles.fieldLabel}>
-                                    {createField(input[0], input[1], input[2], [required])}
+                                    {createField(input[0], input[1], [required], input[2])}
                               </label>
                         )
                   })}

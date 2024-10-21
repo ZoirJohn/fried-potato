@@ -7,6 +7,7 @@ import { withRouter } from "./hoc/withRouter";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { initializeApp } from "./redux/app-reducer";
+import { rootStateType } from "./redux/store"
 
 const App = (props: any) => {
       useEffect(() => {
@@ -20,14 +21,14 @@ const App = (props: any) => {
             <div data-testid='app' className='App'>
                   <HeaderComponent imgLogo={props.imgLogo} />
                   <div data-testid='container' className='container'>
-                        <Main state={props.state} />
+                        <Main />
                         <Sidebar />
                   </div>
             </div>
       );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: rootStateType) => {
       return {
             initialized: state.app.initialized,
       };

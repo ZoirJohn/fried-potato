@@ -12,7 +12,7 @@ let initialState = {
       login: null as string | null,
       email: null as string | null,
       password: null as string | null,
-      isAuthorized: null as boolean | null,
+      isAuthorized: false as boolean | null,
       captcha: null as string | null,
 }
 
@@ -87,19 +87,17 @@ const sendAuthData =
                   dispatch(setUserData())
             } else {
                   const message = data.messages[0]
-                  if (data.resultCode === ResultCodeCaptcha.Captcha) {
+                  if (data.resultCode === 10) {
                         dispatch(setCaptcha())
                   }
                   dispatch(stopSubmit("login", { _error: message }))
             }
       }
-const deleteAuthData =
-      (): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsType> =>
-      async (dispatch) => {
-            const data = await loginAPI.LOGOUT()
-            if (data.resultCode === ResultCodeSuccessError.Success) {
-                  dispatch(setUserDataDone(null, null, null, false))
-            }
+const deleteAuthData = (): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsType> => async (dispatch) => {
+      const data = await loginAPI.LOGOUT()
+      if (data.resultCode === ResultCodeSuccessError.Success) {
+            dispatch(setUserDataDone(null, null, null, false))
       }
+}
 
 export { auth_reducer, setUserData, sendAuthData, deleteAuthData }
