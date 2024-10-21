@@ -1,8 +1,32 @@
-import { InjectedFormProps } from "redux-form"
 import styles from "../css/Profile.module.css"
 import React from "react"
 
-const Input = ({ meta, input, ...props }: any) => {
+type IMeta = {
+      meta: {
+            error: string
+            touched: boolean
+      }
+}
+type IInput = {
+      input: {
+            name: string
+            onBlur: () => void
+            onChange: () => void
+            onDragStart: () => void
+            onDrop: () => void
+            onFocus: () => void
+            value: string
+      }
+}
+type IProps = {
+      placeholder: string
+      className: string
+}
+type PropsType = IMeta & IInput & IProps
+
+const Input: React.FC<PropsType> = ({ meta, input, ...props }) => {
+      console.log(input)
+
       const { error, touched } = meta
       return (
             <div className={styles.inputTextBox}>
@@ -11,7 +35,8 @@ const Input = ({ meta, input, ...props }: any) => {
             </div>
       )
 }
-const InputCheckbox = ({ meta, input, ...props }: any) => {
+
+const InputCheckbox: React.FC<PropsType> = ({ meta, input, ...props }) => {
       const { error, touched } = meta
       return (
             <div className={styles.inputTextBox}>
