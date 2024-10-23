@@ -1,32 +1,14 @@
+import { WrappedFieldMetaProps, WrappedFieldProps } from "redux-form"
 import styles from "../css/Profile.module.css"
 import React from "react"
 
-type IMeta = {
-      meta: {
-            error: string
-            touched: boolean
-      }
-}
-type IInput = {
-      input: {
-            name: string
-            onBlur: () => void
-            onChange: () => void
-            onDragStart: () => void
-            onDrop: () => void
-            onFocus: () => void
-            value: string
-      }
-}
 type IProps = {
       placeholder: string
       className: string
 }
-type PropsType = IMeta & IInput & IProps
+type PropsType = IProps
 
-const Input: React.FC<PropsType> = ({ meta, input, ...props }) => {
-      console.log(input)
-
+const Input: React.FC<WrappedFieldProps & PropsType> = ({ meta, input, ...props }) => {
       const { error, touched } = meta
       return (
             <div className={styles.inputTextBox}>
@@ -36,7 +18,7 @@ const Input: React.FC<PropsType> = ({ meta, input, ...props }) => {
       )
 }
 
-const InputCheckbox: React.FC<PropsType> = ({ meta, input, ...props }) => {
+const InputCheckbox: React.FC<WrappedFieldProps & PropsType> = ({ meta, input, ...props }) => {
       const { error, touched } = meta
       return (
             <div className={styles.inputTextBox}>

@@ -57,7 +57,14 @@ const LoginContainer: React.FC<MapStateToProps & MapDispatchToProps> = (props) =
       if (props.auth) {
             return <Navigate to={"/profile"} />
       }
-      return <LoginForm {...props} onSubmit={(formData: FormDataType) => props.sendAuthData(formData.login, formData.password, formData.captcha)} />
+      return (
+            <LoginForm
+                  {...props}
+                  onSubmit={(formData: FormDataType) => {
+                        props.sendAuthData(formData.login, formData.password, formData.captcha)
+                  }}
+            />
+      )
 }
 
 const mapStateToProps = (state: rootStateType): MapStateToProps => {
