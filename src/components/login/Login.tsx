@@ -1,10 +1,10 @@
-import styles from "../../css/Login.module.css"
-import { Field, InjectedFormProps, reduxForm } from "redux-form"
-import { sendAuthData } from "../../redux/auth-reducer"
-import { connect } from "react-redux"
-import { Navigate } from "react-router-dom"
-import { rootStateType } from "../../redux/store"
-import React from "react"
+import styles from '../../css/Login.module.css'
+import { Field, InjectedFormProps, reduxForm } from 'redux-form'
+import { sendAuthData } from '../../redux/auth-reducer'
+import { connect } from 'react-redux'
+import { Navigate } from 'react-router-dom'
+import { rootStateType } from '../../redux/store'
+import React from 'react'
 
 type OwnPropsType = {
       captcha: string
@@ -37,7 +37,7 @@ const Login: React.FC<InjectedFormProps<FormDataType, OwnPropsType> & OwnPropsTy
 
 // ? Redux Form HOC
 const LoginForm = reduxForm<FormDataType, OwnPropsType>({
-      form: "login",
+      form: 'login',
 })(Login)
 
 // ? Container Stuff
@@ -55,7 +55,7 @@ type FormDataType = {
 }
 const LoginContainer: React.FC<MapStateToProps & MapDispatchToProps> = (props) => {
       if (props.auth) {
-            return <Navigate to={"/profile"} />
+            return <Navigate to={'/profile'} />
       }
       return (
             <LoginForm

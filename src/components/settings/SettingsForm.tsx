@@ -1,20 +1,29 @@
-import { InjectedFormProps, reduxForm } from "redux-form"
-import styles from "../../css/Settings.module.css"
-import createField from "../../assets/createField"
-import { minLength, required } from "../../assets/Validators"
-import React from "react"
+import { InjectedFormProps, reduxForm } from 'redux-form'
+import styles from '../../css/Settings.module.css'
+import createField from '../../assets/createField'
+import { required } from '../../assets/Validators'
+import React from 'react'
 
-const inputFields: Array<[string, string, boolean?]> = [
-      ["lookingForAJob", "Looking for a job", true],
-      ["lookingForAJobDescription", "Description"],
-      ["fullName", "Full name"],
-      ["aboutMe", "About me"],
-      ["github", "GitHub"],
-      ["instagram", "Instagram"],
-      ["twitter", "Twitter"],
+const inputFields: Array<[FormKeysValues, string, boolean?]> = [
+      ['lookingForAJob', 'Looking for a job', true],
+      ['lookingForAJobDescription', 'Description'],
+      ['fullName', 'Full name'],
+      ['aboutMe', 'About me'],
+      ['github', 'GitHub'],
+      ['instagram', 'Instagram'],
+      ['twitter', 'Twitter'],
 ]
 
-const minimum = minLength(10)
+type FormKeysType = {
+      lookingForAJob: string
+      lookingForAJobDescription: string
+      fullName: string
+      aboutMe: string
+      github: string
+      instagram: string
+      twitter: string
+}
+type FormKeysValues = Extract<keyof FormKeysType, string>
 
 type PropsType = {
       settings_data: string
@@ -27,7 +36,7 @@ const SettingsForm: React.FC<InjectedFormProps<PropsType>> = (props) => {
                   {inputFields.map((input, id) => {
                         return (
                               <label key={id} className={styles.fieldLabel}>
-                                    {createField(input[0], input[1], [required], input[2])}
+                                    {createField<FormKeysValues>(input[0], input[1], [required], input[2])}
                               </label>
                         )
                   })}
@@ -36,4 +45,4 @@ const SettingsForm: React.FC<InjectedFormProps<PropsType>> = (props) => {
       )
 }
 
-export default reduxForm<PropsType>({ form: "settings_data" })(SettingsForm)
+export default reduxForm<PropsType>({ form: 'settings_data' })(SettingsForm)
