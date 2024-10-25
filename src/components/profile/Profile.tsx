@@ -20,6 +20,8 @@ type FormType = {
 }
 
 const Profile: React.FC<PropsType> = (props) => {
+      console.log(props.profileUser);
+      
       let [edit, setStatus] = useState(false)
       let [currentWord, setCurrentWord] = useState("")
       let [word, setWord] = useState(props.status)

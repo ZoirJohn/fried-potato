@@ -1,13 +1,13 @@
-import { Component } from "react"
-import { connect } from "react-redux"
-import Profile from "./Profile"
-import Loader from "../../assets/Loader"
-import { withAuthRedirect } from "../../hoc/withAuthRedirect"
-import { compose } from "redux"
-import { addPost, setProfile, setStatus, updateStatus } from "../../redux/profile-reducer"
-import { withRouter } from "../../hoc/withRouter"
-import { MessageType, ProfileType } from "../../types"
-import { rootStateType } from "../../redux/store"
+import { Component } from 'react'
+import { connect } from 'react-redux'
+import Profile from './Profile'
+import Loader from '../../assets/Loader'
+import { withAuthRedirect } from '../../hoc/withAuthRedirect'
+import { compose } from 'redux'
+import { ProfileActions, setProfile, setStatus, updateStatus } from '../../redux/profile-reducer'
+import { withRouter } from '../../hoc/withRouter'
+import { MessageType, ProfileType } from '../../types'
+import { rootStateType } from '../../redux/store'
 
 type MapStateToProps = {
       posts: Array<MessageType>
@@ -63,15 +63,15 @@ class ProfileContainer extends Component<PropsType> {
 const mapStateToProps = (state: rootStateType): MapStateToProps => {
       return {
             posts: state.profile.posts,
-            profileUser: state.profile.profileUser,
-            status: state.profile.status,
+            profileUser: state.profile.profileUser || ({} as ProfileType),
+            status: state.profile.status || '',
             id: state.auth.id,
       }
 }
 
 export default compose(
       connect<MapStateToProps, MapDispatchToProps, OwnPropsType, rootStateType>(mapStateToProps, {
-            addPost,
+            addPost: (text: string) => ProfileActions.addPost(text),
             setProfile,
             setStatus,
             updateStatus,
