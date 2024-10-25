@@ -1,15 +1,15 @@
-import { ThunkAction } from "redux-thunk"
-import { ResultCodeSuccessError, usersAPI } from "../api/api"
-import { UserType } from "../types"
-import { rootStateType } from "./store"
-import { Dispatch } from "redux"
+import { ThunkAction } from 'redux-thunk'
+import { ResultCodeSuccessError, usersAPI } from '../api/api'
+import { UserType } from '../types'
+import { ActionsTypes, rootStateType } from './store'
+import { Dispatch } from 'redux'
 
-const FOLLOW = "users/ADD-POST-PROFILE"
-const UNFOLLOW = "users/UPDATE-POST-PROFILE"
-const SET_USERS = "users/SET-USERS"
-const SET_CURRENT_PAGE = "users/SET-CURRENT-PAGE"
-const SET_FETCHING = "users/SET-FETCHING"
-const SET_IN_PROGRESS = "users/SET-IN-PROGRESS"
+const FOLLOW = 'users/ADD-POST-PROFILE'
+const UNFOLLOW = 'users/UPDATE-POST-PROFILE'
+const SET_USERS = 'users/SET-USERS'
+const SET_CURRENT_PAGE = 'users/SET-CURRENT-PAGE'
+const SET_FETCHING = 'users/SET-FETCHING'
+const SET_IN_PROGRESS = 'users/SET-IN-PROGRESS'
 
 let initialState = {
       usersList: [] as Array<UserType>,
@@ -77,37 +77,29 @@ const users_reducer = (_state = initialState, action: UsersActionsTypes): Initia
       }
 }
 
-type followDoneType = { type: typeof FOLLOW; userId: number }
-const followDone = (userId: number): followDoneType => ({ type: FOLLOW, userId: userId })
+let UsersActions = {
+      followDone: (userId: number) => ({ type: FOLLOW, userId: userId } as const),
+      unfollowDone: (userId: number) => ({ type: UNFOLLOW, userId: userId } as const),
+      setUsers: (users: Array<UserType>) => ({ type: SET_USERS, users } as const),
+      setCurrentPage: (thisPageNumber: number) => ({ type: SET_CURRENT_PAGE, thisPageNumber } as const),
+      setFetching: (isFetching: boolean) => ({ type: SET_FETCHING, isFetching } as const),
+      setInProgress: (isInProgress: boolean, id: number) =>
+            ({
+                  type: SET_IN_PROGRESS,
+                  isInProgress,
+                  id,
+            } as const),
+}
 
-type unfollowDoneType = { type: typeof UNFOLLOW; userId: number }
-const unfollowDone = (userId: number): unfollowDoneType => ({ type: UNFOLLOW, userId: userId })
-
-type setUsersType = { type: typeof SET_USERS; users: Array<UserType> }
-const setUsers = (users: Array<UserType>): setUsersType => ({ type: SET_USERS, users })
-
-type setCurrentPage = { type: typeof SET_CURRENT_PAGE; thisPageNumber: number }
-const setCurrentPage = (thisPageNumber: number): setCurrentPage => ({ type: SET_CURRENT_PAGE, thisPageNumber })
-
-type setFetchingType = { type: typeof SET_FETCHING; isFetching: boolean }
-const setFetching = (isFetching: boolean): setFetchingType => ({ type: SET_FETCHING, isFetching })
-
-type setInProgressType = { type: typeof SET_IN_PROGRESS; isInProgress: boolean; id: number }
-const setInProgress = (isInProgress: boolean, id: number): setInProgressType => ({
-      type: SET_IN_PROGRESS,
-      isInProgress,
-      id,
-})
-
-type UsersActionsTypes = followDoneType | unfollowDoneType | setUsersType | setCurrentPage | setFetchingType | setInProgressType
+type UsersActionsTypes = ActionsTypes<typeof UsersActions>
 
 // ? One type of typization
 const getUsersThunk = (currentPage: number, pageSize: number) => async (dispatch: Dispatch<UsersActionsTypes>, getState: rootStateType) => {
-      dispatch(setFetching(true))
+      dispatch(UsersActions.setFetching(true))
       const data = await usersAPI.GET_USERS(currentPage, pageSize)
       if (data.items) {
-            dispatch(setUsers(data.items))
-            dispatch(setFetching(false))
+            dispatch(UsersActions.setUsers(data.items))
+            dispatch(UsersActions.setFetching(false))
       }
 }
 
@@ -115,23 +107,23 @@ const getUsersThunk = (currentPage: number, pageSize: number) => async (dispatch
 const unfollow =
       (userId: number): ThunkAction<Promise<void>, rootStateType, unknown, UsersActionsTypes> =>
       async (dispatch) => {
-            dispatch(setInProgress(true, userId))
+            dispatch(UsersActions.setInProgress(true, userId))
             const data = await usersAPI.UNFOLLOW(userId)
             if (data.resultCode === ResultCodeSuccessError.Success) {
-                  dispatch(unfollowDone(userId))
-                  dispatch(setInProgress(false, userId))
+                  dispatch(UsersActions.unfollowDone(userId))
+                  dispatch(UsersActions.setInProgress(false, userId))
             }
       }
 
 const follow =
       (userId: number): ThunkAction<Promise<void>, rootStateType, unknown, UsersActionsTypes> =>
       async (dispatch) => {
-            dispatch(setInProgress(true, userId))
+            dispatch(UsersActions.setInProgress(true, userId))
             const data = await usersAPI.FOLLOW(userId)
             if (data.resultCode === ResultCodeSuccessError.Success) {
-                  dispatch(followDone(userId))
-                  dispatch(setInProgress(false, userId))
+                  dispatch(UsersActions.followDone(userId))
+                  dispatch(UsersActions.setInProgress(false, userId))
             }
       }
 
-export { users_reducer, setUsers, setCurrentPage, getUsersThunk, follow, unfollow }
+export { users_reducer, UsersActions, getUsersThunk, follow, unfollow }

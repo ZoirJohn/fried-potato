@@ -5,6 +5,7 @@ import AddMessageRedux from './DialogsForm';
 
 
 const Dialogs = (props) => {
+	console.log(props);
 	return (
 		<section className={styles.dialogs}>
 			<div className={styles.contacts}>

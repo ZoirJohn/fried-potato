@@ -1,14 +1,14 @@
-import { connect } from "react-redux"
-import { Component } from "react"
-import Users from "./Users"
-import Loader from "../../assets/Loader"
-import { follow, getUsersThunk, setCurrentPage, unfollow } from "../../redux/users-reducer"
-import { withRouter } from "../../hoc/withRouter"
-import { withAuthRedirect } from "../../hoc/withAuthRedirect"
-import { compose } from "redux"
-import { getCurrentPage, getInProgress, getIsFetching, getOverall, getPageSize, getUsersListSelector } from "../../redux/users-selectors"
-import { UserType } from "../../types"
-import { rootStateType } from "../../redux/store"
+import { connect } from 'react-redux'
+import { Component } from 'react'
+import Users from './Users'
+import Loader from '../../assets/Loader'
+import { follow, getUsersThunk, UsersActions, unfollow } from '../../redux/users-reducer'
+import { withRouter } from '../../hoc/withRouter'
+import { withAuthRedirect } from '../../hoc/withAuthRedirect'
+import { compose } from 'redux'
+import { getCurrentPage, getInProgress, getIsFetching, getOverall, getPageSize, getUsersListSelector } from '../../redux/users-selectors'
+import { UserType } from '../../types'
+import { rootStateType } from '../../redux/store'
 
 type MapStateToProps = {
       usersList: Array<UserType>
@@ -65,7 +65,7 @@ export default compose(
       connect<MapStateToProps, MapDispatchToProps, OwnPropsType, rootStateType>(mapStateToProps, {
             follow,
             unfollow,
-            setCurrentPage,
+            setCurrentPage: (thisPageNumber) => UsersActions.setCurrentPage(thisPageNumber),
             getUsersThunk,
       }),
       withRouter,

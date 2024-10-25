@@ -63,8 +63,8 @@ class ProfileContainer extends Component<PropsType> {
 const mapStateToProps = (state: rootStateType): MapStateToProps => {
       return {
             posts: state.profile.posts,
-            profileUser: state.profile.profileUser || ({} as ProfileType),
-            status: state.profile.status || '',
+            profileUser: state.profile.profileUser,
+            status: state.profile.status ,
             id: state.auth.id,
       }
 }

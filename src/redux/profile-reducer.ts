@@ -22,7 +22,7 @@ let initialState = {
 
 export type InitialStateProfileType = typeof initialState
 
-const profile_reducer = (_state = initialState, action: ProfileActionsTypes): InitialStateProfileType => {
+const profile_reducer = (_state = initialState, action: ProfileActionsTypes): any => {
       switch (action.type) {
             case ADD_POST_PROFILE:
                   let newPost = { text: action.text, likeNumber: Math.floor(Math.random() * 10), id: 4 }

@@ -20,8 +20,6 @@ type FormType = {
 }
 
 const Profile: React.FC<PropsType> = (props) => {
-      console.log(props.profileUser);
-      
       let [edit, setStatus] = useState(false)
       let [currentWord, setCurrentWord] = useState("")
       let [word, setWord] = useState(props.status)
@@ -41,7 +39,7 @@ const Profile: React.FC<PropsType> = (props) => {
             <section className={styles.profile}>
                   <img src={background} alt='background' />
                   <div className={styles.dataBox}>
-                        <img src={props.profileUser?.photos.large || profileUser} alt='background' />
+                        <img src={props.profileUser.photos?.large || profileUser} alt='background' />
                         <div className={styles.info}>
                               <p>
                                     <span>Full name:</span> {props.profileUser?.fullName || "Carnage"}
