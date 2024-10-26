@@ -64,8 +64,8 @@ const mapStateToProps = (state: rootStateType): MapStateToProps => {
       return {
             posts: state.profile.posts,
             profileUser: state.profile.profileUser,
-            status: state.profile.status ,
-            id: state.auth.id,
+            status: state.profile.status,
+            id: state.auth.id as number,
       }
 }
 

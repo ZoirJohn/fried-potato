@@ -7,7 +7,7 @@ import { rootStateType } from '../../redux/store'
 import React from 'react'
 
 type OwnPropsType = {
-      captcha: string
+      captcha: string | null
 }
 
 // ? Component
@@ -42,8 +42,8 @@ const LoginForm = reduxForm<FormDataType, OwnPropsType>({
 
 // ? Container Stuff
 type MapStateToProps = {
-      auth: boolean
-      captcha: string
+      auth: boolean | null
+      captcha: string | null
 }
 type MapDispatchToProps = {
       sendAuthData: (login: string, password: string, captcha: string) => void
