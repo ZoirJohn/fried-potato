@@ -4,13 +4,6 @@ import { UserType } from '../types'
 import { ActionsTypes, rootStateType } from './store'
 import { Dispatch } from 'redux'
 
-const FOLLOW = 'users/ADD-POST-PROFILE'
-const UNFOLLOW = 'users/UPDATE-POST-PROFILE'
-const SET_USERS = 'users/SET-USERS'
-const SET_CURRENT_PAGE = 'users/SET-CURRENT-PAGE'
-const SET_FETCHING = 'users/SET-FETCHING'
-const SET_IN_PROGRESS = 'users/SET-IN-PROGRESS'
-
 let initialState = {
       usersList: [] as Array<UserType>,
       overall: 40 as number | null,
@@ -25,7 +18,7 @@ export type InitialStateUsersType = typeof initialState
 
 const users_reducer = (_state = initialState, action: UsersActionsTypes): InitialStateUsersType => {
       switch (action.type) {
-            case FOLLOW: {
+            case 'social-app/users/FOLLOW-PROFILE': {
                   return {
                         ..._state,
                         usersList: _state.usersList.map((u: any) => {
@@ -36,7 +29,7 @@ const users_reducer = (_state = initialState, action: UsersActionsTypes): Initia
                         }),
                   }
             }
-            case UNFOLLOW: {
+            case 'social-app/users/UNFOLLOW-PROFILE': {
                   return {
                         ..._state,
                         usersList: _state.usersList.map((u: any) => {
@@ -47,25 +40,25 @@ const users_reducer = (_state = initialState, action: UsersActionsTypes): Initia
                         }),
                   }
             }
-            case SET_USERS: {
+            case 'social-app/users/SET-USERS': {
                   return {
                         ..._state,
                         usersList: [...action.users],
                   }
             }
-            case SET_CURRENT_PAGE: {
+            case 'social-app/users/SET-CURRENT-PAGE': {
                   return {
                         ..._state,
                         currentPage: action.thisPageNumber,
                   }
             }
-            case SET_FETCHING: {
+            case 'social-app/users/SET-FETCHING': {
                   return {
                         ..._state,
                         isFetching: action.isFetching,
                   }
             }
-            case SET_IN_PROGRESS: {
+            case 'social-app/users/SET-IN-PROGRESS': {
                   return {
                         ..._state,
                         inProgress: action.isInProgress ? [..._state.inProgress, action.id] : _state.inProgress.filter((i) => i !== action.id),
@@ -78,14 +71,14 @@ const users_reducer = (_state = initialState, action: UsersActionsTypes): Initia
 }
 
 let UsersActions = {
-      followDone: (userId: number) => ({ type: FOLLOW, userId: userId } as const),
-      unfollowDone: (userId: number) => ({ type: UNFOLLOW, userId: userId } as const),
-      setUsers: (users: Array<UserType>) => ({ type: SET_USERS, users } as const),
-      setCurrentPage: (thisPageNumber: number) => ({ type: SET_CURRENT_PAGE, thisPageNumber } as const),
-      setFetching: (isFetching: boolean) => ({ type: SET_FETCHING, isFetching } as const),
+      followDone: (userId: number) => ({ type: 'social-app/users/FOLLOW-PROFILE', userId: userId } as const),
+      unfollowDone: (userId: number) => ({ type: 'social-app/users/UNFOLLOW-PROFILE', userId: userId } as const),
+      setUsers: (users: Array<UserType>) => ({ type: 'social-app/users/SET-USERS', users } as const),
+      setCurrentPage: (thisPageNumber: number) => ({ type: 'social-app/users/SET-CURRENT-PAGE', thisPageNumber } as const),
+      setFetching: (isFetching: boolean) => ({ type: 'social-app/users/SET-FETCHING', isFetching } as const),
       setInProgress: (isInProgress: boolean, id: number) =>
             ({
-                  type: SET_IN_PROGRESS,
+                  type: 'social-app/users/SET-IN-PROGRESS',
                   isInProgress,
                   id,
             } as const),

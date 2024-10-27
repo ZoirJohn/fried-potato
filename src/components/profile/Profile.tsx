@@ -1,11 +1,10 @@
-import PostModel from "./PostModel"
-import background from "../../img/background.jpeg"
-import profileUser from "../../img/profile-user.webp"
-import React, { ChangeEvent, useState } from "react"
-import styles from "../../css/Profile.module.css"
-import AddPostRedux from "./ProfileForm"
-import { MessageType, ProfileType } from "../../types"
-import { InjectedFormProps } from "redux-form"
+import PostModel from './PostModel'
+import background from '../../img/background.jpeg'
+import profileUser from '../../img/profile-user.webp'
+import React, { ChangeEvent, useState } from 'react'
+import styles from '../../css/Profile.module.css'
+import AddPostRedux from './ProfileForm'
+import { MessageType, ProfileType } from '../../types'
 
 type PropsType = {
       profileUser: ProfileType
@@ -21,7 +20,7 @@ type FormType = {
 
 const Profile: React.FC<PropsType> = (props) => {
       let [edit, setStatus] = useState(false)
-      let [currentWord, setCurrentWord] = useState("")
+      let [currentWord, setCurrentWord] = useState('')
       let [word, setWord] = useState(props.status)
       const handleStatus = () => {
             setStatus((edit) => !edit)
@@ -42,12 +41,12 @@ const Profile: React.FC<PropsType> = (props) => {
                         <img src={props.profileUser.photos?.large || profileUser} alt='background' />
                         <div className={styles.info}>
                               <p>
-                                    <span>Full name:</span> {props.profileUser?.fullName || "Carnage"}
+                                    <span>Full name:</span> {props.profileUser?.fullName || 'Carnage'}
                               </p>
                               <div className={styles.statusBox}>
                                     <span>Status: </span>
                                     {!edit && (
-                                          <pre className={styles["status-word"]} onDoubleClick={handleStatus}>
+                                          <pre className={styles['status-word']} onDoubleClick={handleStatus}>
                                                 {word}
                                           </pre>
                                     )}
@@ -68,19 +67,19 @@ const Profile: React.FC<PropsType> = (props) => {
                                     <span>Education:</span> Embry-Riddle
                               </p>
                               <p>
-                                    <span>Job Hunting:</span> {props.profileUser.lookingForAJob ? "Yes" : "No"}
+                                    <span>Job Hunting:</span> {props.profileUser.lookingForAJob ? 'Yes' : 'No'}
                               </p>
                               <p>
                                     <span>About Me:</span> {props.profileUser.aboutMe}
                               </p>
                               <p>
-                                    <span>Instagram:</span>{" "}
+                                    <span>Instagram:</span>{' '}
                                     <a href={props.profileUser.contacts.instagram} target='_blank'>
                                           Link
                                     </a>
                               </p>
                               <p>
-                                    <span>Twitter:</span>{" "}
+                                    <span>Twitter:</span>{' '}
                                     <a href={props.profileUser.contacts.twitter} target='_blank'>
                                           Link
                                     </a>

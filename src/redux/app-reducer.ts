@@ -1,8 +1,6 @@
-import { ThunkAction } from "redux-thunk"
-import { setUserData } from "./auth-reducer"
-import { rootStateType } from "./store"
-
-const INIT_SUCCESS = "app/INIT-SUCCESS"
+import { ThunkAction } from 'redux-thunk'
+import { setUserData } from './auth-reducer'
+import { ActionsTypes, rootStateType } from './store'
 
 let initialState = {
       initialized: false as boolean | null,
@@ -10,9 +8,9 @@ let initialState = {
 
 export type InitialStateAppType = typeof initialState
 
-const app_reducer = (_state = initialState, action: any) => {
+const app_reducer = (_state = initialState, action: AppActionsTypes): InitialStateAppType => {
       switch (action.type) {
-            case INIT_SUCCESS:
+            case 'social-app/app/INIT-SUCCESS':
                   return {
                         ..._state,
                         initialized: true,
@@ -21,15 +19,15 @@ const app_reducer = (_state = initialState, action: any) => {
                   return { ..._state }
       }
 }
-type setInitializedType = {
-      type: typeof INIT_SUCCESS
+let AppActions = {
+      setInitialized: () => ({ type: 'social-app/app/INIT-SUCCESS' }),
 }
-const setInitialized = (): setInitializedType => ({ type: INIT_SUCCESS })
+type AppActionsTypes = ActionsTypes<typeof AppActions>
 
-const initializeApp = (): ThunkAction<Promise<void>, rootStateType, unknown, setInitializedType> => async (dispatch) => {
+const initializeApp = (): ThunkAction<Promise<void>, rootStateType, unknown, AppActionsTypes> => async (dispatch) => {
       const promise = dispatch(setUserData())
       Promise.all([promise]).then(() => {
-            dispatch(setInitialized())
+            dispatch(AppActions.setInitialized())
       })
 }
 

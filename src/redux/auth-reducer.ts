@@ -1,11 +1,7 @@
 import { stopSubmit } from 'redux-form'
-import { ResultCodeCaptcha, ResultCodeSuccessError, authAPI, loginAPI } from '../api/api'
+import { ResultCodeSuccessError, authAPI, loginAPI } from '../api/api'
 import { ThunkAction } from 'redux-thunk'
 import { ActionsTypes, rootStateType } from './store'
-
-const SET_USER_DATA = 'auth/SET-USER-DATA'
-const DELETE_USER_DATA = 'auth/DELETE-USER-DATA'
-const SET_CAPTCHA = 'auth/SET-CAPTCHA'
 
 let initialState = {
       id: null as number | null,
@@ -16,11 +12,11 @@ let initialState = {
       captcha: null as string | null,
 }
 
-export type initialStateAuthType = typeof initialState
+export type InitialStateAuthType = typeof initialState
 
-const auth_reducer = (_state = initialState, action: AuthActionsTypes) => {
+const auth_reducer = (_state = initialState, action: AuthActionsTypes): InitialStateAuthType => {
       switch (action.type) {
-            case SET_USER_DATA:
+            case 'social-app/auth/SET-USER-DATA':
                   return {
                         ..._state,
                         id: action.id,
@@ -28,7 +24,7 @@ const auth_reducer = (_state = initialState, action: AuthActionsTypes) => {
                         email: action.email,
                         isAuthorized: action.isAuthorized,
                   }
-            case DELETE_USER_DATA:
+            case 'social-app/auth/DELETE-USER-DATA':
                   return {
                         ..._state,
                         id: null,
@@ -36,7 +32,7 @@ const auth_reducer = (_state = initialState, action: AuthActionsTypes) => {
                         email: null,
                         isAuthorized: false,
                   }
-            case SET_CAPTCHA:
+            case 'social-app/auth/SET-CAPTCHA':
                   return {
                         ..._state,
                         captcha: action.url,
@@ -50,15 +46,15 @@ type AuthActionsTypes = ActionsTypes<typeof AuthActions>
 let AuthActions = {
       setUserDataDone: (id: number | null, login: string | null, email: string | null, isAuthorized: boolean) =>
             ({
-                  type: SET_USER_DATA,
+                  type: 'social-app/auth/SET-USER-DATA',
                   id,
                   login,
                   email,
                   isAuthorized,
             } as const),
 
-      setCaptchaDone: (url: string) => ({ type: SET_CAPTCHA, url } as const),
-      deleteUserDataDone: () => ({ type: DELETE_USER_DATA } as const),
+      setCaptchaDone: (url: string) => ({ type: 'social-app/auth/SET-CAPTCHA', url } as const),
+      deleteUserDataDone: () => ({ type: 'social-app/auth/DELETE-USER-DATA' } as const),
 }
 
 const setCaptcha = (): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsTypes> => async (dispatch) => {

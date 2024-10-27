@@ -4,12 +4,6 @@ import createThunk from '../assets/createThunk'
 import { MessageType, PhotosType, ProfileType } from '../types'
 import { ActionsTypes } from './store'
 
-const ADD_POST_PROFILE = 'profile/ADD-POST-PROFILE'
-const DELETE_POST_PROFILE = 'profile/DELETE-POST-PROFILE'
-const SET_PROFILE = 'profile/SET-PROFILE'
-const SET_STATUS = 'profile/SET-STATUS'
-const SET_PROFILE_PHOTO = 'profile/SET-PROFILE-PHOTO'
-
 let initialState = {
       posts: [
             { text: 'Hello', likeNumber: 12, id: 1 },
@@ -24,16 +18,16 @@ export type InitialStateProfileType = typeof initialState
 
 const profile_reducer = (_state = initialState, action: ProfileActionsTypes): any => {
       switch (action.type) {
-            case ADD_POST_PROFILE:
+            case 'social-app/profile/ADD-POST-PROFILE':
                   let newPost = { text: action.text, likeNumber: Math.floor(Math.random() * 10), id: 4 }
                   return { ..._state, posts: [..._state.posts, newPost] }
-            case DELETE_POST_PROFILE:
+            case 'social-app/profile/DELETE-POST-PROFILE':
                   return { ..._state, posts: _state.posts.filter((post) => post.id !== action.id) }
-            case SET_PROFILE:
+            case 'social-app/profile/SET-PROFILE':
                   return { ..._state, profileUser: action.profileUser }
-            case SET_STATUS:
-                  return { ..._state, status: action.status}
-            case SET_PROFILE_PHOTO:
+            case 'social-app/profile/SET-STATUS':
+                  return { ..._state, status: action.status }
+            case 'social-app/profile/SET-PROFILE-PHOTO':
                   return { ..._state, profileUser: { ..._state.profileUser, photos: action.photo } as ProfileType }
             default:
                   return _state
@@ -43,11 +37,11 @@ const profile_reducer = (_state = initialState, action: ProfileActionsTypes): an
 // ? Action creators
 
 let ProfileActions = {
-      addPost: (text: string) => ({ type: ADD_POST_PROFILE, text } as const),
-      deletePost: (id: number) => ({ type: DELETE_POST_PROFILE, id } as const),
-      setProfileDone: (profileUser: ProfileType) => ({ type: SET_PROFILE, profileUser } as const),
-      setStatusDone: (status: string) => ({ type: SET_STATUS, status } as const),
-      setProfilePhotoDone: (photo: PhotosType) => ({ type: SET_PROFILE_PHOTO, photo } as const),
+      addPost: (text: string) => ({ type: 'social-app/profile/ADD-POST-PROFILE', text } as const),
+      deletePost: (id: number) => ({ type: 'social-app/profile/DELETE-POST-PROFILE', id } as const),
+      setProfileDone: (profileUser: ProfileType) => ({ type: 'social-app/profile/SET-PROFILE', profileUser } as const),
+      setStatusDone: (status: string) => ({ type: 'social-app/profile/SET-STATUS', status } as const),
+      setProfilePhotoDone: (photo: PhotosType) => ({ type: 'social-app/profile/SET-PROFILE-PHOTO', photo } as const),
 }
 type ProfileActionsTypes = ActionsTypes<typeof ProfileActions>
 
