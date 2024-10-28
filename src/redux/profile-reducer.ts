@@ -1,5 +1,6 @@
 import { reset } from 'redux-form'
-import { ResultCodeSuccessError, profileAPI } from '../api/api'
+import { ResultCodeSuccessError } from '../api/api'
+import { profileAPI } from '../api/profile-api'
 import createThunk from '../assets/createThunk'
 import { MessageType, PhotosType, ProfileType } from '../types'
 import { ActionsTypes } from './store'

@@ -1,7 +1,9 @@
 import { stopSubmit } from 'redux-form'
-import { ResultCodeSuccessError, authAPI, loginAPI } from '../api/api'
+import { ResultCodeSuccessError } from '../api/api'
 import { ThunkAction } from 'redux-thunk'
 import { ActionsTypes, rootStateType } from './store'
+import { authAPI } from '../api/auth-api'
+import { loginAPI } from '../api/login-api'
 
 let initialState = {
       id: null as number | null,

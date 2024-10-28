@@ -1,5 +1,6 @@
 import { ThunkAction } from 'redux-thunk'
-import { ResultCodeSuccessError, usersAPI } from '../api/api'
+import { ResultCodeSuccessError } from '../api/api'
+import { usersAPI } from '../api/users-api'
 import { UserType } from '../types'
 import { ActionsTypes, rootStateType } from './store'
 import { Dispatch } from 'redux'
