@@ -9,6 +9,18 @@ import React from 'react'
 type OwnPropsType = {
       captcha: string | null
 }
+type MapStateToProps = {
+      auth: boolean | null
+      captcha: string | null
+}
+type MapDispatchToProps = {
+      sendAuthData: (login: string, password: string, captcha: string) => void
+}
+type FormDataType = {
+      login: string
+      password: string
+      captcha: string
+}
 
 // ? Component
 const Login: React.FC<InjectedFormProps<FormDataType, OwnPropsType> & OwnPropsType> = (props) => {
@@ -41,18 +53,6 @@ const LoginForm = reduxForm<FormDataType, OwnPropsType>({
 })(Login)
 
 // ? Container Stuff
-type MapStateToProps = {
-      auth: boolean | null
-      captcha: string | null
-}
-type MapDispatchToProps = {
-      sendAuthData: (login: string, password: string, captcha: string) => void
-}
-type FormDataType = {
-      login: string
-      password: string
-      captcha: string
-}
 const LoginContainer: React.FC<MapStateToProps & MapDispatchToProps> = (props) => {
       if (props.auth) {
             return <Navigate to={'/profile'} />
