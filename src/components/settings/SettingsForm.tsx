@@ -25,11 +25,7 @@ type FormKeysType = {
 }
 type FormKeysValues = Extract<keyof FormKeysType, string>
 
-type PropsType = {
-      settings_data: string
-}
-
-const SettingsForm: React.FC<InjectedFormProps<PropsType>> = (props) => {
+const SettingsForm: React.FC<InjectedFormProps<FormKeysType>> = (props) => {
       return (
             <form onSubmit={props.handleSubmit} className={styles.fieldForm}>
                   <h3>Profile Settings</h3>
@@ -45,4 +41,4 @@ const SettingsForm: React.FC<InjectedFormProps<PropsType>> = (props) => {
       )
 }
 
-export default reduxForm<PropsType>({ form: 'settings_data' })(SettingsForm)
+export default reduxForm<FormKeysType>({ form: 'settings_data' })(SettingsForm)

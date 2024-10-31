@@ -7,7 +7,6 @@ import styles from '../../css/Settings.module.css'
 import SettingsFormRedux from './SettingsForm'
 import classNames from 'classnames'
 import { rootStateType } from '../../redux/store'
-import { log } from 'console'
 
 type MapStateToProps = {
       ownId: number | null
@@ -62,7 +61,7 @@ class Settings extends Component<PropsType, OwnState> {
             const uploadPhoto = (e: any) => {
                   this.props.savePhoto(e.target.files[0])
             }
-            const formDataSubmit = (formData: any) => {
+            const formDataSubmit = (formData: FormKeysType) => {
                   this.props.saveProfile({ ...formData, contacts: { twitter: formData.twitter, instagram: formData.instagram, github: formData.github } })
             }
             return (

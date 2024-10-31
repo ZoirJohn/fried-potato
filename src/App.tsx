@@ -19,7 +19,7 @@ const App = (props: any) => {
       }
       return (
             <div data-testid='app' className='App'>
-                  <HeaderComponent imgLogo={props.imgLogo} />
+                  <HeaderComponent />
                   <div data-testid='container' className='container'>
                         <Main />
                         <Sidebar />
