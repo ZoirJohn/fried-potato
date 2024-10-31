@@ -2,11 +2,11 @@ import styles from '../../css/Header.module.css'
 import imgLogo from '../../img/logo.png'
 
 type IProps = {
-      auth: boolean
+      auth: boolean|null
       deleteAuthData: () => void
 }
 
-const Header = (props: any) => {
+const Header = (props:IProps) => {
       return (
             <header className={styles.header}>
                   <div className={`${styles.container} container`}>
