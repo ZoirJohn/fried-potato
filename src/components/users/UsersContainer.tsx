@@ -61,7 +61,7 @@ const mapStateToProps = (state: rootStateType): MapStateToProps => {
       }
 }
 
-export default compose(
+export default compose<React.ComponentType>(
       connect<MapStateToProps, MapDispatchToProps, OwnPropsType, rootStateType>(mapStateToProps, {
             follow,
             unfollow,

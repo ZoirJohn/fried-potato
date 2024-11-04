@@ -21,4 +21,4 @@ const mapStateToProps = (state: rootStateType): MapStateToProps => {
       }
 }
 
-export default compose(connect(mapStateToProps, { addMessage: (message: string) => DialogsActions.addMessage(message) }), withRouter, withAuthRedirect)(Dialogs)
+export default compose<React.ComponentType>(connect(mapStateToProps, { addMessage: (message: string) => DialogsActions.addMessage(message) }), withRouter, withAuthRedirect)(Dialogs)

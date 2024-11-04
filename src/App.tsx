@@ -15,7 +15,7 @@ const App = (props: any) => {
       }, []);
 
       if (!props.initialized) {
-            return <Loader />;
+            return <Loader isFetching={props.initialized}/>;
       }
       return (
             <div data-testid='app' className='App'>

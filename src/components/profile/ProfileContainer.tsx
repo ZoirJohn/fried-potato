@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Profile from './Profile'
 import Loader from '../../assets/Loader'
@@ -69,4 +69,4 @@ const mapStateToProps = (state: rootStateType): MapStateToProps => {
       }
 }
 
-export default compose(connect<MapStateToProps, MapDispatchToProps, OwnPropsType, rootStateType>(mapStateToProps, { addPost: ProfileActions.addPost, setProfile, setStatus, updateStatus }), withRouter, withAuthRedirect)(ProfileContainer)
+export default compose<React.ComponentType>(connect<MapStateToProps, MapDispatchToProps, OwnPropsType, rootStateType>(mapStateToProps, { addPost: ProfileActions.addPost, setProfile, setStatus, updateStatus }), withRouter, withAuthRedirect)(ProfileContainer)

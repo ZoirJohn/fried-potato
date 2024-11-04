@@ -2,7 +2,7 @@ import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { savePhoto, saveProfile } from '../../redux/profile-reducer'
-import { Component } from 'react'
+import { Component, ComponentType } from 'react'
 import styles from '../../css/Settings.module.css'
 import SettingsFormRedux from './SettingsForm'
 import classNames from 'classnames'
@@ -93,4 +93,4 @@ const mapStateToProps = (state: rootStateType): MapStateToProps => {
       }
 }
 
-export default compose(connect(mapStateToProps, { savePhoto, saveProfile }), withAuthRedirect)(Settings)
+export default compose<ComponentType>(connect(mapStateToProps, { savePhoto, saveProfile }), withAuthRedirect)(Settings)
