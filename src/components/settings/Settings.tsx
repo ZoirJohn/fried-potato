@@ -10,7 +10,7 @@ import { rootStateType } from '../../redux/store'
 
 type MapStateToProps = {
       ownId: number | null
-      uploadedId: number
+      uploadedId: number|undefined
       payload: any
 }
 

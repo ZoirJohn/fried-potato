@@ -9,7 +9,7 @@ test('add post', () => {
                   { text: 'Pretty fine', likeNumber: 4, id: 3 },
             ],
             profileUser: null,
-            status: null,
+            status: undefined,
       }
       let newState = profile_reducer(state, action)
       expect(newState.posts.length).toEqual(4)
@@ -24,7 +24,7 @@ test('delete post', () => {
                   { text: 'Pretty fine', likeNumber: 4, id: 3 },
             ],
             profileUser: null,
-            status: null,
+            status: undefined,
       }
 
       let newState = profile_reducer(state, action)

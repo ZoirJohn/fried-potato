@@ -11,8 +11,8 @@ import { rootStateType } from '../../redux/store'
 
 type MapStateToProps = {
       posts: Array<MessageType>
-      profileUser: ProfileType
-      status: string
+      profileUser: ProfileType|null
+      status: string|undefined
       id: number
 }
 type MapDispatchToProps = {

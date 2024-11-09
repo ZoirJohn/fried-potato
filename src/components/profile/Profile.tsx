@@ -7,8 +7,8 @@ import AddPostRedux from './ProfileForm'
 import { MessageType, ProfileType } from '../../types'
 
 type PropsType = {
-      profileUser: ProfileType
-      status: string
+      profileUser: ProfileType|null
+      status: string|undefined
       posts: Array<MessageType>
       id: number
       addPost: (text: string) => void
@@ -38,7 +38,7 @@ const Profile: React.FC<PropsType> = (props) => {
             <section className={styles.profile}>
                   <img src={background} alt='background' />
                   <div className={styles.dataBox}>
-                        <img src={props.profileUser.photos?.large || profileUser} alt='background' />
+                        <img src={props.profileUser?.photos?.large || profileUser} alt='background' />
                         <div className={styles.info}>
                               <p>
                                     <span>Full name:</span> {props.profileUser?.fullName || 'Carnage'}
@@ -67,20 +67,20 @@ const Profile: React.FC<PropsType> = (props) => {
                                     <span>Education:</span> Embry-Riddle
                               </p>
                               <p>
-                                    <span>Job Hunting:</span> {props.profileUser.lookingForAJob ? 'Yes' : 'No'}
+                                    <span>Job Hunting:</span> {props.profileUser?.lookingForAJob ? 'Yes' : 'No'}
                               </p>
                               <p>
-                                    <span>About Me:</span> {props.profileUser.aboutMe}
+                                    <span>About Me:</span> {props.profileUser?.aboutMe}
                               </p>
                               <p>
                                     <span>Instagram:</span>{' '}
-                                    <a href={props.profileUser.contacts.instagram} target='_blank'>
+                                    <a href={props.profileUser?.contacts.instagram} target='_blank'>
                                           Link
                                     </a>
                               </p>
                               <p>
                                     <span>Twitter:</span>{' '}
-                                    <a href={props.profileUser.contacts.twitter} target='_blank'>
+                                    <a href={props.profileUser?.contacts.twitter} target='_blank'>
                                           Link
                                     </a>
                               </p>

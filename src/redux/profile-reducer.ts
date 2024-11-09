@@ -12,12 +12,12 @@ let initialState = {
             { text: 'Pretty fine', likeNumber: 4, id: 3 },
       ] as Array<MessageType>,
       profileUser: null as ProfileType | null,
-      status: null as string | null,
+      status: undefined as string | undefined,
 }
 
 export type InitialStateProfileType = typeof initialState
 
-const profile_reducer = (_state = initialState, action: ProfileActionsTypes): any => {
+const profile_reducer = (_state = initialState, action: ProfileActionsTypes): InitialStateProfileType => {
       switch (action.type) {
             case 'social-app/profile/ADD-POST-PROFILE':
                   let newPost = { text: action.text, likeNumber: Math.floor(Math.random() * 10), id: 4 }
