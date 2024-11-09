@@ -18,8 +18,8 @@ const rootReducer = combineReducers({
 })
 let store = configureStore({ reducer: rootReducer })
 
-type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never
-export type ActionsTypes<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesType<T>>
+export type ActionsTypes<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : never
+// ! OLD VERSION OF ^ THIS RIGHT ABOVE export type ActionsTypes<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesType<T>> 
 
 type rootReducerType = typeof rootReducer
 export type rootStateType = ReturnType<rootReducerType>
