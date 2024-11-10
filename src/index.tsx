@@ -8,7 +8,12 @@ import App from './App'
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
-      <HashRouter future={{ v7_startTransition: true }}>
+      <HashRouter
+            future={{
+                  v7_relativeSplatPath: true,
+                  v7_startTransition: true,
+            }}
+      >
             <Provider store={store}>
                   <App />
             </Provider>
