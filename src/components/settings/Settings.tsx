@@ -8,13 +8,12 @@ import SettingsFormRedux from './SettingsForm'
 import classNames from 'classnames'
 import { rootStateType } from '../../redux/store'
 
-type MapStateToProps = {
+type IState = {
       ownId: number | null
       uploadedId: number|undefined
       payload: any
 }
-
-type MapDispatchToProps = {
+type IDispatch = {
       savePhoto: (file: any) => void
       saveProfile: (formValues: any) => void
 }
@@ -23,8 +22,7 @@ type OwnState = {
       hideWarning: boolean
       form: boolean
 }
-type PropsType = MapStateToProps & MapDispatchToProps
-
+type IProps = IState & IDispatch
 type FormKeysType = {
       lookingForAJob: string
       lookingForAJobDescription: string
@@ -35,8 +33,8 @@ type FormKeysType = {
       twitter: string
 }
 
-class Settings extends Component<PropsType, OwnState> {
-      constructor(props: PropsType) {
+class Settings extends Component<IProps, OwnState> {
+      constructor(props: IProps) {
             super(props)
             this.state = {
                   warning: false as boolean,
@@ -85,7 +83,7 @@ class Settings extends Component<PropsType, OwnState> {
             )
       }
 }
-const mapStateToProps = (state: rootStateType): MapStateToProps => {
+const mapStateToProps = (state: rootStateType): IState => {
       return {
             ownId: state.auth.id,
             uploadedId: state.profile.profileUser?.userId,
@@ -93,4 +91,4 @@ const mapStateToProps = (state: rootStateType): MapStateToProps => {
       }
 }
 
-export default compose<ComponentType>(connect(mapStateToProps, { savePhoto, saveProfile }), withAuthRedirect)(Settings)
+export default compose<ComponentType>(connect<IState,IDispatch,OwnState,rootStateType>(mapStateToProps, { savePhoto, saveProfile }), withAuthRedirect)(Settings)

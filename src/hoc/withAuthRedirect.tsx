@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import React from 'react'
 import { rootStateType } from '../redux/store'
 
-const mapStateToPropsWithAuth = (state: rootStateType) => {
-      return {
-            auth: state.auth.isAuthorized,
-      }
+const mapStateToPropsWithAuth = (state: rootStateType) => ({
+      auth: state.auth.isAuthorized,
+})
+type IAuth = {
+      auth: boolean | null
 }
-
-export function withAuthRedirect<WCP>(WrappedComponent: React.ComponentType<WCP>) {
-      const ComponentWithRedirect = (props: { auth: boolean | null }) => {
+export const withAuthRedirect = <WCP,>(WrappedComponent: React.ComponentType<WCP>) => {
+      const ComponentWithRedirect: React.FC<IAuth> = (props) => {
             if (!props.auth) return <Navigate to={'/login'} />
 
             return <WrappedComponent {...(props as any)} />

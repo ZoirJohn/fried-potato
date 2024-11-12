@@ -11,6 +11,7 @@ import { rootStateType } from './redux/store'
 
 const App = (props: any) => {
       useEffect(() => {
+            console.log('useEffect')
             props.initializeApp()
       }, [])
 

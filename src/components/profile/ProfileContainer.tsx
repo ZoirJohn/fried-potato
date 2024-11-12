@@ -9,20 +9,20 @@ import { withRouter } from '../../hoc/withRouter'
 import { MessageType, ProfileType } from '../../types'
 import { rootStateType } from '../../redux/store'
 
-type MapStateToProps = {
+type IState = {
       posts: Array<MessageType>
-      profileUser: ProfileType|null
-      status: string|undefined
+      profileUser: ProfileType | null
+      status: string | undefined
       id: number
 }
-type MapDispatchToProps = {
+type IDispatch = {
       addPost: (formData: string) => void
       updateStatus: (text: string, id: number) => void
       setProfile: (id: number) => void
       setStatus: (id: number) => void
 }
 
-type RouterType = {
+type IRouter = {
       params: {
             userId: number
       }
@@ -31,11 +31,11 @@ type RouterType = {
 }
 
 type OwnPropsType = {
-      router: RouterType
+      router: IRouter
 }
-type PropsType = MapStateToProps & OwnPropsType & MapDispatchToProps
+type IProps = IState & OwnPropsType & IDispatch
 
-class ProfileContainer extends Component<PropsType> {
+class ProfileContainer extends Component<IProps> {
       refreshProfile() {
             let id = this.props.router.params.userId
             if (!id) id = this.props.id
@@ -45,10 +45,10 @@ class ProfileContainer extends Component<PropsType> {
       componentDidMount() {
             this.refreshProfile()
       }
-      shouldComponentUpdate(nextProps: PropsType) {
+      shouldComponentUpdate(nextProps: IProps) {
             return nextProps.status === this.props.status
       }
-      componentDidUpdate(prevProps: PropsType) {
+      componentDidUpdate(prevProps: IProps) {
             if (this.props.router.params.userId != prevProps.router.params.userId) {
                   this.refreshProfile()
             }
@@ -60,7 +60,7 @@ class ProfileContainer extends Component<PropsType> {
             return <Profile {...this.props} />
       }
 }
-const mapStateToProps = (state: rootStateType): MapStateToProps => {
+const mapStateToProps = (state: rootStateType): IState => {
       return {
             posts: state.profile.posts,
             profileUser: state.profile.profileUser,
@@ -69,4 +69,4 @@ const mapStateToProps = (state: rootStateType): MapStateToProps => {
       }
 }
 
-export default compose<React.ComponentType>(connect<MapStateToProps, MapDispatchToProps, OwnPropsType, rootStateType>(mapStateToProps, { addPost: ProfileActions.addPost, setProfile, setStatus, updateStatus }), withRouter, withAuthRedirect)(ProfileContainer)
+export default compose<React.ComponentType>(connect<IState, IDispatch, OwnPropsType, rootStateType>(mapStateToProps, { addPost: ProfileActions.addPost, setProfile, setStatus, updateStatus }), withRouter, withAuthRedirect)(ProfileContainer)

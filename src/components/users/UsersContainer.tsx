@@ -10,7 +10,7 @@ import { getCurrentPage, getInProgress, getIsFetching, getOverall, getPageSize, 
 import { UserType } from '../../types'
 import { rootStateType } from '../../redux/store'
 
-type MapStateToProps = {
+type IState = {
       usersList: Array<UserType>
       overall: number
       pageSize: number
@@ -18,19 +18,16 @@ type MapStateToProps = {
       isFetching: boolean
       inProgress: Array<number>
 }
-
-type MapDispatchToProps = {
+type IDispatch = {
       getUsersThunk: (currentPage: number, pageSize: number) => void
       setCurrentPage: (p: number) => void
       follow: (id: number) => void
       unfollow: (id: number) => void
 }
-
 type OwnPropsType = {}
+type IProps = IState & IDispatch & OwnPropsType
 
-type PropsType = MapStateToProps & MapDispatchToProps & OwnPropsType
-
-class UsersContainer extends Component<PropsType> {
+class UsersContainer extends Component<IProps> {
       componentDidMount() {
             this.props.getUsersThunk(this.props.currentPage, this.props.pageSize)
       }
@@ -50,7 +47,7 @@ class UsersContainer extends Component<PropsType> {
       }
 }
 
-const mapStateToProps = (state: rootStateType): MapStateToProps => {
+const mapStateToProps = (state: rootStateType): IState => {
       return {
             usersList: getUsersListSelector(state),
             overall: getOverall(state),
@@ -62,7 +59,7 @@ const mapStateToProps = (state: rootStateType): MapStateToProps => {
 }
 
 export default compose<React.ComponentType>(
-      connect<MapStateToProps, MapDispatchToProps, OwnPropsType, rootStateType>(mapStateToProps, {
+      connect<IState, IDispatch, OwnPropsType, rootStateType>(mapStateToProps, {
             follow,
             unfollow,
             setCurrentPage: (thisPageNumber) => UsersActions.setCurrentPage(thisPageNumber),

@@ -7,13 +7,13 @@ import { connect } from 'react-redux'
 import { rootStateType } from '../../redux/store'
 import { MessageType, Chat } from '../../types'
 
-type MapStateToProps = {
+type IState = {
       texts: Array<MessageType>
       contacts: Array<Chat>
       auth: boolean | null
 }
 
-const mapStateToProps = (state: rootStateType): MapStateToProps => {
+const mapStateToProps = (state: rootStateType): IState => {
       return {
             texts: state.dialogs.texts,
             contacts: state.dialogs.contacts,
@@ -21,4 +21,4 @@ const mapStateToProps = (state: rootStateType): MapStateToProps => {
       }
 }
 
-export default compose<React.ComponentType>(connect(mapStateToProps, { addMessage: (message: string) => DialogsActions.addMessage(message) }), withRouter, withAuthRedirect)(Dialogs)
+export default compose<React.ComponentType>(connect<IState, {}, unknown, rootStateType>(mapStateToProps, { addMessage: (message: string) => DialogsActions.addMessage(message) }), withRouter, withAuthRedirect)(Dialogs)

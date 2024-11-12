@@ -1,10 +1,10 @@
-import styles from "../../css/Users.module.css"
-import { NavLink } from "react-router-dom"
-import Paginator from "../../assets/Paginator"
-import React from "react"
-import { UserType } from "../../types"
+import styles from '../../css/Users.module.css'
+import { NavLink } from 'react-router-dom'
+import Paginator from '../../assets/Paginator'
+import { FC } from 'react'
+import { UserType } from '../../types'
 
-type PropsType = {
+type IProps = {
       overall: number
       pageSize: number
       portionSize?: number
@@ -16,14 +16,14 @@ type PropsType = {
       setCurrentPageUsers: (b: number) => void
 }
 
-const Users: React.FC<PropsType> = (props) => {
+const Users: FC<IProps> = (props) => {
       return (
             <section className={styles.users}>
                   <Paginator overall={props.overall} pageSize={props.pageSize} currentPage={props.currentPage} setCurrentPageUsers={props.setCurrentPageUsers} portionSize={3} />
                   <ul className={styles.usersBox}>
                         {props.usersList.map((u) => (
                               <li className={styles.user} key={u.id}>
-                                    <NavLink to={"/profile/" + u.id}>
+                                    <NavLink to={'/profile/' + u.id}>
                                           <img src='https://icones.pro/wp-content/uploads/2021/04/icone-sourire-violet.png' alt='MyProfile' />
                                     </NavLink>
                                     <p>{u.name}</p>
