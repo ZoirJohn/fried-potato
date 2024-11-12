@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkfried_potato=self.webpackChunkfried_potato||[]).push([[512],{3512:(e,s,a)=>{a.r(s),a.d(s,{default:()=>l});var t=a(8088),o=a(7076),r=a(2496);const l=(0,o.A)((()=>(0,r.jsxs)("h1",{className:"fa_exclamation",children:[(0,r.jsx)(t._2o,{}),(0,r.jsx)("p",{children:"Closed for further development"})]})))}}]);
+//# sourceMappingURL=512.707ac7a9.chunk.js.map
