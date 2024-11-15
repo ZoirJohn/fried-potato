@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 import styles from '../css/Main.module.css'
 import ProfileContainer from './profile/ProfileContainer'
 import Login from './login/Login'
-import React, { lazy, Suspense } from 'react'
+import { lazy, Suspense } from 'react'
 
 const Dialogs = lazy(() => import('./dialogs/DialogsContainer'))
 const News = lazy(() => import('./news/News'))

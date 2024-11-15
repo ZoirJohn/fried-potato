@@ -47,7 +47,7 @@
     position: relative;
 }
 
-.messages .inputText {
+.messages input {
     width: 50%;
     height: 40px;
     font-size: 1rem;

@@ -7,8 +7,8 @@ import AddPostRedux from './ProfileForm'
 import { MessageType, ProfileType } from '../../types'
 
 type PropsType = {
-      profileUser: ProfileType|null
-      status: string|undefined
+      profileUser: ProfileType | null
+      status: string | undefined
       posts: Array<MessageType>
       id: number
       addPost: (text: string) => void

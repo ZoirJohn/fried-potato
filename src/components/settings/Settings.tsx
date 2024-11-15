@@ -2,7 +2,7 @@ import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { savePhoto, saveProfile } from '../../redux/profile-reducer'
-import { Component, ComponentType } from 'react'
+import { ChangeEvent, Component, ComponentType } from 'react'
 import styles from '../../css/Settings.module.css'
 import SettingsFormRedux from './SettingsForm'
 import classNames from 'classnames'
@@ -10,7 +10,7 @@ import { rootStateType } from '../../redux/store'
 
 type IState = {
       ownId: number | null
-      uploadedId: number|undefined
+      uploadedId: number | undefined
       payload: any
 }
 type IDispatch = {
@@ -56,8 +56,10 @@ class Settings extends Component<IProps, OwnState> {
             }
       }
       render() {
-            const uploadPhoto = (e: any) => {
-                  this.props.savePhoto(e.target.files[0])
+            const uploadPhoto = (e: ChangeEvent<HTMLInputElement>) => {
+                  if (e.target.files) {
+                        this.props.savePhoto(e.target.files[0])
+                  }
             }
             const formDataSubmit = (formData: FormKeysType) => {
                   this.props.saveProfile({ ...formData, contacts: { twitter: formData.twitter, instagram: formData.instagram, github: formData.github } })
@@ -91,4 +93,4 @@ const mapStateToProps = (state: rootStateType): IState => {
       }
 }
 
-export default compose<ComponentType>(connect<IState,IDispatch,OwnState,rootStateType>(mapStateToProps, { savePhoto, saveProfile }), withAuthRedirect)(Settings)
+export default compose<ComponentType>(connect<IState, IDispatch, OwnState, rootStateType>(mapStateToProps, { savePhoto, saveProfile }), withAuthRedirect)(Settings)
