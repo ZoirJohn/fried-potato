@@ -13,6 +13,7 @@ let initialState = {
       page: 1 as number | null,
       isFetching: null as boolean | null,
       inProgress: [] as Array<number>, // ? Array of user ids that are being processed by following or unfollowing
+      friendsList: [] as Array<UserType>,
 }
 
 export type InitialStateUsersType = typeof initialState
@@ -47,6 +48,12 @@ const users_reducer = (_state = initialState, action: UsersActionsTypes): Initia
                         usersList: [...action.users],
                   }
             }
+            case 'social-app/users/SET-FRIENDS': {
+                  return {
+                        ..._state,
+                        friendsList: [...action.friends],
+                  }
+            }
             case 'social-app/users/SET-CURRENT-PAGE': {
                   return {
                         ..._state,
@@ -75,6 +82,7 @@ let UsersActions = {
       followDone: (userId: number) => ({ type: 'social-app/users/FOLLOW-PROFILE', userId: userId } as const),
       unfollowDone: (userId: number) => ({ type: 'social-app/users/UNFOLLOW-PROFILE', userId: userId } as const),
       setUsers: (users: Array<UserType>) => ({ type: 'social-app/users/SET-USERS', users } as const),
+      setFriends: (friends: Array<UserType>) => ({ type: 'social-app/users/SET-FRIENDS', friends } as const),
       setCurrentPage: (thisPageNumber: number) => ({ type: 'social-app/users/SET-CURRENT-PAGE', thisPageNumber } as const),
       setFetching: (isFetching: boolean) => ({ type: 'social-app/users/SET-FETCHING', isFetching } as const),
       setInProgress: (isInProgress: boolean, id: number) =>
@@ -98,6 +106,12 @@ const getUsersThunk = (currentPage: number, pageSize: number) => async (dispatch
 }
 
 // ? Second type of typization
+const getFriendsThunk = (): ThunkAction<Promise<void>, rootStateType, unknown, UsersActionsTypes> => async (dispatch) => {
+      const data = await usersAPI.GET_FRIENDS()
+      if (data.items) {
+            dispatch(UsersActions.setFriends(data.items))
+      }
+}
 const unfollow =
       (userId: number): ThunkAction<Promise<void>, rootStateType, unknown, UsersActionsTypes> =>
       async (dispatch) => {
@@ -106,6 +120,7 @@ const unfollow =
             if (data.resultCode === ResultCodeSuccessError.Success) {
                   dispatch(UsersActions.unfollowDone(userId))
                   dispatch(UsersActions.setInProgress(false, userId))
+                  dispatch(getFriendsThunk())
             }
       }
 
@@ -120,4 +135,4 @@ const follow =
             }
       }
 
-export { users_reducer, UsersActions, getUsersThunk, follow, unfollow }
+export { users_reducer, UsersActions, getUsersThunk, getFriendsThunk, follow, unfollow }

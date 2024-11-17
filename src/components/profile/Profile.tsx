@@ -34,6 +34,7 @@ const Profile: React.FC<PropsType> = (props) => {
       const handleWord = () => {
             setWord((word = currentWord))
       }
+      // debugger
       return (
             <section className={styles.profile}>
                   <img src={background} alt='background' />
@@ -47,7 +48,7 @@ const Profile: React.FC<PropsType> = (props) => {
                                     <span>Status: </span>
                                     {!edit && (
                                           <pre className={styles['status-word']} onDoubleClick={handleStatus}>
-                                                {word}
+                                                {typeof word==='string' ? word : 'NO STATUS'}
                                           </pre>
                                     )}
                                     <pre onDoubleClick={handleStatus}>

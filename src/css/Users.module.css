@@ -1,101 +1,114 @@
 .users {
-    padding: 1em 0;
-    position: relative;
+      padding: 1em 0;
+      position: relative;
+}
+.usersBox{
+      max-height: 600px;
+}.friendsBox{
+      max-height: 250px;
+}
+.usersBox,
+.friendsBox {
+      padding: 1em;
+      display: grid;
+      grid-template-columns: repeat(4, 200px);
+      gap: 1em;
+      overflow-x: hidden;
 }
 
-.usersBox {
-    padding: 1em;
-    display: grid;
-    grid-template-columns: repeat(4, 200px);
-    gap: 1em;
-    overflow-x: hidden;
-    max-height: 600px;
+.usersBox::-webkit-scrollbar,
+.friendsBox:-webkit-scrollbar {
+      width: 10px;
+      background: #e5e5e5;
 }
 
-.usersBox::-webkit-scrollbar {
-    width: 10px;
-    background: #e5e5e5;
+.usersBox::-webkit-scrollbar-thumb,
+.friendsBox::-webkit-scrollbar-thumb {
+      height: 20px;
+      background: #9b9b9b;
+      border-radius: 50px;
 }
 
-.usersBox::-webkit-scrollbar-thumb {
-    height: 20px;
-    background: #9b9b9b;
-    border-radius: 50px;
-}
-
-.usersBox::-webkit-scrollbar-button {
-    display: none;
+.usersBox::-webkit-scrollbar-button,
+.friendsBox::-webkit-scrollbar-thumb {
+      display: none;
 }
 
 .user {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5em 0;
-    box-shadow: 0 0 5px #000;
-    padding: 1em;
-    transition: 200ms;
-    text-decoration: none;
-    color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5em 0;
+      box-shadow: 0 0 5px #000;
+      padding: 1em;
+      transition: 200ms;
+      text-decoration: none;
+      color: #000;
 }
 
 .user:hover {
-    box-shadow: 0 0 8px #000;
+      box-shadow: 0 0 8px #000;
 }
 
 .user img {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 50%;
 }
 
 .pageButton {
-    width: 2em;
-    height: 2em;
-    font-size: 1rem;
-    margin: 0 0 0 1em;
+      width: 2em;
+      height: 2em;
+      font-size: 1rem;
+      margin: 0 0 0 1em;
 }
 
 .pageButton.current {
-    transform: scale(120%);
+      transform: scale(120%);
 }
 
 #prev {
-    right: 20%;
+      right: 20%;
 }
 
 #next {
-    right: 10%;
-    margin: 0 0 0 1em;
+      right: 10%;
+      margin: 0 0 0 1em;
 }
 
 .paginatorScrollButton {
-    position: absolute;
-    width: 75px;
-    height: 25px;
-    right: 0;
+      position: absolute;
+      width: 75px;
+      height: 25px;
+      right: 0;
+}
+.friends {
+      margin: 0 0 0 1em;
+      height: 2em;
+      font-size: 1rem;
+      padding: 0 0.5em;
+      font-family: sans-serif;
+}
+@media (max-width: 1200px) {
+      .usersBox {
+            grid-template-columns: repeat(3, 200px);
+      }
 }
 
-@media (max-width:1200px) {
-    .usersBox {
-        grid-template-columns: repeat(3, 200px);
-    }
+@media (max-width: 1024px) {
+      .usersBox {
+            grid-template-columns: repeat(2, 200px);
+      }
 }
 
-@media (max-width:1024px) {
-    .usersBox {
-        grid-template-columns: repeat(2, 200px);
-    }
-}
-
-@media (max-width:768px) {
-    .usersBox {
-        grid-template-columns: repeat(2, 150px);
-        padding: 1em 0.5em;
-        gap: 0.5em 1em;
-    }
-    .user{
-        padding: 0.5em;
-    }
+@media (max-width: 768px) {
+      .usersBox {
+            grid-template-columns: repeat(2, 150px);
+            padding: 1em 0.5em;
+            gap: 0.5em 1em;
+      }
+      .user {
+            padding: 0.5em;
+      }
 }

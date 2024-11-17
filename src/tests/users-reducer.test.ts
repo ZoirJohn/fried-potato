@@ -7,7 +7,7 @@ jest.mock('../api/users-api')
 const mockAPI = usersAPI as jest.Mocked<typeof usersAPI>
 const response = { messages: ['Success has happened'], resultCode: ResultCodeSuccessError.Success, data: {} }
 
-test('follow thunk', async () => {
+test('follow thunk should succeed', async () => {
       mockAPI.FOLLOW.mockReturnValue(Promise.resolve(response))
 
       const thunk = follow(1)
@@ -19,5 +19,4 @@ test('follow thunk', async () => {
       expect(dispatch).toHaveBeenCalledTimes(3)
       expect(dispatch).toHaveBeenCalledWith(UsersActions.setInProgress(true, 1))
       expect(dispatch).toHaveBeenCalledWith(UsersActions.setInProgress(false, 1))
-
 })

@@ -1,5 +1,5 @@
-import styles from "../css/Users.module.css"
-import React, { useState } from "react"
+import styles from '../css/Users.module.css'
+import React, { useState } from 'react'
 
 type PropsType = { overall: number; pageSize: number; portionSize: number; currentPage: number; setCurrentPageUsers: (b: number) => void }
 
@@ -26,7 +26,7 @@ const Paginator: React.FC<PropsType> = ({ overall, pageSize, portionSize, curren
                                     setPortionNumber(portionNumber - 1)
                               }}
                         >
-                              {"<< PREV"}
+                              {'<< PREV'}
                         </button>
                   )}
 
@@ -34,7 +34,7 @@ const Paginator: React.FC<PropsType> = ({ overall, pageSize, portionSize, curren
                         .filter((p) => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                         .map((b, id) => {
                               return (
-                                    <button key={id} className={`${currentPage === b ? styles.current : ""} ${styles.pageButton}`} onClick={(e) => setCurrentPageUsers(b)}>
+                                    <button key={id} className={`${currentPage === b ? styles.current : ''} ${styles.pageButton}`} onClick={(e) => setCurrentPageUsers(b)}>
                                           {b}
                                     </button>
                               )
@@ -48,7 +48,7 @@ const Paginator: React.FC<PropsType> = ({ overall, pageSize, portionSize, curren
                                     setPortionNumber(portionNumber + 1)
                               }}
                         >
-                              {"NEXT >>"}
+                              {'NEXT >>'}
                         </button>
                   )}
             </>
