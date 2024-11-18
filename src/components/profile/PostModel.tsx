@@ -1,7 +1,7 @@
-import React from "react"
-import styles from "../../css/PostModel.module.css"
-import profilePhoto from "../../img/profile.jpg"
-import { AiOutlineLike } from "react-icons/ai"
+import React, { useState } from 'react'
+import styles from '../../css/PostModel.module.css'
+import profilePhoto from '../../img/profile.jpg'
+import { AiOutlineLike } from 'react-icons/ai'
 
 type PropsType = {
       text: string
@@ -9,14 +9,15 @@ type PropsType = {
 }
 
 const PostModel: React.FC<PropsType> = (props) => {
+      let [like, setLikeNumber] = useState(props.likeNumber)
       return (
             <li className={styles.item}>
                   <img src={profilePhoto} alt='' />
                   <p>{props.text}</p>
                   <div className={styles.buttons}>
                         <p>
-                              <AiOutlineLike />
-                              <span>{props.likeNumber}</span>
+                              <AiOutlineLike onClick={() => setLikeNumber(like + 1)} />
+                              <span>{like}</span>
                         </p>
                   </div>
             </li>

@@ -19,6 +19,8 @@ type IProps = {
 
 const Users: FC<IProps> = (props) => {
       let [toggle, setToggle] = useState(true)
+      console.log(props.friendsList)
+
       return (
             <section className={styles.users}>
                   <Paginator overall={props.overall} pageSize={props.pageSize} currentPage={props.currentPage} setCurrentPageUsers={props.setCurrentPageUsers} portionSize={3} />
@@ -49,7 +51,7 @@ const Users: FC<IProps> = (props) => {
                               {props.friendsList.map((u) => (
                                     <li className={styles.user} key={u.id}>
                                           <NavLink to={'/profile/' + u.id}>
-                                                <img src='https://icones.pro/wp-content/uploads/2021/04/icone-sourire-violet.png' alt='MyProfile' />
+                                                <img src={u.photos?.small || 'https://icones.pro/wp-content/uploads/2021/04/icone-sourire-violet.png'} alt='MyProfile' />
                                           </NavLink>
                                           <p>{u.name}</p>
                                           {u.followed ? (
