@@ -10,6 +10,7 @@
 }
 .friendsBox {
       max-height: 250px;
+      grid-column: 1/5;
 }
 .usersBox,
 .friendsBox {

@@ -55,9 +55,7 @@ const users_reducer = (_state = initialState, action: UsersActionsTypes): Initia
                   }
             }
             case 'social-app/users/SEARCH-USERS': {
-                  console.log(action.users)
-
-                  return { ..._state }
+                  return { ..._state, usersList: [...action.users] }
             }
             case 'social-app/users/SET-CURRENT-PAGE': {
                   return {
@@ -149,4 +147,4 @@ const follow =
             }
       }
 
-export { users_reducer, UsersActions, getUsersThunk, getFriendsThunk,searchUsersThunk, follow, unfollow }
+export { users_reducer, UsersActions, getUsersThunk, getFriendsThunk, searchUsersThunk, follow, unfollow }

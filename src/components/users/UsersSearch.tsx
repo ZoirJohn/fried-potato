@@ -10,10 +10,8 @@ const UsersSearch: React.FC<IProps> = (props) => {
             <Formik
                   initialValues={{ name: '' }}
                   onSubmit={(values, { setSubmitting }) => {
-                        setTimeout(() => {
-                              props.searchUsers(values.name)
-                              setSubmitting(false)
-                        }, 1000)
+                        props.searchUsers(values.name)
+                        setSubmitting(false)
                   }}
                   className={styles.formBlank}
             >
