@@ -54,6 +54,11 @@ const users_reducer = (_state = initialState, action: UsersActionsTypes): Initia
                         friendsList: [...action.friends],
                   }
             }
+            case 'social-app/users/SEARCH-USERS': {
+                  console.log(action.users)
+
+                  return { ..._state }
+            }
             case 'social-app/users/SET-CURRENT-PAGE': {
                   return {
                         ..._state,
@@ -83,6 +88,7 @@ let UsersActions = {
       unfollowDone: (userId: number) => ({ type: 'social-app/users/UNFOLLOW-PROFILE', userId: userId } as const),
       setUsers: (users: Array<UserType>) => ({ type: 'social-app/users/SET-USERS', users } as const),
       setFriends: (friends: Array<UserType>) => ({ type: 'social-app/users/SET-FRIENDS', friends } as const),
+      searchUsers: (users: Array<UserType>) => ({ type: 'social-app/users/SEARCH-USERS', users } as const),
       setCurrentPage: (thisPageNumber: number) => ({ type: 'social-app/users/SET-CURRENT-PAGE', thisPageNumber } as const),
       setFetching: (isFetching: boolean) => ({ type: 'social-app/users/SET-FETCHING', isFetching } as const),
       setInProgress: (isInProgress: boolean, id: number) =>
@@ -112,6 +118,14 @@ const getFriendsThunk = (): ThunkAction<Promise<void>, rootStateType, unknown, U
             dispatch(UsersActions.setFriends(data.items))
       }
 }
+const searchUsersThunk =
+      (term: string): ThunkAction<Promise<void>, rootStateType, unknown, UsersActionsTypes> =>
+      async (dispatch) => {
+            const data = await usersAPI.SEARCH_USERS(term)
+            if (data.items) {
+                  dispatch(UsersActions.searchUsers(data.items))
+            }
+      }
 const unfollow =
       (userId: number): ThunkAction<Promise<void>, rootStateType, unknown, UsersActionsTypes> =>
       async (dispatch) => {
@@ -135,4 +149,4 @@ const follow =
             }
       }
 
-export { users_reducer, UsersActions, getUsersThunk, getFriendsThunk, follow, unfollow }
+export { users_reducer, UsersActions, getUsersThunk, getFriendsThunk,searchUsersThunk, follow, unfollow }

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { Component } from 'react'
 import Users from './Users'
 import Loader from '../../assets/Loader'
-import { follow, getUsersThunk, UsersActions, unfollow, getFriendsThunk } from '../../redux/users-reducer'
+import { follow, getUsersThunk, UsersActions, unfollow, getFriendsThunk, searchUsersThunk } from '../../redux/users-reducer'
 import { withRouter } from '../../hoc/withRouter'
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
@@ -22,6 +22,7 @@ type IState = {
 type IDispatch = {
       getUsersThunk: (currentPage: number, pageSize: number) => void
       getFriendsThunk: () => void
+      searchUsersThunk: (term: string) => void
       setCurrentPage: (p: number) => void
       follow: (id: number) => void
       unfollow: (id: number) => void
@@ -44,7 +45,7 @@ class UsersContainer extends Component<IProps> {
             return (
                   <>
                         <Loader isFetching={this.props.isFetching} />
-                        <Users overall={this.props.overall} pageSize={this.props.pageSize} currentPage={this.props.currentPage} usersList={this.props.usersList} setCurrentPageUsers={this.setCurrentPageUsers} follow={this.props.follow} unfollow={this.props.unfollow} inProgress={this.props.inProgress} friendsList={this.props.friendsList} />
+                        <Users overall={this.props.overall} pageSize={this.props.pageSize} currentPage={this.props.currentPage} usersList={this.props.usersList} setCurrentPageUsers={this.setCurrentPageUsers} follow={this.props.follow} unfollow={this.props.unfollow} inProgress={this.props.inProgress} friendsList={this.props.friendsList} searchUsers={this.props.searchUsersThunk}/>
                   </>
             )
       }
@@ -69,6 +70,7 @@ export default compose<React.ComponentType>(
             setCurrentPage: (thisPageNumber) => UsersActions.setCurrentPage(thisPageNumber),
             getUsersThunk,
             getFriendsThunk,
+            searchUsersThunk,
       }),
       withRouter,
       withAuthRedirect

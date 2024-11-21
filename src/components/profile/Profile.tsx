@@ -47,7 +47,7 @@ const Profile: React.FC<PropsType> = (props) => {
                                     <span>Status: </span>
                                     {!edit && (
                                           <pre className={styles['status-word']} onDoubleClick={handleStatus}>
-                                                {typeof word === 'string' ? word : 'LOADING... Please refresh'}
+                                                {typeof word === 'string' ? word : props.status && 'LOADING... Please refresh'}
                                           </pre>
                                     )}
                                     <pre onDoubleClick={handleStatus}>

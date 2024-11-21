@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import Paginator from '../../assets/Paginator'
 import { FC, useState } from 'react'
 import { UserType } from '../../types'
+import UsersSearch from './UsersSearch'
 
 type IProps = {
       overall: number
@@ -15,18 +16,19 @@ type IProps = {
       follow: (id: number) => void
       unfollow: (id: number) => void
       setCurrentPageUsers: (b: number) => void
+      searchUsers: (term: string) => void
 }
 
 const Users: FC<IProps> = (props) => {
       let [toggle, setToggle] = useState(true)
-      console.log(props.friendsList)
-
       return (
             <section className={styles.users}>
                   <Paginator overall={props.overall} pageSize={props.pageSize} currentPage={props.currentPage} setCurrentPageUsers={props.setCurrentPageUsers} portionSize={3} />
                   <button className={styles.friends} onClick={() => setToggle(!toggle)}>
                         Friends
                   </button>
+                  <UsersSearch searchUsers={props.searchUsers} />
+
                   <ul className={styles.usersBox}>
                         {props.usersList.map((u) => (
                               <li className={styles.user} key={u.id}>

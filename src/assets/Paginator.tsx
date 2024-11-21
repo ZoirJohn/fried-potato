@@ -17,7 +17,7 @@ const Paginator: React.FC<PropsType> = ({ overall, pageSize, portionSize, curren
       let rightPortionPageNumber = portionNumber * portionSize
 
       return (
-            <>
+            <div className={styles.paginator}>
                   {portionNumber > 1 && (
                         <button
                               className={styles.paginatorScrollButton}
@@ -51,7 +51,7 @@ const Paginator: React.FC<PropsType> = ({ overall, pageSize, portionSize, curren
                               {'NEXT >>'}
                         </button>
                   )}
-            </>
+            </div>
       )
 }
 

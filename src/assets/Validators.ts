@@ -10,5 +10,4 @@ const minLength: ValidatorOfLength = (min) => (value) => {
 const required: Validator = (value) => {
       return !value ? `This field is required` : undefined
 }
-
 export { maxLength, minLength, required }
