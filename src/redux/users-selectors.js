@@ -19,7 +19,9 @@ export const getIsFetching = (state) => {
 export const getInProgress = (state) => {
       return state.users.inProgress
 }
-
+export const getFilter = (state) => {
+      return state.users.filter
+}
 export const getUsersListSelector = createSelector(getUsersList, (users) => {
       return users.filter((user) => user)
 }) // * Complicated selector that uses primitive selector as a parameter

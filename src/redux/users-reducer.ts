@@ -13,7 +13,7 @@ let initialState = {
       page: 1 as number | null,
       isFetching: null as boolean | null,
       inProgress: [] as Array<number>, // ? Array of user ids that are being processed by following or unfollowing
-      friendsList: [] as Array<UserType>,
+      filter: {},
 }
 
 export type InitialStateUsersType = typeof initialState
@@ -48,12 +48,7 @@ const users_reducer = (_state = initialState, action: UsersActionsTypes): Initia
                         usersList: [...action.users],
                   }
             }
-            case 'social-app/users/SET-FRIENDS': {
-                  return {
-                        ..._state,
-                        friendsList: [...action.friends],
-                  }
-            }
+
             case 'social-app/users/SEARCH-USERS': {
                   return { ..._state, usersList: [...action.users] }
             }
@@ -73,6 +68,12 @@ const users_reducer = (_state = initialState, action: UsersActionsTypes): Initia
                   return {
                         ..._state,
                         inProgress: action.isInProgress ? [..._state.inProgress, action.id] : _state.inProgress.filter((i) => i !== action.id),
+                  }
+            }
+            case 'social-app/users/SET-FILTER-SEARCH': {
+                  return {
+                        ..._state,
+                        filter: { ...action.payload },
                   }
             }
             default: {
@@ -95,14 +96,16 @@ let UsersActions = {
                   isInProgress,
                   id,
             } as const),
+      setFilterSearch: (term: string, onlyFriends: boolean | null) => ({ type: 'social-app/users/SET-FILTER-SEARCH', payload: { term, onlyFriends } } as const),
 }
 
 type UsersActionsTypes = ActionsTypes<typeof UsersActions>
 
 // ? One type of typization
-const getUsersThunk = (currentPage: number, pageSize: number) => async (dispatch: Dispatch<UsersActionsTypes>, getState: rootStateType) => {
+const getUsersThunk = (currentPage: number, pageSize: number, onlyFriends: boolean | null, term: string) => async (dispatch: Dispatch<UsersActionsTypes>, getState: rootStateType) => {
       dispatch(UsersActions.setFetching(true))
-      const data = await usersAPI.GET_USERS(currentPage, pageSize)
+      dispatch(UsersActions.setCurrentPage(currentPage))
+      const data = await usersAPI.GET_USERS(currentPage, pageSize, onlyFriends)
       if (data.items) {
             dispatch(UsersActions.setUsers(data.items))
             dispatch(UsersActions.setFetching(false))
@@ -110,20 +113,7 @@ const getUsersThunk = (currentPage: number, pageSize: number) => async (dispatch
 }
 
 // ? Second type of typization
-const getFriendsThunk = (): ThunkAction<Promise<void>, rootStateType, unknown, UsersActionsTypes> => async (dispatch) => {
-      const data = await usersAPI.GET_FRIENDS()
-      if (data.items) {
-            dispatch(UsersActions.setFriends(data.items))
-      }
-}
-const searchUsersThunk =
-      (term: string): ThunkAction<Promise<void>, rootStateType, unknown, UsersActionsTypes> =>
-      async (dispatch) => {
-            const data = await usersAPI.SEARCH_USERS(term)
-            if (data.items) {
-                  dispatch(UsersActions.searchUsers(data.items))
-            }
-      }
+const searchUsersThunk = getUsersThunk
 const unfollow =
       (userId: number): ThunkAction<Promise<void>, rootStateType, unknown, UsersActionsTypes> =>
       async (dispatch) => {
@@ -132,7 +122,6 @@ const unfollow =
             if (data.resultCode === ResultCodeSuccessError.Success) {
                   dispatch(UsersActions.unfollowDone(userId))
                   dispatch(UsersActions.setInProgress(false, userId))
-                  dispatch(getFriendsThunk())
             }
       }
 
@@ -147,4 +136,4 @@ const follow =
             }
       }
 
-export { users_reducer, UsersActions, getUsersThunk, getFriendsThunk, searchUsersThunk, follow, unfollow }
+export { users_reducer, UsersActions, getUsersThunk, searchUsersThunk, follow, unfollow }
