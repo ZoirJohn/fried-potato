@@ -23,7 +23,7 @@ type IState = {
       }
 }
 type IDispatch = {
-      getUsersThunk: (currentPage: number, pageSize: number, term: string, searched?: boolean) => void
+      getUsersThunk: (currentPage: number, pageSize: number, term: string, onlyFriends: boolean | null, searched?: boolean) => void
       setCurrentPage: (p: number) => void
       follow: (id: number) => void
       unfollow: (id: number) => void
@@ -33,14 +33,13 @@ type IProps = IState & IDispatch & OwnPropsType
 
 class UsersContainer extends Component<IProps> {
       componentDidMount() {
-            this.props.getUsersThunk(this.props.currentPage, this.props.pageSize, this.props.filter.term)
+            this.props.getUsersThunk(this.props.currentPage, this.props.pageSize, this.props.filter.term, this.props.filter.onlyFriends)
       }
       setCurrentPageUsers = (p: number) => {
-            this.props.getUsersThunk(p, this.props.pageSize, this.props.filter.term)
+            this.props.getUsersThunk(p, this.props.pageSize, this.props.filter.term, this.props.filter.onlyFriends)
       }
-      setFilterSearch = (term: string) => {
-            console.log(this.props.currentPage)
-            this.props.getUsersThunk(1, this.props.pageSize, term, true)
+      setFilterSearch = (term: string, onlyFriends: boolean | null) => {
+            this.props.getUsersThunk(1, this.props.pageSize, term, onlyFriends, true)
       }
       render() {
             return (

@@ -7,7 +7,7 @@ type IProps = {
             term: string
             onlyFriends: boolean | null
       }
-      setFilterSearch: (term: string) => void
+      setFilterSearch: (term: string, onlyFriends: null | boolean) => void
 }
 
 const UsersSearch: FC<IProps> = memo((props) => {
@@ -16,11 +16,11 @@ const UsersSearch: FC<IProps> = memo((props) => {
                   initialValues={{ name: '', onlyFriends: '' }}
                   onSubmit={(values, { setSubmitting }) => {
                         if (values.onlyFriends === 'true') {
-                              props.setFilterSearch(values.name)
+                              props.setFilterSearch(values.name, true)
                         } else if (values.onlyFriends === 'false') {
-                              props.setFilterSearch(values.name)
+                              props.setFilterSearch(values.name, false)
                         } else {
-                              props.setFilterSearch(values.name)
+                              props.setFilterSearch(values.name, null)
                         }
                         setSubmitting(false)
                   }}

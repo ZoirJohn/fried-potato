@@ -105,12 +105,12 @@ type UsersActionsTypes = ActionsTypes<typeof UsersActions>
 
 // ? One type of typization
 const getUsersThunk =
-      (currentPage: number, pageSize: number, term: string, searched: boolean = false) =>
+      (currentPage: number, pageSize: number, term: string, onlyFriends: boolean | null, searched: boolean = false) =>
       async (dispatch: Dispatch<UsersActionsTypes>, getState: rootStateType) => {
             dispatch(UsersActions.setFetching(true))
             dispatch(UsersActions.setCurrentPage(currentPage))
             dispatch(UsersActions.setFilter(term))
-            const data = await usersAPI.GET_USERS(currentPage, pageSize, term)
+            const data = await usersAPI.GET_USERS(currentPage, pageSize, term, onlyFriends)
             if (data.items) {
                   if (searched) {
                         dispatch(UsersActions.setOverall(data.totalCount))

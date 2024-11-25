@@ -19,7 +19,7 @@ type IProps = {
       follow: (id: number) => void
       unfollow: (id: number) => void
       setCurrentPageUsers: (b: number) => void
-      setFilterSearch: (term: string) => void
+      setFilterSearch: (term: string, onlyFriends: null | boolean) => void
 }
 
 const Users: FC<IProps> = (props) => {
