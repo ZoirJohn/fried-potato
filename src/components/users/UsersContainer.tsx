@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { Component } from 'react'
 import Users from './Users'
 import Loader from '../../assets/Loader'
-import { follow, getUsersThunk, UsersActions, unfollow, searchUsersThunk } from '../../redux/users-reducer'
+import { follow, getUsersThunk, UsersActions, unfollow } from '../../redux/users-reducer'
 import { withRouter } from '../../hoc/withRouter'
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
@@ -23,21 +23,24 @@ type IState = {
       }
 }
 type IDispatch = {
-      getUsersThunk: (currentPage: number, pageSize: number, onlyFriends: boolean | null, term: string) => void
+      getUsersThunk: (currentPage: number, pageSize: number, term: string, searched?: boolean) => void
       setCurrentPage: (p: number) => void
       follow: (id: number) => void
       unfollow: (id: number) => void
-      setFilterSearch: (term: string, onlyFriends: boolean | null) => void
 }
 type OwnPropsType = {}
 type IProps = IState & IDispatch & OwnPropsType
 
 class UsersContainer extends Component<IProps> {
       componentDidMount() {
-            this.props.getUsersThunk(this.props.currentPage, this.props.pageSize, this.props.filter.onlyFriends, this.props.filter.term)
+            this.props.getUsersThunk(this.props.currentPage, this.props.pageSize, this.props.filter.term)
       }
       setCurrentPageUsers = (p: number) => {
-            this.props.getUsersThunk(p, this.props.pageSize, this.props.filter.onlyFriends, this.props.filter.term)
+            this.props.getUsersThunk(p, this.props.pageSize, this.props.filter.term)
+      }
+      setFilterSearch = (term: string) => {
+            console.log(this.props.currentPage)
+            this.props.getUsersThunk(1, this.props.pageSize, term, true)
       }
       render() {
             return (
@@ -52,7 +55,7 @@ class UsersContainer extends Component<IProps> {
                               follow={this.props.follow}
                               unfollow={this.props.unfollow}
                               inProgress={this.props.inProgress}
-                              setFilterSearch={this.props.setFilterSearch}
+                              setFilterSearch={this.setFilterSearch}
                               filter={this.props.filter}
                         />
                   </>
@@ -77,8 +80,7 @@ export default compose<React.ComponentType>(
             follow,
             unfollow,
             getUsersThunk,
-            setCurrentPage: (thisPageNumber) => UsersActions.setCurrentPage(thisPageNumber),
-            setFilterSearch: UsersActions.setFilterSearch,
+            setCurrentPage: UsersActions.setCurrentPage,
       }),
       withRouter,
       withAuthRedirect

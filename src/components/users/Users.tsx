@@ -19,15 +19,14 @@ type IProps = {
       follow: (id: number) => void
       unfollow: (id: number) => void
       setCurrentPageUsers: (b: number) => void
-      // searchUsersThunk: (currentPage: number, pageSize: number,onlyFriends:boolean|null) => void
-      setFilterSearch: (term: string,onlyFriends:boolean|null) => void
+      setFilterSearch: (term: string) => void
 }
 
 const Users: FC<IProps> = (props) => {
       return (
             <section className={styles.users}>
                   <Paginator overall={props.overall} pageSize={props.pageSize} currentPage={props.currentPage} setCurrentPageUsers={props.setCurrentPageUsers} portionSize={3} />
-                  <UsersSearch setFilterSearch={props.setFilterSearch} filter={props.filter}/>
+                  <UsersSearch setFilterSearch={props.setFilterSearch} filter={props.filter} />
 
                   <ul className={styles.usersBox}>
                         {props.usersList.map((u) => (

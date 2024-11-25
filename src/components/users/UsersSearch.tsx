@@ -1,3 +1,4 @@
+import React, { FC, memo } from 'react'
 import { Field, Formik } from 'formik'
 import styles from '../../css/Users.module.css'
 
@@ -6,21 +7,20 @@ type IProps = {
             term: string
             onlyFriends: boolean | null
       }
-      // searchUsersThunk: (currentPage: number, pageSize: number, onlyFriends: boolean | null) => void
-      setFilterSearch: (term: string, onlyFriends: boolean | null) => void
+      setFilterSearch: (term: string) => void
 }
 
-const UsersSearch: React.FC<IProps> = (props) => {
+const UsersSearch: FC<IProps> = memo((props) => {
       return (
             <Formik
                   initialValues={{ name: '', onlyFriends: '' }}
                   onSubmit={(values, { setSubmitting }) => {
                         if (values.onlyFriends === 'true') {
-                              props.setFilterSearch(values.name, true)
+                              props.setFilterSearch(values.name)
                         } else if (values.onlyFriends === 'false') {
-                              props.setFilterSearch(values.name, false)
+                              props.setFilterSearch(values.name)
                         } else {
-                              props.setFilterSearch(values.name, null)
+                              props.setFilterSearch(values.name)
                         }
                         setSubmitting(false)
                   }}
@@ -33,14 +33,14 @@ const UsersSearch: React.FC<IProps> = (props) => {
                                     Search
                               </button>
                               <Field name='onlyFriends' as='select'>
+                                    <option value='null'>All</option>
                                     <option value='true'>Only followed</option>
                                     <option value='false'>Only unfollowed</option>
-                                    <option value='null'>All</option>
                               </Field>
                         </form>
                   )}
             </Formik>
       )
-}
+})
 
 export default UsersSearch

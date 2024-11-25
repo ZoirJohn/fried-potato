@@ -8,8 +8,8 @@ type UsersResponseType = {
       error: string
 }
 export const usersAPI = {
-      GET_USERS: (currentPage: number, pageSize: number, friend: boolean|null, term: string = '') => {
-            return instance.get<UsersResponseType>(`users?page=${currentPage}&count=${pageSize}&term=${term}&friend=${friend}`).then((res) => res.data)
+      GET_USERS: (currentPage: number, pageSize: number,  term: string = '') => {
+            return instance.get<UsersResponseType>(`users?page=${currentPage}&count=${pageSize}&term=${term}`).then((res) => res.data)
       },
       GET_FRIENDS: () => {
             return instance.get<UsersResponseType>('users?friend=true').then((res) => res.data)
