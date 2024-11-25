@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component, FC, useEffect } from 'react'
+import { connect, useDispatch, useSelector } from 'react-redux'
 import Profile from './Profile'
 import Loader from '../../assets/Loader'
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
@@ -7,7 +7,9 @@ import { compose } from 'redux'
 import { ProfileActions, setProfile, setStatus, updateStatus } from '../../redux/profile-reducer'
 import { withRouter } from '../../hoc/withRouter'
 import { MessageType, ProfileType } from '../../types'
-import { rootStateType } from '../../redux/store'
+import { IDispatch, rootStateType } from '../../redux/store'
+import { useParams } from 'react-router-dom'
+import { getId, getProfileUser } from '../../selectors'
 
 type IState = {
       posts: Array<MessageType>
@@ -15,12 +17,12 @@ type IState = {
       status: string | undefined
       id: number
 }
-type IDispatch = {
-      addPost: (formData: string) => void
-      updateStatus: (text: string, id: number) => void
-      setProfile: (id: number) => void
-      setStatus: (id: number) => void
-}
+// type IDispatch = {
+//       addPost: (formData: string) => void
+//       updateStatus: (text: string, id: number) => void
+//       setProfile: (id: number) => void
+//       setStatus: (id: number) => void
+// }
 
 type IRouter = {
       params: {
@@ -33,40 +35,35 @@ type IRouter = {
 type OwnPropsType = {
       router: IRouter
 }
-type IProps = IState & OwnPropsType & IDispatch
+type IProps = IState & OwnPropsType
 
-class ProfileContainer extends Component<IProps> {
-      refreshProfile() {
-            let id = this.props.router.params.userId
-            if (!id) id = this.props.id
-            this.props.setProfile(id)
-            this.props.setStatus(id)
+const ProfileContainer: FC = () => {
+      const params = useParams()
+      const profileUserId = useSelector(getId)
+      const dispatch: IDispatch = useDispatch()
+      const profileUser=useSelector(getProfileUser)
+      const refreshProfile = () => {
+            let id = params.userId as unknown as number
+            if (!id) id = profileUserId as number
+            dispatch(setProfile(id))
+            dispatch(setStatus(id))
       }
-      componentDidMount() {
-            this.refreshProfile()
+      useEffect(() => {
+            refreshProfile()
+      }, [])
+
+      // shouldComponentUpdate(nextProps: IProps) {
+      //       return nextProps.status === this.props.status
+      // }
+      // componentDidUpdate(prevProps: IProps) {
+      //       if (this.props.router.params.userId != prevProps.router.params.userId) {
+      //             this.refreshProfile()
+      //       }
+      // }
+      if (!profileUser) {
+            return <Loader isFetching={true} />
       }
-      shouldComponentUpdate(nextProps: IProps) {
-            return nextProps.status === this.props.status
-      }
-      componentDidUpdate(prevProps: IProps) {
-            if (this.props.router.params.userId != prevProps.router.params.userId) {
-                  this.refreshProfile()
-            }
-      }
-      render() {
-            if (!this.props.profileUser) {
-                  return <Loader isFetching={true} />
-            }
-            return <Profile {...this.props} />
-      }
-}
-const mapStateToProps = (state: rootStateType): IState => {
-      return {
-            posts: state.profile.posts,
-            profileUser: state.profile.profileUser,
-            status: state.profile.status,
-            id: state.auth.id as number,
-      }
+      return <Profile />
 }
 
-export default compose<React.ComponentType>(connect<IState, IDispatch, OwnPropsType, rootStateType>(mapStateToProps, { addPost: ProfileActions.addPost, setProfile, setStatus, updateStatus }), withRouter, withAuthRedirect)(ProfileContainer)
+export default compose<React.ComponentType>(withAuthRedirect)(ProfileContainer)

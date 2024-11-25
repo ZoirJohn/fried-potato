@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 import { FC, useEffect } from 'react'
 import { UserType } from '../../types'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCurrentPage, getFilter, getInProgress, getOverall, getPageSize, getUsersList } from '../../redux/users-selectors'
+import { getCurrentPage, getFilter, getInProgress, getOverall, getPageSize, getUsersList } from '../../selectors'
 import { getUsersThunk } from '../../redux/users-reducer'
 import { IDispatch } from '../../redux/store'
 import { follow, unfollow } from '../../redux/users-reducer'
@@ -20,14 +20,15 @@ const Users: FC<IProps> = (props) => {
       const filter = useSelector(getFilter)
       const inProgress = useSelector(getInProgress)
       const dispatch: IDispatch = useDispatch()
+
       useEffect(() => {
             dispatch(getUsersThunk(currentPage, pageSize, filter.term, filter.onlyFriends))
       }, [])
-      const setCurrentPageUsers = (page:number) => {
+      const setCurrentPageUsers = (page: number) => {
             dispatch(getUsersThunk(page, pageSize, filter.term, filter.onlyFriends))
       }
       const setFilterSearch = (term: string, onlyFriends: boolean | null) => {
-            dispatch(getUsersThunk(1, pageSize, term, onlyFriends,true))
+            dispatch(getUsersThunk(1, pageSize, term, onlyFriends, true))
       }
       const followUser = (userId: number) => {
             dispatch(follow(userId))
@@ -35,7 +36,6 @@ const Users: FC<IProps> = (props) => {
       const unfollowUser = (userId: number) => {
             dispatch(unfollow(userId))
       }
-      console.log(users);
       return (
             <section className={styles.users}>
                   <Paginator overall={overall} pageSize={pageSize} currentPage={currentPage} setCurrentPageUsers={setCurrentPageUsers} portionSize={3} />
@@ -45,7 +45,7 @@ const Users: FC<IProps> = (props) => {
                         {users.map((u: UserType) => (
                               <li className={styles.user} key={u.id}>
                                     <NavLink to={'/profile/' + u.id}>
-                                          <img src='https://icones.pro/wp-content/uploads/2021/04/icone-sourire-violet.png' alt='MyProfile' />
+                                          <img src={u.photos?.small || `https://icones.pro/wp-content/uploads/2021/04/icone-sourire-violet.png`} alt='MyProfile' />
                                     </NavLink>
                                     <p>{u.name}</p>
                                     {u.followed ? (

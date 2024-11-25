@@ -7,13 +7,16 @@ import { Dispatch } from 'redux'
 
 let initialState = {
       usersList: [] as Array<UserType>,
-      overall: 40 as number | null,
-      pageSize: 5 as number | null,
-      currentPage: 1 as number | null,
+      overall: 40 as number,
+      pageSize: 5 as number,
+      currentPage: 1 as number,
       page: 1 as number | null,
       isFetching: null as boolean | null,
       inProgress: [] as Array<number>, // ? Array of user ids that are being processed by following or unfollowing
-      filter: {},
+      filter: {
+            term: '',
+            onlyFriends: null as boolean | null,
+      },
 }
 
 export type InitialStateUsersType = typeof initialState
@@ -97,7 +100,7 @@ let UsersActions = {
                   isInProgress,
                   id,
             } as const),
-      setFilter: (term: string) => ({ type: 'social-app/users/SET-FILTER', payload: { term } } as const),
+      setFilter: (term: string, onlyFriends: boolean | null) => ({ type: 'social-app/users/SET-FILTER', payload: { term, onlyFriends } } as const),
       setOverall: (overall: number) => ({ type: 'social-app/users/SET-OVERALL', payload: overall } as const),
 }
 
@@ -109,7 +112,7 @@ const getUsersThunk =
       async (dispatch: Dispatch<UsersActionsTypes>, getState: rootStateType) => {
             dispatch(UsersActions.setFetching(true))
             dispatch(UsersActions.setCurrentPage(currentPage))
-            dispatch(UsersActions.setFilter(term))
+            dispatch(UsersActions.setFilter(term, onlyFriends))
             const data = await usersAPI.GET_USERS(currentPage, pageSize, term, onlyFriends)
             if (data.items) {
                   if (searched) {

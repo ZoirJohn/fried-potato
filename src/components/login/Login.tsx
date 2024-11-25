@@ -1,10 +1,11 @@
 import styles from '../../css/Login.module.css'
 import { Field, InjectedFormProps, reduxForm } from 'redux-form'
 import { sendAuthData } from '../../redux/auth-reducer'
-import { connect, useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import { IDispatch, rootStateType } from '../../redux/store'
 import React, { FC } from 'react'
+import { getAuth, getCaptcha } from '../../selectors'
 
 type FormDataType = {
       login: string
@@ -45,9 +46,9 @@ const LoginForm = reduxForm<FormDataType>({
 
 // ? Container Stuff
 const LoginContainer: FC = (props) => {
-      const auth = useSelector((state: rootStateType) => state.auth.isAuthorized)
+      let auth = useSelector(getAuth)
       const dispatch: IDispatch = useDispatch()
-      const sendAuthData = (login: string, password: string, captcha: string) => {
+      const addAuthData = (login: string, password: string, captcha: string) => {
             dispatch(sendAuthData(login, password, captcha))
       }
       if (auth) {
@@ -56,7 +57,7 @@ const LoginContainer: FC = (props) => {
       return (
             <LoginForm
                   onSubmit={(formData: FormDataType) => {
-                        sendAuthData(formData.login, formData.password, formData.captcha)
+                        addAuthData(formData.login, formData.password, formData.captcha)
                   }}
             />
       )
