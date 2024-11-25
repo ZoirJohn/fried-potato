@@ -4,10 +4,10 @@ import React, { useState } from 'react'
 type PropsType = { overall: number; pageSize: number; portionSize: number; currentPage: number; setCurrentPageUsers: (b: number) => void }
 
 const Paginator: React.FC<PropsType> = ({ overall, pageSize, portionSize, currentPage, setCurrentPageUsers }) => {
-      let items = Math.ceil(overall / pageSize)
+      let items = Math.ceil(overall / pageSize) // 50 / 10=5
       let pages = []
 
-      for (let i = 1; i <= items; i++) {
+      for (let i = 1; i <= items; i++) {//
             pages.push(i)
       }
 

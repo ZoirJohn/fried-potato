@@ -1,21 +1,11 @@
 import styles from '../../css/Login.module.css'
 import { Field, InjectedFormProps, reduxForm } from 'redux-form'
 import { sendAuthData } from '../../redux/auth-reducer'
-import { connect } from 'react-redux'
+import { connect, useDispatch, useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
-import { rootStateType } from '../../redux/store'
-import React from 'react'
+import { IDispatch, rootStateType } from '../../redux/store'
+import React, { FC } from 'react'
 
-type OwnPropsType = {
-      captcha: string | null
-}
-type MapStateToProps = {
-      auth: boolean | null
-      captcha: string | null
-}
-type MapDispatchToProps = {
-      sendAuthData: (login: string, password: string, captcha: string) => void
-}
 type FormDataType = {
       login: string
       password: string
@@ -23,7 +13,8 @@ type FormDataType = {
 }
 
 // ? Component
-const Login: React.FC<InjectedFormProps<FormDataType, OwnPropsType> & OwnPropsType> = (props) => {
+const Login: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+      const captcha = useSelector((state: rootStateType) => state.auth.captcha)
       return (
             <div>
                   <h1>Login</h1>
@@ -32,9 +23,9 @@ const Login: React.FC<InjectedFormProps<FormDataType, OwnPropsType> & OwnPropsTy
                         <Field component='input' name='password' type='password' placeholder='Password' />
                         <Field component='input' type='checkbox' name='remember' />
                         <button>Login</button>
-                        {props.captcha && (
+                        {captcha && (
                               <>
-                                    <img src={props.captcha} alt='captchaImg' />
+                                    <img src={captcha} alt='captchaImg' />
                                     <Field component='input' name='captcha' type='text' placeholder='Enter captcha symbols' />
                               </>
                         )}
@@ -48,30 +39,27 @@ const Login: React.FC<InjectedFormProps<FormDataType, OwnPropsType> & OwnPropsTy
 }
 
 // ? Redux Form HOC
-const LoginForm = reduxForm<FormDataType, OwnPropsType>({
+const LoginForm = reduxForm<FormDataType>({
       form: 'login',
 })(Login)
 
 // ? Container Stuff
-const LoginContainer: React.FC<MapStateToProps & MapDispatchToProps> = (props) => {
-      if (props.auth) {
+const LoginContainer: FC = (props) => {
+      const auth = useSelector((state: rootStateType) => state.auth.isAuthorized)
+      const dispatch: IDispatch = useDispatch()
+      const sendAuthData = (login: string, password: string, captcha: string) => {
+            dispatch(sendAuthData(login, password, captcha))
+      }
+      if (auth) {
             return <Navigate to={'/profile'} />
       }
       return (
             <LoginForm
-                  {...props}
                   onSubmit={(formData: FormDataType) => {
-                        props.sendAuthData(formData.login, formData.password, formData.captcha)
+                        sendAuthData(formData.login, formData.password, formData.captcha)
                   }}
             />
       )
 }
 
-const mapStateToProps = (state: rootStateType): MapStateToProps => {
-      return {
-            auth: state.auth.isAuthorized,
-            captcha: state.auth.captcha,
-      }
-}
-
-export default connect(mapStateToProps, { sendAuthData })(LoginContainer)
+export default LoginContainer
