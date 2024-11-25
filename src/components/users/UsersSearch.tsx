@@ -1,7 +1,6 @@
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
 import { Field, Formik } from 'formik'
 import styles from '../../css/Users.module.css'
-
 type IProps = {
       filter: {
             term: string
@@ -27,9 +26,9 @@ const UsersSearch: FC<IProps> = memo((props) => {
                   className={styles.formBlank}
             >
                   {({ values, handleChange, handleBlur, errors, handleSubmit, isSubmitting }) => (
-                        <form onSubmit={handleSubmit}>
-                              <Field type='text' name='name' onChange={handleChange} onBlur={handleBlur} value={values.name} className={styles.formInput} />
-                              <button type='submit' disabled={isSubmitting} className={styles.formBtn}>
+                        <form className={styles.searchForm} onSubmit={handleSubmit}>
+                              <Field type='text' name='name' onChange={handleChange} onBlur={handleBlur} value={values.name} className={styles.searchFormInput} />
+                              <button type='submit' disabled={isSubmitting} className={styles.searchFormBtn}>
                                     Search
                               </button>
                               <Field name='onlyFriends' as='select'>
