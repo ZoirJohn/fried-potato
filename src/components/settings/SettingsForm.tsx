@@ -15,7 +15,7 @@ const inputFields: Array<[FormKeysValues, string, boolean?]> = [
 ]
 
 type FormKeysType = {
-      lookingForAJob: string
+      lookingForAJob: boolean
       lookingForAJobDescription: string
       fullName: string
       aboutMe: string

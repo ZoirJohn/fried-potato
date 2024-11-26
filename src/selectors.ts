@@ -55,3 +55,6 @@ export const getStatus = (state: rootStateType) => {
 export const getPosts = (state: rootStateType) => {
       return state.profile.posts
 }
+export const getProfileId = (state: rootStateType) => {
+      return state.profile.profileUser?.userId
+}

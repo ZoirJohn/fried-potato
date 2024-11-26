@@ -16,12 +16,13 @@ export type ProfileType = {
       contacts: {
             instagram: string
             twitter: string
+            github:string
       }
       fullName: string
       lookingForAJob: boolean
       lookingForAJobDescription: string
-      photos: PhotosType
-      userId: number
+      photos?: PhotosType
+      userId?: number
 }
 
 export type MessageType = {
