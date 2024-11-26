@@ -1,5 +1,4 @@
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
-import { compose } from 'redux'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import { savePhoto, saveProfile } from '../../redux/profile-reducer'
 import { ChangeEvent, ComponentType, FC, useState } from 'react'
@@ -66,4 +65,4 @@ const Settings: FC = () => {
       )
 }
 
-export default compose<ComponentType>(withAuthRedirect)(Settings)
+export default (withAuthRedirect)(Settings)

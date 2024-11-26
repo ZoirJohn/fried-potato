@@ -15,7 +15,6 @@ const AddPostForm: React.FC<InjectedFormProps<PropsType>> = (props) => {
       return (
             <form action='' onSubmit={props.handleSubmit} className={styles.messagesForm}>
                   {createField<Extract<keyof PropsType, string>>('AddPostForm', 'Enter text...', [maximum, minimum], undefined)}
-                  {/* <Field component={Input} type='text' placeholder='Enter text...' name='AddPostForm' className={styles.inputText} validate={} /> */}
                   <button>Submit</button>
             </form>
       )

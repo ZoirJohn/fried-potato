@@ -46,7 +46,7 @@ const LoginForm = reduxForm<FormDataType>({
 
 // ? Container Stuff
 const LoginContainer: FC = (props) => {
-      let auth = useSelector(getAuth)
+      const auth = useSelector(getAuth)
       const dispatch: IDispatch = useDispatch()
       const addAuthData = (login: string, password: string, captcha: string) => {
             dispatch(sendAuthData(login, password, captcha))
