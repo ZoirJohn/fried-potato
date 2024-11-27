@@ -66,9 +66,7 @@ const Profile: React.FC<PropsType> = (props) => {
                                           )}
                                     </pre>
                               </div>
-                              <p>
-                                    <span>Education:</span> Embry-Riddle
-                              </p>
+                              <p></p>
                               <p>
                                     <span>Job Hunting:</span> {profileUser?.lookingForAJob ? 'Yes' : 'No'}
                               </p>
@@ -84,6 +82,12 @@ const Profile: React.FC<PropsType> = (props) => {
                               <p>
                                     <span>Twitter:</span>{' '}
                                     <a href={profileUser?.contacts.twitter} target='_blank'>
+                                          Link
+                                    </a>
+                              </p>
+                              <p>
+                                    <span>Github:</span>{' '}
+                                    <a href={profileUser?.contacts.github} target='_blank'>
                                           Link
                                     </a>
                               </p>

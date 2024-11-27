@@ -1,5 +1,5 @@
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
-import { connect, useDispatch, useSelector } from 'react-redux'
+import {  useDispatch, useSelector } from 'react-redux'
 import { savePhoto, saveProfile } from '../../redux/profile-reducer'
 import { ChangeEvent, ComponentType, FC, useState } from 'react'
 import styles from '../../css/Settings.module.css'
