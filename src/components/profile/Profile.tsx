@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getPosts, getProfileUser, getStatus } from '../../selectors'
 import { IDispatch } from '../../redux/store'
 import { ProfileActions, updateStatus } from '../../redux/profile-reducer'
-
+import profilePhoto from '../../img/profile-user.webp'
 type PropsType = {}
 type FormType = {
       AddPostForm: string
@@ -41,7 +41,7 @@ const Profile: React.FC<PropsType> = (props) => {
             <section className={styles.profile}>
                   <img src={background} alt='background' />
                   <div className={styles.dataBox}>
-                        <img src={profileUser?.photos?.large as string} alt='background' />
+                        <img src={(profileUser?.photos?.large as string) || profilePhoto} alt='background' />
                         <div className={styles.info}>
                               <p>
                                     <span>Full name:</span> {profileUser?.fullName || 'Carnage'}

@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { FC, useEffect } from 'react'
 import { UserType } from '../../types'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,7 +20,12 @@ const Users: FC<IProps> = (props) => {
       const filter = useSelector(getFilter)
       const inProgress = useSelector(getInProgress)
       const dispatch: IDispatch = useDispatch()
-
+      const navigate=useNavigate()
+      const location = useLocation()
+      const searchParams = useSearchParams(location.search)
+      useEffect(() => { 
+            navigate(`/users?term=${filter.term}&friend=${filter.onlyFriends}&page=${currentPage}`)
+      }, [filter])
       useEffect(() => {
             dispatch(getUsersThunk(currentPage, pageSize, filter.term, filter.onlyFriends))
       }, [])
