@@ -9,6 +9,7 @@ import { follow, unfollow } from '../../redux/users-reducer'
 import styles from '../../css/Users.module.css'
 import Paginator from '../../assets/Paginator'
 import UsersSearch from './UsersSearch'
+import { NumberParam, StringParam, useQueryParam } from 'use-query-params'
 
 type IProps = {}
 
@@ -16,18 +17,21 @@ const Users: FC<IProps> = (props) => {
       const users = useSelector(getUsersList)
       const overall = useSelector(getOverall)
       const pageSize = useSelector(getPageSize)
-      let currentPage = useSelector(getCurrentPage)
-      let filter = useSelector(getFilter)
+      const currentPage = useSelector(getCurrentPage)
+      const filter = useSelector(getFilter)
       const inProgress = useSelector(getInProgress)
       const dispatch: IDispatch = useDispatch()
       const navigate = useNavigate()
       const location = useLocation()
-      const searchParams = new URLSearchParams(location.search)
+      const [term, setTerm] = useQueryParam('term', StringParam)
+      const [friend, setFriend] = useQueryParam('friend', StringParam)
+      const [page, setPage] = useQueryParam('friend', NumberParam)
       useEffect(() => {
-            const parsedObject: Record<string, string> = {}
-            Array.from(searchParams.entries()).forEach(([key, value]) => {
-                  parsedObject[key] = value
-            })
+            const parsedObject = {
+                  term: term,
+                  onlyFriends: friend,
+                  page: page,
+            }
             let actualPage = currentPage
             let actualFilter = filter
             if (!!parsedObject.page) {
