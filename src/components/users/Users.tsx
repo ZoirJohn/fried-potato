@@ -16,19 +16,42 @@ const Users: FC<IProps> = (props) => {
       const users = useSelector(getUsersList)
       const overall = useSelector(getOverall)
       const pageSize = useSelector(getPageSize)
-      const currentPage = useSelector(getCurrentPage)
-      const filter = useSelector(getFilter)
+      let currentPage = useSelector(getCurrentPage)
+      let filter = useSelector(getFilter)
       const inProgress = useSelector(getInProgress)
       const dispatch: IDispatch = useDispatch()
-      const navigate=useNavigate()
+      const navigate = useNavigate()
       const location = useLocation()
-      const searchParams = useSearchParams(location.search)
-      useEffect(() => { 
-            navigate(`/users?term=${filter.term}&friend=${filter.onlyFriends}&page=${currentPage}`)
-      }, [filter])
+      const searchParams = new URLSearchParams(location.search)
       useEffect(() => {
-            dispatch(getUsersThunk(currentPage, pageSize, filter.term, filter.onlyFriends))
+            const parsedObject: Record<string, string> = {}
+            Array.from(searchParams.entries()).forEach(([key, value]) => {
+                  parsedObject[key] = value
+            })
+            let actualPage = currentPage
+            let actualFilter = filter
+            if (!!parsedObject.page) {
+                  actualPage = Number(parsedObject.page)
+            }
+            if (!!parsedObject.term) {
+                  actualFilter = { ...actualFilter, term: parsedObject.term }
+            }
+            switch (parsedObject.onlyFriends) {
+                  case 'true':
+                        actualFilter = { ...actualFilter, onlyFriends: true }
+                        break
+                  case 'false':
+                        actualFilter = { ...actualFilter, onlyFriends: false }
+                        break
+                  case 'null':
+                        actualFilter = { ...actualFilter, onlyFriends: null }
+                        break
+            }
+            dispatch(getUsersThunk(actualPage, pageSize, actualFilter.term, actualFilter.onlyFriends))
       }, [])
+      useEffect(() => {
+            navigate(`/users?term=${filter.term}&friend=${filter.onlyFriends}&page=${currentPage}`)
+      }, [filter, currentPage])
       const setCurrentPageUsers = (page: number) => {
             dispatch(getUsersThunk(page, pageSize, filter.term, filter.onlyFriends))
       }
@@ -44,7 +67,7 @@ const Users: FC<IProps> = (props) => {
       return (
             <section className={styles.users}>
                   <Paginator overall={overall} pageSize={pageSize} currentPage={currentPage} setCurrentPageUsers={setCurrentPageUsers} portionSize={3} />
-                  <UsersSearch setFilterSearch={setFilterSearch} filter={filter} />
+                  <UsersSearch setFilterSearch={setFilterSearch} />
 
                   <ul className={styles.usersBox}>
                         {users.map((u: UserType) => (

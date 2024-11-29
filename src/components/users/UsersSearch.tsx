@@ -1,18 +1,18 @@
 import { FC, memo } from 'react'
 import { Field, Formik } from 'formik'
 import styles from '../../css/Users.module.css'
+import { useSelector } from 'react-redux'
+import { getFilter } from '../../selectors'
 type IProps = {
-      filter: {
-            term: string
-            onlyFriends: boolean | null
-      }
       setFilterSearch: (term: string, onlyFriends: null | boolean) => void
 }
 
 const UsersSearch: FC<IProps> = memo((props) => {
+      const filter = useSelector(getFilter)
       return (
             <Formik
-                  initialValues={{ name: '', onlyFriends: '' }}
+                  enableReinitialize
+                  initialValues={{ name: filter.term, onlyFriends: String(filter.onlyFriends) }}
                   onSubmit={(values, { setSubmitting }) => {
                         if (values.onlyFriends === 'true') {
                               props.setFilterSearch(values.name, true)
