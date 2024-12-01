@@ -51,7 +51,7 @@ const Profile: FC = (props) => {
                         minHeight: 280,
                         background: colorBgContainer,
                         borderRadius: borderRadiusLG,
-                        overflow:'hidden'
+                        overflow: 'hidden',
                   }}
             >
                   <section className={styles.profile}>
@@ -109,12 +109,12 @@ const Profile: FC = (props) => {
                                     </p>
                               </div>
                         </div>
+                        <AddPostRedux
+                              onSubmit={(formData: FormType) => {
+                                    addMail(formData)
+                              }}
+                        />
                         <div className={styles.messages}>
-                              <AddPostRedux
-                                    onSubmit={(formData: FormType) => {
-                                          addMail(formData)
-                                    }}
-                              />
                               <ul className={styles.messagesBox}>
                                     {posts.map((p: MessageType, id: number) => (
                                           <PostModel text={p.text} likeNumber={p.likeNumber} key={id} />

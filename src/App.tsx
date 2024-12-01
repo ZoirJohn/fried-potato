@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import Loader from './assets/Loader'
-import HeaderComponent from './components/header/HeaderComponent'
-import Main from './components/Main'
-import Sidebar from './components/Sidebar'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { Suspense, lazy } from 'react'
 import { withRouter } from './hoc/withRouter'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { initializeApp } from './redux/app-reducer'
 import { rootStateType } from './redux/store'
-import { MenuFoldOutlined, MenuUnfoldOutlined, } from '@ant-design/icons'
-import { Button, Layout,  theme } from 'antd'
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
+import { Button, Layout, theme } from 'antd'
+import HeaderComponent from './components/header/HeaderComponent'
 import ProfileContainer from './components/profile/ProfileContainer'
+import Login from './components/login/Login'
+import Loader from './assets/Loader'
+import Sidebar from './components/Sidebar'
 
-const { Header, Sider, Content } = Layout
+const { Header, Content } = Layout
+
+const Dialogs = lazy(() => import('./components/dialogs/DialogsContainer'))
+const News = lazy(() => import('./components/news/News'))
+const Music = lazy(() => import('./components/music/Music'))
+const Settings = lazy(() => import('./components/settings/Settings'))
+const Users = lazy(() => import('./components/users/UsersContainer'))
 
 const App = (props: any) => {
       const [collapsed, setCollapsed] = useState(false)
@@ -29,7 +37,7 @@ const App = (props: any) => {
       return (
             <div data-testid='app' className='App'>
                   <HeaderComponent />
-                  <Layout style={{ height: '100%' }}>
+                  <Layout>
                         <Layout>
                               <Header style={{ padding: 0, background: colorBgContainer }}>
                                     <Button
@@ -52,18 +60,26 @@ const App = (props: any) => {
                                           borderRadius: borderRadiusLG,
                                     }}
                               >
-                                    <ProfileContainer />
+                                    <Suspense fallback={<p>Loading...</p>}>
+                                          <Routes>
+                                                <Route index path={'*'} element={<Navigate to='/profile' replace />} />
+                                                <Route path={'/profile/:userId?'} element={<ProfileContainer />} />
+                                                <Route path='/dialogs' element={<Dialogs />} />
+                                                <Route path='/news' element={<News />} />
+                                                <Route path='/music' element={<Music />} />
+                                                <Route path='/settings' element={<Settings />} />
+                                                <Route path='/users' element={<Users />} />
+                                                <Route path='/login' element={<Login />} />
+                                          </Routes>
+                                    </Suspense>
                               </Content>
                         </Layout>
-                        <Sider trigger={null} collapsible collapsed={collapsed}>
-                              <div className='demo-logo-vertical' />
-                              <Sidebar />
-                        </Sider>
+                        <Sidebar collapsed={collapsed} />
                   </Layout>
-                  <div data-testid='container' className='container'>
+                  {/* <div data-testid='container' className='container'>
                         {/* <Main />
                         <Sidebar /> */}
-                  </div>
+                  {/* </div> */}
             </div>
       )
 }
