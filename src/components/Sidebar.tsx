@@ -1,62 +1,74 @@
-import { CgMusicNote, CgNotes, CgProfile, CgServerless } from 'react-icons/cg'
-import { FaRegMessage } from 'react-icons/fa6'
-
 import styles from '../css/Sidebar.module.css'
 import { NavLink } from 'react-router-dom'
-import { FaUsers } from 'react-icons/fa'
-import classNames from 'classnames'
-import { useState } from 'react'
+import { UnorderedListOutlined, UserOutlined, MessageOutlined, MutedOutlined, SettingOutlined, UsergroupAddOutlined } from '@ant-design/icons'
+import { Menu } from 'antd'
 
 type PropsType = {}
 
 const Sidebar: React.FC<PropsType> = (props) => {
-      let [btn, sidebarSwitch] = useState(false)
       return (
-            <aside
-                  className={classNames(styles.aside, {
-                        [styles.visible]: btn,
-                  })}
-            >
-                  <ul>
-                        <li>
-                              <NavLink to='/profile' className={({ isActive }) => (isActive ? styles.active : '')}>
-                                    <CgProfile />
-                                    Profile
-                              </NavLink>
-                        </li>
-                        <li>
-                              <NavLink to='/dialogs' className={({ isActive }) => (isActive ? styles.active : '')}>
-                                    <FaRegMessage />
-                                    Messages
-                              </NavLink>
-                        </li>
-                        <li>
-                              <NavLink to='/news' className={({ isActive }) => (isActive ? styles.active : '')}>
-                                    <CgNotes />
-                                    News
-                              </NavLink>
-                        </li>
-                        <li>
-                              <NavLink to='/music' className={({ isActive }) => (isActive ? styles.active : '')}>
-                                    <CgMusicNote />
-                                    Music
-                              </NavLink>
-                        </li>
-                        <li>
-                              <NavLink to='/settings' className={({ isActive }) => (isActive ? styles.active : '')}>
-                                    <CgServerless />
-                                    Settings
-                              </NavLink>
-                        </li>
-                        <li>
-                              <NavLink to='/users' className={({ isActive }) => (isActive ? styles.active : '')}>
-                                    <FaUsers />
-                                    Users
-                              </NavLink>
-                        </li>
-                  </ul>
-                  <span className={classNames(styles.arrow, { [styles.active]: btn })} onClick={() => sidebarSwitch(!btn)}></span>
-            </aside>
+            <Menu
+                  theme='dark'
+                  mode='inline'
+                  defaultSelectedKeys={['1']}
+                  items={[
+                        {
+                              key: '1',
+                              icon: <UserOutlined />,
+                              label: (
+                                    <NavLink to='/profile' className={({ isActive }) => (isActive ? styles.active : '')}>
+                                          Profile
+                                    </NavLink>
+                              ),
+                        },
+                        {
+                              key: '2',
+                              icon: <MessageOutlined />,
+                              label: (
+                                    <NavLink to='/dialogs' className={({ isActive }) => (isActive ? styles.active : '')}>
+                                          Messages
+                                    </NavLink>
+                              ),
+                        },
+                        {
+                              key: '3',
+                              icon: <UnorderedListOutlined />,
+                              label: (
+                                    <NavLink to='/news' className={({ isActive }) => (isActive ? styles.active : '')}>
+                                          News
+                                    </NavLink>
+                              ),
+                        },
+                        {
+                              key: '4',
+                              icon: <MutedOutlined />,
+                              label: (
+                                    <NavLink to='/music' className={({ isActive }) => (isActive ? styles.active : '')}>
+                                          Music
+                                    </NavLink>
+                              ),
+                        },
+                        {
+                              key: '5',
+                              icon: <SettingOutlined />,
+                              label: (
+                                    <NavLink to='/news' className={({ isActive }) => (isActive ? styles.active : '')}>
+                                          Settings
+                                    </NavLink>
+                              ),
+                        },
+                        {
+                              key: '6',
+                              icon: <UsergroupAddOutlined />,
+                              label: (
+                                    <NavLink to='/news' className={({ isActive }) => (isActive ? styles.active : '')}>
+                                          Users
+                                    </NavLink>
+                              ),
+                        },
+                  ]}
+            />
+            //       <span className={classNames(styles.arrow, { [styles.active]: btn })} onClick={() => sidebarSwitch(!btn)}></span>
       )
 }
 

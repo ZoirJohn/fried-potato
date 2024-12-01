@@ -8,16 +8,17 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { initializeApp } from './redux/app-reducer'
 import { rootStateType } from './redux/store'
-import { MenuFoldOutlined, MenuUnfoldOutlined, UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons'
-import { Button, Layout, Menu, theme } from 'antd'
+import { MenuFoldOutlined, MenuUnfoldOutlined, } from '@ant-design/icons'
+import { Button, Layout,  theme } from 'antd'
+import ProfileContainer from './components/profile/ProfileContainer'
 
 const { Header, Sider, Content } = Layout
 
 const App = (props: any) => {
-     const [collapsed, setCollapsed] = useState(false)
-     const {
-           token: { colorBgContainer, borderRadiusLG },
-     } = theme.useToken()
+      const [collapsed, setCollapsed] = useState(false)
+      const {
+            token: { colorBgContainer, borderRadiusLG },
+      } = theme.useToken()
       useEffect(() => {
             props.initializeApp()
       }, [])
@@ -27,33 +28,8 @@ const App = (props: any) => {
       }
       return (
             <div data-testid='app' className='App'>
-                  {/* <HeaderComponent /> */}
-                  <Layout>
-                        <Sider trigger={null} collapsible collapsed={collapsed}>
-                              <div className='demo-logo-vertical' />
-                              <Menu
-                                    theme='dark'
-                                    mode='inline'
-                                    defaultSelectedKeys={['1']}
-                                    items={[
-                                          {
-                                                key: '1',
-                                                icon: <UserOutlined />,
-                                                label: 'nav 1',
-                                          },
-                                          {
-                                                key: '2',
-                                                icon: <VideoCameraOutlined />,
-                                                label: 'nav 2',
-                                          },
-                                          {
-                                                key: '3',
-                                                icon: <UploadOutlined />,
-                                                label: 'nav 3',
-                                          },
-                                    ]}
-                              />
-                        </Sider>
+                  <HeaderComponent />
+                  <Layout style={{ height: '100%' }}>
                         <Layout>
                               <Header style={{ padding: 0, background: colorBgContainer }}>
                                     <Button
@@ -69,16 +45,20 @@ const App = (props: any) => {
                               </Header>
                               <Content
                                     style={{
-                                          margin: '24px 16px',
-                                          padding: 24,
+                                          margin: '12px 16px',
+                                          padding: 0,
                                           minHeight: 280,
                                           background: colorBgContainer,
                                           borderRadius: borderRadiusLG,
                                     }}
                               >
-                                    Content
+                                    <ProfileContainer />
                               </Content>
                         </Layout>
+                        <Sider trigger={null} collapsible collapsed={collapsed}>
+                              <div className='demo-logo-vertical' />
+                              <Sidebar />
+                        </Sider>
                   </Layout>
                   <div data-testid='container' className='container'>
                         {/* <Main />
