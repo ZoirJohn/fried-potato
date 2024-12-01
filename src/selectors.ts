@@ -58,3 +58,7 @@ export const getPosts = (state: rootStateType) => {
 export const getProfileId = (state: rootStateType) => {
       return state.profile.profileUser?.userId
 }
+// ! APP
+export const getInitialized = (state: rootStateType) => {
+      return state.app.initialized
+}

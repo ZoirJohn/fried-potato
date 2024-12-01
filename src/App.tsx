@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { Suspense, lazy } from 'react'
 import { withRouter } from './hoc/withRouter'
-import { connect } from 'react-redux'
+import { connect, useDispatch, useSelector } from 'react-redux'
 import { compose } from 'redux'
 import { initializeApp } from './redux/app-reducer'
-import { rootStateType } from './redux/store'
+import { IDispatch, rootStateType } from './redux/store'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { Button, Layout, theme } from 'antd'
 import HeaderComponent from './components/header/HeaderComponent'
@@ -13,6 +13,7 @@ import ProfileContainer from './components/profile/ProfileContainer'
 import Login from './components/login/Login'
 import Loader from './assets/Loader'
 import Sidebar from './components/Sidebar'
+import { getInitialized } from './selectors'
 
 const { Header, Content } = Layout
 
@@ -28,11 +29,15 @@ const App = (props: any) => {
             token: { colorBgContainer, borderRadiusLG },
       } = theme.useToken()
       useEffect(() => {
-            props.initializeApp()
+            initialization()
       }, [])
-
-      if (!props.initialized) {
-            return <Loader isFetching={props.initialized} />
+      const initialized = useSelector(getInitialized)
+      const initialization = () => {
+            dispatch(initializeApp())
+      }
+      const dispatch: IDispatch = useDispatch()
+      if (!initialized) {
+            return <Loader isFetching={initialized} />
       }
       return (
             <div data-testid='app' className='App'>
@@ -76,25 +81,8 @@ const App = (props: any) => {
                         </Layout>
                         <Sidebar collapsed={collapsed} />
                   </Layout>
-                  {/* <div data-testid='container' className='container'>
-                        {/* <Main />
-                        <Sidebar /> */}
-                  {/* </div> */}
             </div>
       )
 }
 
-const mapStateToProps = (state: rootStateType) => {
-      return {
-            initialized: state.app.initialized,
-      }
-}
-
-const Wrapper = compose<React.ComponentType>(
-      withRouter,
-      connect(mapStateToProps, {
-            initializeApp,
-      })
-)(App)
-
-export default Wrapper
+export default App
