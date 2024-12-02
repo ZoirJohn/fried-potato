@@ -1,5 +1,11 @@
 .profile {
       order: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+            'cover cover'
+            'data box'
+            'form box';
 }
 
 .profile > img {
@@ -7,6 +13,7 @@
       height: 100px;
       object-fit: cover;
       display: block;
+      grid-area: cover;
 }
 
 .dataBox {
@@ -14,7 +21,8 @@
       align-items: flex-start;
       padding: 1em 0;
       gap: 0 1em;
-      width: 50%;
+      width: 100%;
+      grid-area: data;
 }
 
 .dataBox span {
@@ -22,7 +30,7 @@
 }
 
 .dataBox img {
-      width: 40%;
+      width: 30%;
 }
 
 .info {
@@ -31,13 +39,14 @@
       font-size: 1.1rem;
 }
 
-.messages form {
+.profile form {
       width: 75%;
       max-height: 323px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 1em 0;
+      grid-area: form;
 }
 
 .inputTextBox {
@@ -48,35 +57,24 @@
       position: relative;
 }
 
-.messages input {
+.profile input {
       width: 50%;
       height: 40px;
       font-size: 1rem;
       padding: 0.5em;
 }
 
-.messages button {
+.profile button {
       padding: 0.5em;
       align-self: center;
       font-size: 1rem;
 }
 
 .messagesBox {
-      width: 28%;
-      max-height: 175px;
+      width: 70%;
+      height: 100%;
       padding: 1em;
-      overflow: auto scroll;
-}
-
-.messagesBox::-webkit-scrollbar {
-      width: 10px;
-      background: #e5e5e5;
-}
-
-.messagesBox::-webkit-scrollbar-thumb {
-      height: 20px;
-      background: #9b9b9b;
-      border-radius: 50px;
+      overflow: auto;
 }
 
 ul {
@@ -101,7 +99,9 @@ ul {
       width: 100px;
       height: 27px;
 }
-
+.messages {
+      grid-area: 'box';
+}
 @media (max-width: 820px) {
       .messages {
             padding: 0 1em;

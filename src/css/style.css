@@ -13,6 +13,8 @@
 
 #root {
       height: 100vh;
+      display: flex;
+      flex-direction: column;
 }
 
 .container {
@@ -20,7 +22,7 @@
       margin: 0 auto;
       padding: 0 15px;
 }
-.App > .container {
+#root > .container {
       display: flex;
 }
 

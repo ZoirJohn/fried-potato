@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { Suspense, lazy } from 'react'
-import { withRouter } from './hoc/withRouter'
-import { connect, useDispatch, useSelector } from 'react-redux'
-import { compose } from 'redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { initializeApp } from './redux/app-reducer'
-import { IDispatch, rootStateType } from './redux/store'
+import { IDispatch } from './redux/store'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { Button, Layout, theme } from 'antd'
+import { getInitialized } from './selectors'
+import { FC } from 'react'
 import HeaderComponent from './components/header/HeaderComponent'
 import ProfileContainer from './components/profile/ProfileContainer'
 import Login from './components/login/Login'
 import Loader from './assets/Loader'
 import Sidebar from './components/Sidebar'
-import { getInitialized } from './selectors'
 
 const { Header, Content } = Layout
 
@@ -23,7 +22,7 @@ const Music = lazy(() => import('./components/music/Music'))
 const Settings = lazy(() => import('./components/settings/Settings'))
 const Users = lazy(() => import('./components/users/UsersContainer'))
 
-const App = (props: any) => {
+const App: FC = (props) => {
       const [collapsed, setCollapsed] = useState(false)
       const {
             token: { colorBgContainer, borderRadiusLG },
@@ -32,17 +31,17 @@ const App = (props: any) => {
             initialization()
       }, [])
       const initialized = useSelector(getInitialized)
+      const dispatch: IDispatch = useDispatch()
       const initialization = () => {
             dispatch(initializeApp())
       }
-      const dispatch: IDispatch = useDispatch()
       if (!initialized) {
             return <Loader isFetching={initialized} />
       }
       return (
-            <div data-testid='app' className='App'>
+            <>
                   <HeaderComponent />
-                  <Layout>
+                  <Layout style={{ flexGrow: 1 }}>
                         <Layout>
                               <Header style={{ padding: 0, background: colorBgContainer }}>
                                     <Button
@@ -53,6 +52,7 @@ const App = (props: any) => {
                                                 fontSize: '16px',
                                                 width: 64,
                                                 height: 64,
+                                                margin: 0,
                                           }}
                                     />
                               </Header>
@@ -81,7 +81,7 @@ const App = (props: any) => {
                         </Layout>
                         <Sidebar collapsed={collapsed} />
                   </Layout>
-            </div>
+            </>
       )
 }
 
