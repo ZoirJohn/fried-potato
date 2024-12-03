@@ -1,70 +1,55 @@
 .settingsBox {
-  position: relative;
-  padding: 0.5em 0;
+      position: relative;
+      z-index: 3;
+      padding: 1.5em;
+      overflow: hidden;
 }
 
 .warning {
-  position: absolute;
-  right: 1em;
-  top: -2.5em;
-  color: #fff;
-  background: #08e800;
-  transition: 200ms;
-  padding: 0.25em;
+      position: absolute;
+      right: 1em;
+      top: -50%;
+      color: #fff;
+      background: #08e800;
+      transition: 200ms;
+      padding: 0.25em;
+      z-index: 1;
+      transition: 500ms ease;
 }
-
+.trueError {
+      top: 3%;
+}
 .warning span {
-  padding: 0 1em 0 0;
-  cursor: pointer;
+      cursor: pointer;
+      margin: 0 1em 0 0;
 }
-
-.warn {
-  top: 0.5em;
-  z-index: 1;
-  transition: 200ms;
+li:nth-child(3) {
+      margin: 1em 0 0;
 }
-
-.hideWarn {
-  top: -2.5em;
+form label {
+      width: 30%;
 }
-
-.fieldForm {
-  padding: 1em 0 0;
+form label .inputTextBox {
+      position: relative;
 }
-
+form label:not(:nth-child(2)) {
+      padding: 0.5em 0;
+      display: block;
+}
+form label:nth-child(2) {
+      padding: 0.5em 0 0;
+      display: block;
+}
+form input:not([type='checkbox']) {
+      padding: 0.2em;
+      width: 60%;
+}
 .fieldLabel {
-  display: flex;
-  gap: 0.5em;
-  width: 100%;
-  padding: 0.5em 0 0 2em;
-  font-weight: 700;
-  font-family: sans-serif;
+      position: relative;
 }
-
-.fieldLabel div {
-  width: 100%;
-  position: relative;
-}
-
-.fieldLabel input {
-  width: 30% !important;
-  border-radius: 6px;
-  padding: 0.4em;
-  width: 70%;
-  border: 1px solid #000;
-}
-
 .fieldLabel span {
-  top: 25%;
-  left: 35%;
-}
-
-button[type] {
-  margin: 0.75em 0 0;
-}
-
-@media (max-width:820px) {
-  .fieldLabel input {
-    width: 60% !important;
-  }
+      position: absolute;
+      right: 0;
+      top: 25%;
+      color: #f60000;
 }

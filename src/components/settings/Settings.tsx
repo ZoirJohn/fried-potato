@@ -1,12 +1,12 @@
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
-import {  useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { savePhoto, saveProfile } from '../../redux/profile-reducer'
-import { ChangeEvent, ComponentType, FC, useState } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
 import styles from '../../css/Settings.module.css'
 import SettingsFormRedux from './SettingsForm'
 import classNames from 'classnames'
-import { IDispatch, rootStateType } from '../../redux/store'
-import { PhotosType, ProfileType } from '../../types'
+import { IDispatch } from '../../redux/store'
+import { PhotosType } from '../../types'
 import { getId, getProfileId } from '../../selectors'
 
 type IProps = {}
@@ -46,7 +46,7 @@ const Settings: FC = () => {
       }
       return (
             <ul className={styles.settingsBox}>
-                  <p className={classNames(styles.warning, { [styles.warn]: warning })}>
+                  <p className={classNames(styles.warning, { [styles.trueError]: warning })}>
                         <span onClick={() => setWarning(false)}>X</span>Picture has been replaced!
                   </p>
                   {ownId === uploadedId ? (
@@ -65,4 +65,4 @@ const Settings: FC = () => {
       )
 }
 
-export default (withAuthRedirect)(Settings)
+export default Settings

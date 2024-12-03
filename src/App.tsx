@@ -43,7 +43,7 @@ const App: FC = (props) => {
                   <HeaderComponent />
                   <Layout style={{ flexGrow: 1 }}>
                         <Layout>
-                              <Header style={{ padding: 0, background: colorBgContainer }}>
+                              <Header style={{ padding: 0, background: colorBgContainer,zIndex:3 }}>
                                     <Button
                                           type='text'
                                           icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}

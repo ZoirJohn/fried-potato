@@ -2,6 +2,7 @@ import { InjectedFormProps, reduxForm } from 'redux-form'
 import styles from '../../css/Settings.module.css'
 import createField from '../../assets/createField'
 import { required } from '../../assets/Validators'
+import { Button } from 'antd'
 import React from 'react'
 
 const inputFields: Array<[FormKeysValues, string, boolean?]> = [
@@ -36,7 +37,7 @@ const SettingsForm: React.FC<InjectedFormProps<FormKeysType>> = (props) => {
                               </label>
                         )
                   })}
-                  <button type='submit'>Submit</button>
+                  <Button type='primary' htmlType='submit'>Submit</Button>
             </form>
       )
 }
