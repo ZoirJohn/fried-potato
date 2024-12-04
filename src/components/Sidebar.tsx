@@ -1,5 +1,4 @@
-import styles from '../css/Sidebar.module.css'
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { UnorderedListOutlined, UserOutlined, MessageOutlined, MutedOutlined, SettingOutlined, UsergroupAddOutlined } from '@ant-design/icons'
 import { Menu, Layout } from 'antd'
 import { useLocation } from 'react-router-dom'
@@ -17,7 +16,7 @@ const Sidebar: React.FC<PropsType> = ({ collapsed }) => {
                   <Menu
                         theme='dark'
                         mode='inline'
-                        selectedKeys={selectedKey === '/login' ? [] : [selectedKey]}
+                        selectedKeys={selectedKey === '/login' ? [] : !Number.isNaN(Number(selectedKey[selectedKey.length - 1])) ? ['/profile'] : [selectedKey]}
                         items={[
                               {
                                     key: '/profile',
@@ -52,8 +51,6 @@ const Sidebar: React.FC<PropsType> = ({ collapsed }) => {
                         ]}
                   />
             </Sider>
-
-            //       <span className={classNames(styles.arrow, { [styles.active]: btn })} onClick={() => sidebarSwitch(!btn)}></span>
       )
 }
 

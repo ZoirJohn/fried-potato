@@ -1,4 +1,4 @@
-.form {
+/* .form {
     padding: 1em 0;
 }
 
@@ -12,8 +12,21 @@
 
 .form button{
     display: block;
+} */
+.form {
+      padding: 1em 0;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
 }
-
-.error{
-    color: #f00;
+.form input:not([type='checkbox']) {
+      padding: 0.5em;
+      font-size: 1rem;
+      width: 33.3%;
+}
+.form input {
+      margin: 0 0 1em;
+}
+.error {
+      color: #f00;
 }

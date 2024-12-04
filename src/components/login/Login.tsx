@@ -6,6 +6,7 @@ import { Navigate } from 'react-router-dom'
 import { IDispatch, rootStateType } from '../../redux/store'
 import React, { FC } from 'react'
 import { getAuth, getCaptcha } from '../../selectors'
+import { Button } from 'antd'
 
 type FormDataType = {
       login: string
@@ -17,13 +18,15 @@ type FormDataType = {
 const Login: React.FC<InjectedFormProps<FormDataType>> = (props) => {
       const captcha = useSelector((state: rootStateType) => state.auth.captcha)
       return (
-            <div>
+            <div className={`${styles.loginForm} section`}>
                   <h1>Login</h1>
                   <form onSubmit={props.handleSubmit} className={styles.form} action='#'>
                         <Field component='input' name='login' type='text' placeholder='Login' />
                         <Field component='input' name='password' type='password' placeholder='Password' />
                         <Field component='input' type='checkbox' name='remember' />
-                        <button>Login</button>
+                        <Button type='primary' htmlType='submit'>
+                              Login
+                        </Button>
                         {captcha && (
                               <>
                                     <img src={captcha} alt='captchaImg' />

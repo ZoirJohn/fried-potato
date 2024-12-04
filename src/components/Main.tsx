@@ -18,7 +18,7 @@ const Main = () => {
                   <Suspense fallback={<p>Loading...</p>}>
                         <Routes>
                               <Route index path={'*'} element={<Navigate to='/profile' replace />} />
-                              <Route path={'/profile/:userId?'} element={<ProfileContainer />} />
+                              <Route path={'/profile/:userId'} element={<ProfileContainer />} />
                               <Route path='/dialogs' element={<Dialogs />} />
                               <Route path='/news' element={<News />} />
                               <Route path='/music' element={<Music />} />

@@ -8,6 +8,7 @@ import classNames from 'classnames'
 import { IDispatch } from '../../redux/store'
 import { PhotosType } from '../../types'
 import { getId, getProfileId } from '../../selectors'
+import { compose } from 'redux'
 
 type IProps = {}
 type FormKeysType = {
@@ -65,4 +66,4 @@ const Settings: FC = () => {
       )
 }
 
-export default Settings
+export default compose(withAuthRedirect)(Settings)
