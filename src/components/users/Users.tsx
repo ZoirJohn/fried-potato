@@ -9,13 +9,13 @@ import { follow, unfollow } from '../../redux/users-reducer'
 import styles from '../../css/Users.module.css'
 import UsersSearch from './UsersSearch'
 import { NumberParam, StringParam, useQueryParam } from 'use-query-params'
-import { Pagination } from 'antd'
+import { Col, Pagination, Row } from 'antd'
 import { Button, Card, Flex, Typography } from 'antd'
 
 type IProps = {}
 
 const cardStyle: React.CSSProperties = {
-      width: 220,
+      width: '100%',
 }
 
 const imgStyle: React.CSSProperties = {
@@ -32,7 +32,6 @@ const Users: FC<IProps> = (props) => {
       const inProgress = useSelector(getInProgress)
       const dispatch: IDispatch = useDispatch()
       const navigate = useNavigate()
-      // const location = useLocation()
       const [term, setTerm] = useQueryParam('term', StringParam)
       const [friend, setFriend] = useQueryParam('friend', StringParam)
       const [page, setPage] = useQueryParam('friend', NumberParam)
@@ -80,35 +79,42 @@ const Users: FC<IProps> = (props) => {
       }
 
       return (
-            <section className={styles.users}>
-                  <Pagination defaultCurrent={1} total={overall} current={currentPage} onChange={setCurrentPageUsers} />
-                  <UsersSearch setFilterSearch={setFilterSearch} />
+            <Row className={`${styles.users} section`}>
+                  <Col span={12}>
+                        <Pagination defaultCurrent={1} total={overall} current={currentPage} onChange={setCurrentPageUsers} />
+                  </Col>
+                  <Col span={12}>
+                        <UsersSearch setFilterSearch={setFilterSearch} />
+                  </Col>
+                  <Col span={24} style={{ padding: '1em 0' }}>
+                        <Row justify={'space-between'}>
+                              {users.map((u: UserType, id) => (
+                                    <Col span={4} key={id}>
+                                          <Card hoverable style={cardStyle} styles={{ body: { padding: 0, overflow: 'hidden' } }}>
+                                                <Flex justify='center' align='center' vertical gap={'1.5em'} style={{ padding: '2em' }}>
+                                                      <NavLink to={'/profile/' + u.id}>
+                                                            <img src={u.photos?.small || `https://icones.pro/wp-content/uploads/2021/04/icone-sourire-violet.png`} alt='MyProfile' style={imgStyle} />
+                                                      </NavLink>
 
-                  <Flex wrap justify='space-between' className={styles.usersBox}>
-                        {users.map((u: UserType) => (
-                              <Card hoverable style={cardStyle} styles={{ body: { padding: 0, overflow: 'hidden' } }}>
-                                    <Flex justify='center' align='center' vertical gap={'1.5em'} style={{ padding: '2em' }}>
-                                          <NavLink to={'/profile/' + u.id}>
-                                                <img src={u.photos?.small || `https://icones.pro/wp-content/uploads/2021/04/icone-sourire-violet.png`} alt='MyProfile' style={imgStyle} />
-                                          </NavLink>
-
-                                          <Flex vertical align='center' justify='center'>
-                                                <Typography.Title level={3}>{u.name}</Typography.Title>
-                                                {u.followed ? (
-                                                      <Button onClick={() => unfollowUser(u.id)} disabled={inProgress.some((i: number) => i === u.id)} type='primary'>
-                                                            Unfollow
-                                                      </Button>
-                                                ) : (
-                                                      <Button onClick={() => followUser(u.id)} disabled={inProgress.some((i: number) => i === u.id)} type='primary'>
-                                                            Follow
-                                                      </Button>
-                                                )}
-                                          </Flex>
-                                    </Flex>
-                              </Card>
-                        ))}
-                  </Flex>
-            </section>
+                                                      <Flex vertical align='center' justify='center'>
+                                                            <Typography.Title level={5}>{u.name}</Typography.Title>
+                                                            {u.followed ? (
+                                                                  <Button onClick={() => unfollowUser(u.id)} disabled={inProgress.some((i: number) => i === u.id)} type='primary'>
+                                                                        Unfollow
+                                                                  </Button>
+                                                            ) : (
+                                                                  <Button onClick={() => followUser(u.id)} disabled={inProgress.some((i: number) => i === u.id)} type='primary'>
+                                                                        Follow
+                                                                  </Button>
+                                                            )}
+                                                      </Flex>
+                                                </Flex>
+                                          </Card>
+                                    </Col>
+                              ))}
+                        </Row>
+                  </Col>
+            </Row>
       )
 }
 

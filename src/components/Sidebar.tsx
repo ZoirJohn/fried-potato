@@ -1,75 +1,53 @@
 import styles from '../css/Sidebar.module.css'
-import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { UnorderedListOutlined, UserOutlined, MessageOutlined, MutedOutlined, SettingOutlined, UsergroupAddOutlined } from '@ant-design/icons'
 import { Menu, Layout } from 'antd'
+import { useLocation } from 'react-router-dom'
 
 type PropsType = {
       collapsed: boolean
 }
 const { Sider } = Layout
 const Sidebar: React.FC<PropsType> = ({ collapsed }) => {
+      const location = useLocation()
+      const selectedKey = location.pathname
       return (
             <Sider trigger={null} collapsible collapsed={collapsed}>
                   <div className='demo-logo-vertical' />
                   <Menu
                         theme='dark'
                         mode='inline'
-                        defaultSelectedKeys={['1']}
+                        selectedKeys={selectedKey === '/login' ? [] : [selectedKey]}
                         items={[
                               {
-                                    key: '1',
+                                    key: '/profile',
                                     icon: <UserOutlined />,
-                                    label: (
-                                          <NavLink to='/profile' className={({ isActive }) => (isActive ? styles.active : '')}>
-                                                Profile
-                                          </NavLink>
-                                    ),
+                                    label: <Link to='/profile'>Profile</Link>,
                               },
                               {
-                                    key: '2',
+                                    key: '/dialogs',
                                     icon: <MessageOutlined />,
-                                    label: (
-                                          <NavLink to='/dialogs' className={({ isActive }) => (isActive ? styles.active : '')}>
-                                                Messages
-                                          </NavLink>
-                                    ),
+                                    label: <Link to='/dialogs'>Messages</Link>,
                               },
                               {
-                                    key: '3',
+                                    key: '/news',
                                     icon: <UnorderedListOutlined />,
-                                    label: (
-                                          <NavLink to='/news' className={({ isActive }) => (isActive ? styles.active : '')}>
-                                                News
-                                          </NavLink>
-                                    ),
+                                    label: <Link to='/news'>News</Link>,
                               },
                               {
-                                    key: '4',
+                                    key: '/music',
                                     icon: <MutedOutlined />,
-                                    label: (
-                                          <NavLink to='/music' className={({ isActive }) => (isActive ? styles.active : '')}>
-                                                Music
-                                          </NavLink>
-                                    ),
+                                    label: <Link to='/music'>Music</Link>,
                               },
                               {
-                                    key: '5',
+                                    key: '/settings',
                                     icon: <SettingOutlined />,
-                                    label: (
-                                          <NavLink to='/settings' className={({ isActive }) => (isActive ? styles.active : '')}>
-                                                Settings
-                                          </NavLink>
-                                    ),
+                                    label: <Link to='/settings'>Settings</Link>,
                               },
                               {
-                                    key: '6',
+                                    key: '/users',
                                     icon: <UsergroupAddOutlined />,
-                                    label: (
-                                          <NavLink to='/users' className={({ isActive }) => (isActive ? styles.active : '')}>
-                                                Users
-                                          </NavLink>
-                                    ),
+                                    label: <Link to='/users'>Users</Link>,
                               },
                         ]}
                   />

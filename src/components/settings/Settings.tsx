@@ -45,7 +45,7 @@ const Settings: FC = () => {
             dispatch(saveProfile(data))
       }
       return (
-            <ul className={styles.settingsBox}>
+            <ul className={`${styles.settingsBox} section`}>
                   <p className={classNames(styles.warning, { [styles.trueError]: warning })}>
                         <span onClick={() => setWarning(false)}>X</span>Picture has been replaced!
                   </p>

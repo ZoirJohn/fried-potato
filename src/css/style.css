@@ -51,3 +51,6 @@
             min-height: calc(100vh);
       }
 }
+.section {
+      padding: 1.5em;
+}

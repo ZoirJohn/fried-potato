@@ -3,6 +3,10 @@ import { Field, Formik } from 'formik'
 import styles from '../../css/Users.module.css'
 import { useSelector } from 'react-redux'
 import { getFilter } from '../../selectors'
+import { SearchOutlined } from '@ant-design/icons'
+import { Tooltip, Button, Input } from 'antd'
+
+const { Search } = Input
 type IProps = {
       setFilterSearch: (term: string, onlyFriends: null | boolean) => void
 }
@@ -23,14 +27,13 @@ const UsersSearch: FC<IProps> = memo((props) => {
                         }
                         setSubmitting(false)
                   }}
-                  className={styles.formBlank}
             >
                   {({ values, handleChange, handleBlur, errors, handleSubmit, isSubmitting }) => (
                         <form className={styles.searchForm} onSubmit={handleSubmit}>
                               <Field type='text' name='name' onChange={handleChange} onBlur={handleBlur} value={values.name} className={styles.searchFormInput} />
-                              <button type='submit' disabled={isSubmitting} className={styles.searchFormBtn}>
-                                    Search
-                              </button>
+                              <Tooltip title='search'>
+                                    <Button type='primary' shape='circle' icon={<SearchOutlined />} htmlType='submit' disabled={isSubmitting} />
+                              </Tooltip>
                               <Field name='onlyFriends' as='select'>
                                     <option value='null'>All</option>
                                     <option value='true'>Only followed</option>

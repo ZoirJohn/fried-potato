@@ -1,7 +1,6 @@
 .settingsBox {
       position: relative;
       z-index: 3;
-      padding: 1.5em;
       overflow: hidden;
 }
 
@@ -23,24 +22,24 @@
       cursor: pointer;
       margin: 0 1em 0 0;
 }
-li:nth-child(3) {
+.settingsBox li:nth-child(3) {
       margin: 1em 0 0;
 }
-form label {
+.fieldForm label {
       width: 30%;
 }
-form label .inputTextBox {
+.fieldForm label .inputTextBox {
       position: relative;
 }
-form label:not(:nth-child(2)) {
+.fieldForm label:not(:nth-child(2)) {
       padding: 0.5em 0;
       display: block;
 }
-form label:nth-child(2) {
+.fieldForm label:nth-child(2) {
       padding: 0.5em 0 0;
       display: block;
 }
-form input:not([type='checkbox']) {
+.fieldForm input:not([type='checkbox']) {
       padding: 0.2em;
       width: 60%;
 }
