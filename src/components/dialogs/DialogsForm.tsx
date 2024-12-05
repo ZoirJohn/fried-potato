@@ -1,7 +1,7 @@
 import { maxLength, minLength } from '../../assets/Validators'
 import { Field, InjectedFormProps, reduxForm } from 'redux-form'
 import { Input } from '../../assets/Input'
-import { IFormKeys } from './Dialogs'
+import { IFormKeys } from './DialogsContainer'
 import React from 'react'
 
 const maximum = maxLength(30)

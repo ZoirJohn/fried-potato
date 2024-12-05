@@ -1,18 +1,4 @@
-/* .form {
-    padding: 1em 0;
-}
-
-.form input:not([type='checkbox']) {
-    padding: 1em;
-    min-width: 30%;
-    margin: 0 0 1em;
-    display: block;
-    font-size: 1rem;
-}
-
-.form button{
-    display: block;
-} */
+.loginForm{}
 .form {
       padding: 1em 0;
       display: flex;
