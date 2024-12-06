@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.css": "/social-app/static/css/main.f219a9ae.css",
-    "main.js": "/social-app/static/js/main.e1ab2c98.js",
-    "static/css/265.6206da0b.chunk.css": "/social-app/static/css/265.6206da0b.chunk.css",
-    "static/js/265.9a69ca05.chunk.js": "/social-app/static/js/265.9a69ca05.chunk.js",
+    "main.css": "/social-app/static/css/main.3de89357.css",
+    "main.js": "/social-app/static/js/main.5c3b144c.js",
+    "static/css/176.0ba2c125.chunk.css": "/social-app/static/css/176.0ba2c125.chunk.css",
+    "static/js/176.b50a30e6.chunk.js": "/social-app/static/js/176.b50a30e6.chunk.js",
     "static/js/512.707ac7a9.chunk.js": "/social-app/static/js/512.707ac7a9.chunk.js",
     "static/js/292.4ce05130.chunk.js": "/social-app/static/js/292.4ce05130.chunk.js",
     "static/css/938.31490e05.chunk.css": "/social-app/static/css/938.31490e05.chunk.css",
@@ -18,10 +18,10 @@
     "static/media/loader.gif": "/social-app/static/media/loader.8b78b0f8132300b57ca5.gif",
     "static/media/profile-user.webp": "/social-app/static/media/profile-user.6252b62039c5640b09b1.webp",
     "index.html": "/social-app/index.html",
-    "main.f219a9ae.css.map": "/social-app/static/css/main.f219a9ae.css.map",
-    "main.e1ab2c98.js.map": "/social-app/static/js/main.e1ab2c98.js.map",
-    "265.6206da0b.chunk.css.map": "/social-app/static/css/265.6206da0b.chunk.css.map",
-    "265.9a69ca05.chunk.js.map": "/social-app/static/js/265.9a69ca05.chunk.js.map",
+    "main.3de89357.css.map": "/social-app/static/css/main.3de89357.css.map",
+    "main.5c3b144c.js.map": "/social-app/static/js/main.5c3b144c.js.map",
+    "176.0ba2c125.chunk.css.map": "/social-app/static/css/176.0ba2c125.chunk.css.map",
+    "176.b50a30e6.chunk.js.map": "/social-app/static/js/176.b50a30e6.chunk.js.map",
     "512.707ac7a9.chunk.js.map": "/social-app/static/js/512.707ac7a9.chunk.js.map",
     "292.4ce05130.chunk.js.map": "/social-app/static/js/292.4ce05130.chunk.js.map",
     "938.31490e05.chunk.css.map": "/social-app/static/css/938.31490e05.chunk.css.map",
@@ -32,7 +32,7 @@
     "34.a434df50.chunk.js.map": "/social-app/static/js/34.a434df50.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f219a9ae.css",
-    "static/js/main.e1ab2c98.js"
+    "static/css/main.3de89357.css",
+    "static/js/main.5c3b144c.js"
   ]
 }
