@@ -51,6 +51,11 @@
             min-height: calc(100vh);
       }
 }
+@media (max-width: 1024px) {
+      .section {
+            padding: 0.5em !important;
+      }
+}
 .section {
       padding: 1.5em;
 }

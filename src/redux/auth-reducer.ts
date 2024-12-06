@@ -1,5 +1,5 @@
 import { stopSubmit } from 'redux-form'
-import { ResultCodeSuccessError } from '../api/api'
+import {  ResultCodeSuccessError } from '../api/api'
 import { ThunkAction } from 'redux-thunk'
 import { ActionsTypes, rootStateType } from './store'
 import { authAPI } from '../api/auth-api'
@@ -13,6 +13,7 @@ let initialState = {
       isAuthorized: false as boolean | null,
       captcha: null as string | null,
 }
+let globalId: number | null
 
 export type InitialStateAuthType = typeof initialState
 
@@ -93,4 +94,4 @@ const deleteAuthData = (): ThunkAction<Promise<void>, rootStateType, unknown, Au
       }
 }
 
-export { auth_reducer, setUserData, sendAuthData, deleteAuthData }
+export { auth_reducer, setUserData, sendAuthData, deleteAuthData, globalId }

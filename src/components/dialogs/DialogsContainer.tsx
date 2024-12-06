@@ -2,9 +2,7 @@ import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import styles from '../../css/Dialogs.module.css'
 import AddMessageRedux from './DialogsForm'
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { IDispatch } from '../../redux/store'
-import { DialogsActions } from '../../redux/dialogs-reducer'
+import profilePhoto from '../../img/profile-user.webp'
 
 type IProps = {}
 export type IFormKeys = {
@@ -14,38 +12,33 @@ const ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandle
 
 const Dialogs: React.FC<IProps> = (props) => {
       const [messages, setMessages] = useState<{ userId: number; userName: string; message: string; photo: string }[]>([])
-      const [currentMessage, setCurrentMessage] = useState<string>('')
-      const dispatch: IDispatch = useDispatch()
-      const addMail = (formData: IFormKeys) => {
-            dispatch(DialogsActions.addMessage(formData.AddMessageForm))
+      const sendMessage = (formData: string) => {
+            ws.send(formData)
       }
       useEffect(() => {
             ws.addEventListener('message', (e) => {
-                  setMessages(JSON.parse(e.data))
+                  setMessages((prevMessages) => [...prevMessages, ...JSON.parse(e.data)])
             })
       }, [])
-      const findOut = (e: any) => {
-            messages.map((message) => (message.userName === e.target.innerHTML ? setCurrentMessage(message.message) : null))
-      }
+      messages.splice(0, 16)
       return (
-            <section className={styles.dialogs}>
-                  <div className={styles.contacts}>
-                        <ul className={styles.names}>
-                              {messages.map((message, id) => (
-                                    <li onClick={findOut} key={id}>
-                                          {message.userName}
-                                    </li>
-                              ))}
-                        </ul>
-                  </div>
-                  <div className={styles.chats}>
-                        <ul className={styles.messages}>
-                              <li>{currentMessage}</li>
-                        </ul>
-                  </div>
+            <section className={`${styles.dialogs} section`}>
+                  <ul className={styles.messages}>
+                        {messages.map((message, id) => (
+                              <li key={id} className={styles.profileData}>
+                                    <div className={styles.contact}>
+                                          <img src={message.photo || profilePhoto} alt='profilePhoto' />
+                                    </div>
+                                    <div className={styles.messageText}>
+                                          <p>{message.message}</p>
+                                          <h3>{message.userName}</h3>
+                                    </div>
+                              </li>
+                        ))}
+                  </ul>
                   <AddMessageRedux
                         onSubmit={(formData: IFormKeys) => {
-                              addMail(formData)
+                              sendMessage(formData.AddMessageForm)
                         }}
                   />
             </section>
