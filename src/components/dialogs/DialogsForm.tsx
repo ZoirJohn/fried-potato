@@ -11,7 +11,9 @@ const AddMessageForm: React.FC<InjectedFormProps<IFormKeys>> = (props) => {
       return (
             <form onSubmit={props.handleSubmit}>
                   <Field component={Input} validate={[maximum, minimum]} name='AddMessageForm' />
-                  <button>Send</button>
+                  <button type='submit' disabled>
+                        Send
+                  </button>
             </form>
       )
 }

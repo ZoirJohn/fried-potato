@@ -1,5 +1,5 @@
 import { stopSubmit } from 'redux-form'
-import {  ResultCodeSuccessError } from '../api/api'
+import { ResultCodeSuccessError } from '../api/api'
 import { ThunkAction } from 'redux-thunk'
 import { ActionsTypes, rootStateType } from './store'
 import { authAPI } from '../api/auth-api'
@@ -68,6 +68,7 @@ const setCaptcha = (): ThunkAction<Promise<void>, rootStateType, unknown, AuthAc
 }
 const setUserData = (): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsTypes> => async (dispatch) => {
       const data = await authAPI.IS_REGISTERED()
+      localStorage.setItem('id', data.data.login)
       if (data.resultCode === ResultCodeSuccessError.Success) {
             const { id, login, email } = data.data
             dispatch(AuthActions.setUserDataDone(id, login, email, true))
