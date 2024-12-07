@@ -6,18 +6,20 @@ import React from 'react'
 
 const maximum = maxLength(30)
 const minimum = minLength(2)
-
-const AddMessageForm: React.FC<InjectedFormProps<IFormKeys>> = (props) => {
+type IProps = {
+      disabling: boolean
+}
+const AddMessageForm: React.FC<InjectedFormProps<IFormKeys, IProps> & IProps> = (props) => {
       return (
             <form onSubmit={props.handleSubmit}>
                   <Field component={Input} validate={[maximum, minimum]} name='AddMessageForm' />
-                  <button type='submit' disabled>
+                  <button type='submit' disabled={props.disabling}>
                         Send
                   </button>
             </form>
       )
 }
 
-const AddMessageRedux = reduxForm<IFormKeys>({ form: 'AddMessageForm' })(AddMessageForm)
+const AddMessageRedux = reduxForm<IFormKeys, IProps>({ form: 'AddMessageForm' })(AddMessageForm)
 
 export default AddMessageRedux

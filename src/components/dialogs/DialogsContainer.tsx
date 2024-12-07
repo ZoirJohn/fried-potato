@@ -3,7 +3,7 @@ import styles from '../../css/Dialogs.module.css'
 import AddMessageRedux from './DialogsForm'
 import React, { useEffect, useState, useRef } from 'react'
 import profilePhoto from '../../img/profile-user.webp'
-import {  destroy } from 'redux-form'
+import { destroy } from 'redux-form'
 import { IDispatch } from '../../redux/store'
 import { useDispatch } from 'react-redux'
 
@@ -14,24 +14,24 @@ export type IFormKeys = {
 
 const Dialogs: React.FC<IProps> = (props) => {
       const [messages, setMessages] = useState<{ userId: number; userName: string; message: string; photo: string }[]>([])
-      const socketRef = useRef<WebSocket | null>(null)
+      const ws = useRef<WebSocket | null>(null)
 
       useEffect(() => {
-            socketRef.current = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+            ws.current = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
-            socketRef.current.addEventListener('message', (e) => {
+            ws.current.addEventListener('message', (e) => {
                   setMessages((prevMessages) => [...JSON.parse(e.data)])
             })
-            socketRef.current.addEventListener('close', (e) => {
+            ws.current.addEventListener('close', (e) => {
                   setMessages((prevMessages) => [...prevMessages])
             })
             return () => {
-                  socketRef.current?.close()
+                  ws.current?.close()
             }
       }, [])
       const sendMessage = (formData: string) => {
-            if (socketRef.current) {
-                  socketRef.current.send(formData)
+            if (ws.current) {
+                  ws.current.send(formData)
                   dispatch(destroy('AddMessageForm'))
             }
       }
@@ -55,6 +55,7 @@ const Dialogs: React.FC<IProps> = (props) => {
                         onSubmit={(formData: IFormKeys) => {
                               sendMessage(formData.AddMessageForm)
                         }}
+                        disabling={ws.current?.readyState !== ws.current?.OPEN}
                   />
             </section>
       )
