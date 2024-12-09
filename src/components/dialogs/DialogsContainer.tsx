@@ -15,18 +15,31 @@ export type IFormKeys = {
 const Dialogs: React.FC<IProps> = (props) => {
       const [messages, setMessages] = useState<{ userId: number; userName: string; message: string; photo: string }[]>([])
       const ws = useRef<WebSocket | null>(null)
-
+      const [innerReadyState, setReady] = useState(0)
       useEffect(() => {
             ws.current = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
             ws.current.addEventListener('message', (e) => {
-                  setMessages((prevMessages) => [...JSON.parse(e.data)])
+                  setMessages((prevMessages) => [...prevMessages, ...JSON.parse(e.data)])
             })
-            ws.current.addEventListener('close', (e) => {
-                  setMessages((prevMessages) => [...prevMessages])
+            ws.current.addEventListener('close',()=>{
+                  console.log('close')
             })
+      }, [])
+      useEffect(() => {
+            const handleOffline = () => {
+                  setReady(1)
+            }
+            const handleOnline = () => {
+                  setReady(0)
+            }
+
+            window.addEventListener('offline', handleOffline)
+            window.addEventListener('online', handleOnline)
+
             return () => {
-                  ws.current?.close()
+                  window.removeEventListener('offline', handleOffline)
+                  window.removeEventListener('offline', handleOnline)
             }
       }, [])
       const sendMessage = (formData: string) => {
@@ -55,7 +68,7 @@ const Dialogs: React.FC<IProps> = (props) => {
                         onSubmit={(formData: IFormKeys) => {
                               sendMessage(formData.AddMessageForm)
                         }}
-                        disabling={ws.current?.readyState !== ws.current?.OPEN}
+                        disabling={ws.current?.readyState && innerReadyState}
                   />
             </section>
       )
