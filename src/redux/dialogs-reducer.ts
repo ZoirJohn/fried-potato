@@ -1,27 +1,16 @@
-import { Chat, MessageType } from '../types'
-import { ActionsTypes } from './store'
-
+import { ActionsTypes, IDispatch, rootStateType } from './store'
+import { ThunkAction } from 'redux-thunk'
+import dialogsAPI, { TChat, TSubscriber } from '../api/dialogs-api'
 let initialState = {
-      contacts: [
-            { name: 'Stephen', id: 1 },
-            { name: 'Draymond', id: 2 },
-            { name: 'Jonathan', id: 3 },
-            { name: 'Klay', id: 4 },
-      ] as Array<Chat>,
-      texts: [
-            { text: 'Good morning', id: 1, likeNumber: 0 },
-            { text: 'How do you feel?', id: 2, likeNumber: 0 },
-            { text: 'Will you play PS5 with me?', id: 3, likeNumber: 0 },
-      ] as Array<MessageType>,
+      messages: [] as TSubscriber[],
 }
 
 export type InitialStateDialogsType = typeof initialState
 
 const dialogs_reducer = (_state = initialState, action: DialogsActionsTypes): InitialStateDialogsType => {
       switch (action.type) {
-            case 'social-app/dialogs/ADD-POST-DIALOGS':
-                  let newPost = { text: action.text, id: Math.floor(Math.random() * 10), likeNumber: Math.floor(Math.random() * 10) }
-                  return { ..._state, texts: [..._state.texts, newPost] }
+            case 'social-app/dialogs/SEND-MESSAGES':
+                  return { ..._state, messages: [...action.payload] }
             default:
                   return _state
       }
@@ -30,7 +19,30 @@ const dialogs_reducer = (_state = initialState, action: DialogsActionsTypes): In
 type DialogsActionsTypes = ActionsTypes<typeof DialogsActions>
 
 let DialogsActions = {
-      addMessage: (text: string) => ({ type: 'social-app/dialogs/ADD-POST-DIALOGS', text } as const),
+      addMessage: (message: TSubscriber[]) => ({ type: 'social-app/dialogs/SEND-MESSAGES', payload: message } as const),
 }
 
-export { dialogs_reducer, DialogsActions }
+let _newMessageHandler: ((messages: TSubscriber[]) => void) | null = null
+const newMessageHandlerCreator = (dispatch: IDispatch) => {
+      if (_newMessageHandler === null) {
+            _newMessageHandler = (messages) => {
+                  dispatch(DialogsActions.addMessage(messages))
+            }
+      }
+      return _newMessageHandler
+}
+
+const startMessaging = (): ThunkAction<Promise<void>, rootStateType, undefined, DialogsActionsTypes> => async (dispatch) => {
+      dialogsAPI.start()
+      dialogsAPI.subscribe(newMessageHandlerCreator(dispatch))
+}
+const stopMessaging = (): ThunkAction<Promise<void>, rootStateType, undefined, DialogsActionsTypes> => async (dispatch) => {
+      dialogsAPI.unsubscribe(newMessageHandlerCreator(dispatch))
+      dialogsAPI.stop()
+}
+const sendMessage =
+      (message: string): ThunkAction<Promise<void>, rootStateType, unknown, DialogsActionsTypes> =>
+      async (dispatch) => {
+            dialogsAPI.sendMessage(message)
+      }
+export { dialogs_reducer, DialogsActions, sendMessage, stopMessaging, startMessaging }

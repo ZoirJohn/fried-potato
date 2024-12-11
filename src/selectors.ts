@@ -38,11 +38,8 @@ export const getId = (state: rootStateType) => {
       return state.auth.id
 }
 // ! DIALOGS
-export const getContacts = (state: rootStateType) => {
-      return state.dialogs.contacts
-}
-export const getTexts = (state: rootStateType) => {
-      return state.dialogs.texts
+export const getMessages = (state: rootStateType) => {
+      return state.dialogs.messages
 }
 
 // ! PROFILE
