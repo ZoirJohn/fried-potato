@@ -1,6 +1,7 @@
 import { ActionsTypes, IDispatch, rootStateType } from './store'
 import { ThunkAction } from 'redux-thunk'
 import dialogsAPI, { TChat, TSubscriber } from '../api/dialogs-api'
+import { message } from 'antd'
 let initialState = {
       messages: [] as TSubscriber[],
 }

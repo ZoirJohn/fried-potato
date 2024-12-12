@@ -18,9 +18,6 @@ const Dialogs: React.FC<IProps> = (props) => {
       const dispatch: IDispatch = useDispatch()
       useEffect(() => {
             dispatch(startMessaging())
-            return () => {
-                  dispatch(stopMessaging())
-            }
       })
       return (
             <section className={`${styles.dialogs} section`}>
