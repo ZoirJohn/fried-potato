@@ -8,6 +8,7 @@ const messageHandler = (e: MessageEvent) => {
 }
 const closeHandler = () => {
       setTimeout(createChannel, 3000)
+      console.log('CLOSE');
 }
 const cleanUp = () => {
       ws?.removeEventListener('close', closeHandler)
@@ -15,13 +16,10 @@ const cleanUp = () => {
       ws?.close()
 }
 const createChannel = () => {
-      if (!ws) {
-            console.log(ws)
             cleanUp()
             ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
             ws.addEventListener('close', closeHandler)
             ws.addEventListener('message', messageHandler)
-      }
 }
 
 const dialogsAPI = {

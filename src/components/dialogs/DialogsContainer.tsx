@@ -6,7 +6,7 @@ import profilePhoto from '../../img/profile-user.webp'
 import { IDispatch } from '../../redux/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { getMessages } from '../../selectors'
-import {  startMessaging, stopMessaging } from '../../redux/dialogs-reducer'
+import { startMessaging, stopMessaging } from '../../redux/dialogs-reducer'
 
 type IProps = {}
 export type IFormKeys = {
@@ -16,9 +16,13 @@ export type IFormKeys = {
 const Dialogs: React.FC<IProps> = (props) => {
       const messages = useSelector(getMessages)
       const dispatch: IDispatch = useDispatch()
+
       useEffect(() => {
             dispatch(startMessaging())
-      })
+            return ()=>{
+                  dispatch(stopMessaging())
+            }
+      },[])
       return (
             <section className={`${styles.dialogs} section`}>
                   <ul className={styles.messages}>
@@ -34,9 +38,7 @@ const Dialogs: React.FC<IProps> = (props) => {
                               </li>
                         ))}
                   </ul>
-                  <AddMessageRedux
-                        disabling={0}
-                  />
+                  <AddMessageRedux disabling={0} />
             </section>
       )
 }

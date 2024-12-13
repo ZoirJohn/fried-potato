@@ -11,7 +11,7 @@ export type InitialStateDialogsType = typeof initialState
 const dialogs_reducer = (_state = initialState, action: DialogsActionsTypes): InitialStateDialogsType => {
       switch (action.type) {
             case 'social-app/dialogs/SEND-MESSAGES':
-                  return { ..._state, messages: [...action.payload] }
+                  return { ..._state, messages: [..._state.messages, ...action.payload] }
             default:
                   return _state
       }
