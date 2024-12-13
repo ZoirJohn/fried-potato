@@ -1,14 +1,15 @@
 let subscribers: TChat[] = []
 
-let ws: WebSocket | null
+let ws: WebSocket | null = null
 
 const messageHandler = (e: MessageEvent) => {
       const messages = JSON.parse(e.data)
       subscribers.forEach((s) => s(messages))
 }
 const closeHandler = () => {
+      subscribers = []
       setTimeout(createChannel, 3000)
-      console.log('CLOSE');
+      console.log('CLOSE')
 }
 const cleanUp = () => {
       ws?.removeEventListener('close', closeHandler)
@@ -16,10 +17,10 @@ const cleanUp = () => {
       ws?.close()
 }
 const createChannel = () => {
-            cleanUp()
-            ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
-            ws.addEventListener('close', closeHandler)
-            ws.addEventListener('message', messageHandler)
+      cleanUp()
+      ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+      ws.addEventListener('close', closeHandler)
+      ws.addEventListener('message', messageHandler)
 }
 
 const dialogsAPI = {

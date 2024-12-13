@@ -1,6 +1,6 @@
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import styles from '../../css/Dialogs.module.css'
-import AddMessageRedux from './DialogsForm'
+import AddMessageForm from './DialogsForm'
 import React, { useEffect } from 'react'
 import profilePhoto from '../../img/profile-user.webp'
 import { IDispatch } from '../../redux/store'
@@ -16,13 +16,12 @@ export type IFormKeys = {
 const Dialogs: React.FC<IProps> = (props) => {
       const messages = useSelector(getMessages)
       const dispatch: IDispatch = useDispatch()
-
       useEffect(() => {
             dispatch(startMessaging())
-            return ()=>{
+            return () => {
                   dispatch(stopMessaging())
             }
-      },[])
+      }, [])
       return (
             <section className={`${styles.dialogs} section`}>
                   <ul className={styles.messages}>
@@ -38,7 +37,7 @@ const Dialogs: React.FC<IProps> = (props) => {
                               </li>
                         ))}
                   </ul>
-                  <AddMessageRedux disabling={0} />
+                  <AddMessageForm disabling={0} />
             </section>
       )
 }
