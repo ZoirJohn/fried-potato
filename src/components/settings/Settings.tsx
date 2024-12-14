@@ -10,7 +10,7 @@ import { PhotosType } from '../../types'
 import { getId, getProfileId } from '../../selectors'
 import { compose } from 'redux'
 
-type IProps = {}
+type TProps = {}
 type FormKeysType = {
       lookingForAJob: boolean
       lookingForAJobDescription: string

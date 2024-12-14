@@ -6,10 +6,10 @@ import { sendMessage } from '../../redux/dialogs-reducer'
 
 const maximum = maxLength(30)
 const minimum = minLength(2)
-type IProps = {
-      disabling: number | undefined
+type TProps = {
+      disabling: boolean
 }
-const AddMessageForm: FC<IProps> = (props) => {
+const AddMessageForm: FC<TProps> = (props) => {
       const [text, setText] = useState('')
       const dispatch: IDispatch = useDispatch()
       const setTextHandler = (e: MouseEvent<HTMLButtonElement>) => {
@@ -20,7 +20,7 @@ const AddMessageForm: FC<IProps> = (props) => {
       return (
             <form>
                   <input type='text' onChange={(e) => setText(e.currentTarget.value)} value={text} />
-                  <button onClick={(e) => setTextHandler(e)} type='submit' disabled={false}>
+                  <button onClick={(e) => setTextHandler(e)} type='submit' disabled={props.disabling}>
                         Send
                   </button>
             </form>

@@ -41,6 +41,9 @@ export const getId = (state: rootStateType) => {
 export const getMessages = (state: rootStateType) => {
       return state.dialogs.messages
 }
+export const getSubStatus = (state: rootStateType) => {
+      return state.dialogs.status
+}
 
 // ! PROFILE
 export const getProfileUser = (state: rootStateType) => {

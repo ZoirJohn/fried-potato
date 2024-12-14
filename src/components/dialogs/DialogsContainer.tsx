@@ -5,16 +5,17 @@ import React, { useEffect } from 'react'
 import profilePhoto from '../../img/profile-user.webp'
 import { IDispatch } from '../../redux/store'
 import { useDispatch, useSelector } from 'react-redux'
-import { getMessages } from '../../selectors'
+import { getMessages, getSubStatus } from '../../selectors'
 import { startMessaging, stopMessaging } from '../../redux/dialogs-reducer'
 
-type IProps = {}
+type TProps = {}
 export type IFormKeys = {
       AddMessageForm: string
 }
 
-const Dialogs: React.FC<IProps> = (props) => {
+const Dialogs: React.FC<TProps> = (props) => {
       const messages = useSelector(getMessages)
+      const status = useSelector(getSubStatus)
       const dispatch: IDispatch = useDispatch()
       useEffect(() => {
             dispatch(startMessaging())
@@ -37,7 +38,7 @@ const Dialogs: React.FC<IProps> = (props) => {
                               </li>
                         ))}
                   </ul>
-                  <AddMessageForm disabling={0} />
+                  <AddMessageForm disabling={status!=='ready'} />
             </section>
       )
 }

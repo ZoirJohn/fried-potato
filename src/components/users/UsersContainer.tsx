@@ -6,9 +6,9 @@ import Loader from '../../assets/Loader'
 import { compose } from 'redux'
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 
-type IProps = {}
+type TProps = {}
 
-const UsersContainer: FC<IProps> = () => {
+const UsersContainer: FC<TProps> = () => {
       const isFetching = useSelector(getIsFetching)
       return (
             <>

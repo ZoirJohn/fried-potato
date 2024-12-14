@@ -12,7 +12,7 @@ import { NumberParam, StringParam, useQueryParam } from 'use-query-params'
 import { Col, Pagination, Row } from 'antd'
 import { Button, Card, Flex, Typography } from 'antd'
 
-type IProps = {}
+type TProps = {}
 
 const cardStyle: React.CSSProperties = {
       width: '100%',
@@ -23,7 +23,7 @@ const imgStyle: React.CSSProperties = {
       width: 73,
 }
 
-const Users: FC<IProps> = (props) => {
+const Users: FC<TProps> = (props) => {
       const users = useSelector(getUsersList)
       const overall = useSelector(getOverall)
       const pageSize = useSelector(getPageSize)

@@ -7,11 +7,11 @@ import { SearchOutlined } from '@ant-design/icons'
 import { Tooltip, Button, Input } from 'antd'
 
 const { Search } = Input
-type IProps = {
+type TProps = {
       setFilterSearch: (term: string, onlyFriends: null | boolean) => void
 }
 
-const UsersSearch: FC<IProps> = memo((props) => {
+const UsersSearch: FC<TProps> = memo((props) => {
       const filter = useSelector(getFilter)
       return (
             <Formik

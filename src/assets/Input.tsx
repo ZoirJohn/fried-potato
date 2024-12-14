@@ -2,11 +2,11 @@ import { WrappedFieldMetaProps, WrappedFieldProps } from "redux-form"
 import styles from "../css/Profile.module.css"
 import React from "react"
 
-type IProps = {
+type TProps = {
       placeholder: string
       className: string
 }
-type PropsType = IProps
+type PropsType = TProps
 
 const Input: React.FC<WrappedFieldProps & PropsType> = ({ meta, input, ...props }) => {
       const { error, touched } = meta
