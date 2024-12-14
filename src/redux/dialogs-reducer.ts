@@ -1,7 +1,6 @@
 import { ActionsTypes, IDispatch, rootStateType } from './store'
 import { ThunkAction } from 'redux-thunk'
 import dialogsAPI, { TChat, TSubscriber } from '../api/dialogs-api'
-import { message } from 'antd'
 let initialState = {
       messages: [] as TSubscriber[],
 }
@@ -11,7 +10,7 @@ export type InitialStateDialogsType = typeof initialState
 const dialogs_reducer = (_state = initialState, action: DialogsActionsTypes): InitialStateDialogsType => {
       switch (action.type) {
             case 'social-app/dialogs/SEND-MESSAGES':
-                  return { ..._state, messages: [...action.payload.filter((subscriber) => (_state.messages.indexOf(subscriber) !== action.payload.indexOf(subscriber) ? subscriber : {}))] }
+                  return action.payload.length < 2 ? { ..._state, messages: [..._state.messages, ...action.payload] } : { ..._state, messages: [...action.payload] }
             default:
                   return _state
       }

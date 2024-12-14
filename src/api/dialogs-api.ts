@@ -7,7 +7,6 @@ const messageHandler = (e: MessageEvent) => {
       subscribers.forEach((s) => s(messages))
 }
 const closeHandler = () => {
-      subscribers = []
       setTimeout(createChannel, 3000)
       console.log('CLOSE')
 }
