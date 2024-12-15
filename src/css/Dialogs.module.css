@@ -43,6 +43,9 @@
       border-radius: 15px;
       position: relative;
 }
+.myMessage .messageText {
+      background: #bdbdbd;
+}
 .messageText::before {
       content: '';
       display: block;

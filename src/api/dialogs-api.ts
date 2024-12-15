@@ -10,8 +10,7 @@ const messageHandler = (e: MessageEvent) => {
       subscribers['messages'].forEach((s) => s(messages))
       subscribers['status'].forEach((s) => s('ready'))
 }
-const openHandler = () => {
-}
+const openHandler = () => {}
 const closeHandler = () => {
       setTimeout(createChannel, 3000)
       console.log('CLOSE')

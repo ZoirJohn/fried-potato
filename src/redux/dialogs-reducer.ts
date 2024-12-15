@@ -11,7 +11,8 @@ export type InitialStateDialogsType = typeof initialState
 const dialogs_reducer = (_state = initialState, action: DialogsActionsTypes): InitialStateDialogsType => {
       switch (action.type) {
             case 'social-app/dialogs/MESSAGES-RECEIVED':
-                  return action.payload.length < 2 ? { ..._state, messages: [..._state.messages, ...action.payload] } : { ..._state, messages: [...action.payload] }
+                  const newAllowed = action.payload.length < 2 ? [..._state.messages, ...action.payload] : [...action.payload]
+                  return { ..._state, messages: [...newAllowed] }
             case 'social-app/dialogs/STATUS-CHANGED':
                   return { ..._state, status: action.payload }
             default:
