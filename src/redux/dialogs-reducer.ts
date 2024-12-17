@@ -12,7 +12,7 @@ const dialogs_reducer = (_state = initialState, action: DialogsActionsTypes): In
       switch (action.type) {
             case 'social-app/dialogs/MESSAGES-RECEIVED':
                   const newAllowed = action.payload.length < 2 ? [..._state.messages, ...action.payload] : [...action.payload]
-                  return { ..._state, messages: [...newAllowed] }
+                  return { ..._state, messages: [...newAllowed.slice(newAllowed.length - 25)] }
             case 'social-app/dialogs/STATUS-CHANGED':
                   return { ..._state, status: action.payload }
             default:
