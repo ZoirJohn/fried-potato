@@ -13,7 +13,7 @@ import ProfileContainer from './components/profile/ProfileContainer'
 import Login from './components/login/Login'
 import Loader from './assets/Loader'
 import Sidebar from './components/Sidebar'
-
+import styles from './css/Main.module.css'
 const { Header, Content } = Layout
 
 const Dialogs = lazy(() => import('./components/dialogs/DialogsContainer'))
@@ -23,7 +23,7 @@ const Settings = lazy(() => import('./components/settings/Settings'))
 const Users = lazy(() => import('./components/users/UsersContainer'))
 
 const App: FC = (props) => {
-      const [collapsed, setCollapsed] = useState(false)
+      const [collapsed, setCollapsed] = useState(true)
       const {
             token: { colorBgContainer, borderRadiusLG },
       } = theme.useToken()
@@ -43,7 +43,7 @@ const App: FC = (props) => {
                   <HeaderComponent />
                   <Layout style={{ flexGrow: 1 }}>
                         <Layout>
-                              <Header style={{ padding: 0, background: colorBgContainer,zIndex:3 }}>
+                              <Header style={{ padding: 0, background: colorBgContainer, zIndex: 3 }}>
                                     <Button
                                           type='text'
                                           icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -64,6 +64,7 @@ const App: FC = (props) => {
                                           background: colorBgContainer,
                                           borderRadius: borderRadiusLG,
                                     }}
+                                    className={styles.mainComp}
                               >
                                     <Suspense fallback={<p>Loading...</p>}>
                                           <Routes>

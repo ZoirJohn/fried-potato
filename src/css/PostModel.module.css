@@ -1,28 +1,38 @@
 .item {
-    display: flex;
-    align-items: center;
-    gap: 0 1em;
-    margin: 0 0 1.5em;
-    padding: 0.4em;
-    box-shadow: #000 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 0 1em;
+      margin: 0 0 1.5em;
+      padding: 0.4em;
+      box-shadow: #000 0 0 10px;
 }
 
 .item img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
 }
 
 .buttons {
-    justify-self: flex-end;
+      justify-self: flex-end;
 }
 
 .item p {
-    display: flex;
+      display: flex;
 }
-.item svg{
-    cursor: pointer;
+.item svg {
+      cursor: pointer;
 }
 .item span {
-    margin: 0 0 0 0.1em;
+      margin: 0 0 0 0.1em;
+}
+
+@media (max-width: 768px) {
+      .item {
+            box-shadow: none;
+            border: 1px solid #eeeeee;
+      }
+      .item p{
+        font-size: 0.8rem;
+      }
 }

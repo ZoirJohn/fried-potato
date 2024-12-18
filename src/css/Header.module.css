@@ -1,26 +1,11 @@
-.header {
-    width: 100%;
-    background: var(--primary-color);
-    padding: 1rem 0;
-    z-index: 2;
-    position: relative;
-}
-
-.header .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.header a {
-    color: azure;
-    text-decoration: none;
-    cursor: pointer;
-}
-
 .logo {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+}
+@media (max-width:425px) {
+    .header{
+        padding: 0 1em;
+    }
 }

@@ -22,7 +22,7 @@ const HeaderComponent: FC = () => {
             dispatch(deleteAuthData())
       }
       return (
-            <Header style={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
+            <Header style={{ display: 'flex', alignItems: 'center', gap: '1em' }} className={styles.header}>
                   <img src={imgLogo} alt='logotype' className={`${styles.logo} demo-logo`} />
                   <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['1']} items={items1} style={{ flex: 1, minWidth: 0 }} />
                   {auth ? <Button onClick={() => removeAuthData()}>Log out</Button> : <Button href='#'>Log in</Button>}

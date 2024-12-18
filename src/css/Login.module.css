@@ -1,4 +1,5 @@
-.loginForm{}
+.loginForm {
+}
 .form {
       padding: 1em 0;
       display: flex;
@@ -15,4 +16,21 @@
 }
 .error {
       color: #f00;
+}
+@media (max-width: 976px) {
+      .form input:not([type='checkbox']) {
+            width: 50%;
+      }
+}
+@media (max-width: 768px) {
+      .form input:not([type='checkbox']) {
+            width: 75%;
+      }
+      .noAccount{
+            text-align: center;
+      }
+}@media (max-width: 425px) {
+      .form input:not([type='checkbox']) {
+            width: 100%;
+      }
 }

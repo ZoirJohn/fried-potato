@@ -1,14 +1,5 @@
-.main {
-    flex-grow: 2;
-}
-
-@media (max-width: 820px) {
-    [data-testid='container'] {
-        padding: 0 5px;
-    }
-}@media (max-width: 620px) {
-    [data-testid='container'] {
-        position: relative;
-        overflow: hidden;
+@media (max-width:425px) {
+    .mainComp{
+        margin: 0.4em !important;
     }
 }
