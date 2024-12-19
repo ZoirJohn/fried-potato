@@ -52,3 +52,22 @@
       top: 25%;
       color: #f60000;
 }
+@media (max-width: 768px) {
+      .fieldForm label {
+            width: 50%;
+      }
+      .fieldForm input:not([type='checkbox']) {
+            width: 100%;
+      }
+      .warning{
+            top: -100%;
+      }
+      .trueError{
+            top: 0;
+      }
+}
+@media (max-width: 425px) {
+      .fieldForm label {
+            width: 100%;
+      }
+}

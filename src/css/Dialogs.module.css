@@ -46,6 +46,7 @@
 .myMessage .messageText {
       background: #bdbdbd;
 }
+
 .messageText::before {
       content: '';
       display: block;
@@ -57,9 +58,35 @@
       top: 25px;
       left: -19px;
 }
+.myMessage .messageText::before {
+      border-right: 10px solid #bdbdbd !important;
+}
 .messageText p {
       font-size: 1.5rem;
 }
 .messages::-webkit-scrollbar {
       display: none;
+}
+@media (max-width: 1024px) {
+      .messages {
+            width: 60%;
+      }
+      .dialogs img {
+            width: 100%;
+      }
+}@media (max-width: 425px) {
+      .messages {
+            width: 100%;
+      }
+      .profileData{
+            justify-content: space-between;
+      }
+      .dialogs img {
+            width: 100%;
+      }
+      .messageText{
+            padding: 0.5em;
+      }
+      .messageText::before {
+      top: 18px;}
 }

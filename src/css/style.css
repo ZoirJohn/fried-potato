@@ -27,7 +27,7 @@
 }
 
 .fa_exclamation {
-      font-size: 15rem;
+      font-size: 15em;
       height: 100%;
       display: flex;
       align-items: center;
@@ -54,6 +54,11 @@
 @media (max-width: 1024px) {
       .section {
             padding: 0.5em !important;
+      }
+}
+@media (max-width:425px) {
+      .fa_exclamation{
+            font-size: 10rem;
       }
 }
 .section {
