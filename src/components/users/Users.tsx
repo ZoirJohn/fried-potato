@@ -10,7 +10,8 @@ import styles from '../../css/Users.module.css'
 import UsersSearch from './UsersSearch'
 import { NumberParam, StringParam, useQueryParam } from 'use-query-params'
 import { Col, Pagination, Row } from 'antd'
-import { Button, Card, Flex, Typography } from 'antd'
+import { Button, Card, Flex, Typography, Grid, Tag } from 'antd'
+import { wrap } from 'module'
 
 type TProps = {}
 
@@ -22,7 +23,7 @@ const imgStyle: React.CSSProperties = {
       display: 'block',
       width: 73,
 }
-
+const { useBreakpoint } = Grid
 const Users: FC<TProps> = (props) => {
       const users = useSelector(getUsersList)
       const overall = useSelector(getOverall)
@@ -77,7 +78,7 @@ const Users: FC<TProps> = (props) => {
       const unfollowUser = (userId: number) => {
             dispatch(unfollow(userId))
       }
-
+      const screens = useBreakpoint()
       return (
             <Row className={`${styles.users} section`}>
                   <Col span={12}>
@@ -87,9 +88,9 @@ const Users: FC<TProps> = (props) => {
                         <UsersSearch setFilterSearch={setFilterSearch} />
                   </Col>
                   <Col span={24} style={{ padding: '1em 0' }}>
-                        <Row justify={'space-between'}>
+                        <Row justify={'space-between'} gutter={[5, 5]} wrap={true}>
                               {users.map((u: UserType, id) => (
-                                    <Col span={4} key={id}>
+                                    <Col lg={4} sm={6} xs={24} span={6} key={id}>
                                           <Card hoverable style={cardStyle} styles={{ body: { padding: 0, overflow: 'hidden' } }}>
                                                 <Flex justify='center' align='center' vertical gap={'1.5em'} style={{ padding: '2em' }}>
                                                       <NavLink to={'/profile/' + u.id}>

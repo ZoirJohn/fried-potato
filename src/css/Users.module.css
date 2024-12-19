@@ -16,3 +16,6 @@
 .searchForm button{
         margin: 0 4em 0 0.5em;
 }
+@media (max-width:1024px) {
+        
+}
