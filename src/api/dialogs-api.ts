@@ -4,6 +4,7 @@ const subscribers = {
 }
 
 let ws: WebSocket | null = null
+let reconnectTimeout: ReturnType<typeof setTimeout> | null = null
 
 const messageHandler = (e: MessageEvent) => {
       const messages = JSON.parse(e.data)
@@ -12,8 +13,8 @@ const messageHandler = (e: MessageEvent) => {
 }
 const openHandler = () => {}
 const closeHandler = () => {
-      setTimeout(createChannel, 3000)
-      console.log('CLOSE')
+      subscribers['status'].forEach((s) => s('pending'))
+      reconnectTimeout = setTimeout(createChannel, 3000)
 }
 const cleanUp = () => {
       subscribers['status'].forEach((s) => s('pending'))
@@ -23,6 +24,7 @@ const cleanUp = () => {
 }
 const createChannel = () => {
       cleanUp()
+      if (ws) return
       ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
       ws.addEventListener('open', openHandler)
       ws.addEventListener('close', closeHandler)
