@@ -30,10 +30,13 @@ const UsersSearch: FC<TProps> = memo((props) => {
             >
                   {({ values, handleChange, handleBlur, errors, handleSubmit, isSubmitting }) => (
                         <form className={styles.searchForm} onSubmit={handleSubmit}>
-                              <Field type='text' name='name' onChange={handleChange} onBlur={handleBlur} value={values.name} className={styles.searchFormInput} />
-                              <Tooltip title='search'>
-                                    <Button type='primary' shape='circle' icon={<SearchOutlined />} htmlType='submit' disabled={isSubmitting} />
-                              </Tooltip>
+                              <div className={styles.searchBox}>
+                                    <Field type='text' name='name' onChange={handleChange} onBlur={handleBlur} value={values.name} className={styles.searchFormInput} />
+                                    <Tooltip title='search'>
+                                          <Button type='primary' shape='circle' icon={<SearchOutlined />} htmlType='submit' disabled={isSubmitting} />
+                                    </Tooltip>
+                              </div>
+
                               <Field name='onlyFriends' as='select'>
                                     <option value='null'>All</option>
                                     <option value='true'>Only followed</option>

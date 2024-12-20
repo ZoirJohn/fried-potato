@@ -78,20 +78,19 @@ const Users: FC<TProps> = (props) => {
       const unfollowUser = (userId: number) => {
             dispatch(unfollow(userId))
       }
-      const screens = useBreakpoint()
       return (
             <Row className={`${styles.users} section`}>
-                  <Col span={12}>
-                        <Pagination defaultCurrent={1} total={overall} current={currentPage} onChange={setCurrentPageUsers} />
+                  <Col span={12} sm={24} xs={24}>
+                        <Pagination defaultCurrent={1} total={overall} current={currentPage} onChange={setCurrentPageUsers} responsive />
                   </Col>
-                  <Col span={12}>
+                  <Col span={12} sm={24} xs={24}>
                         <UsersSearch setFilterSearch={setFilterSearch} />
                   </Col>
-                  <Col span={24} style={{ padding: '1em 0' }}>
+                  <Col span={24} style={{ padding: '1em 0',  overflow:'auto' }} className={styles.usersBox}>
                         <Row justify={'space-between'} gutter={[5, 5]} wrap={true}>
                               {users.map((u: UserType, id) => (
                                     <Col lg={4} sm={6} xs={24} span={6} key={id}>
-                                          <Card hoverable style={cardStyle} styles={{ body: { padding: 0, overflow: 'hidden' } }}>
+                                          <Card hoverable style={cardStyle} styles={{ body: { padding: 0, overflow: 'hidden' } }} className={styles.card}>
                                                 <Flex justify='center' align='center' vertical gap={'1.5em'} style={{ padding: '2em' }}>
                                                       <NavLink to={'/profile/' + u.id}>
                                                             <img src={u.photos?.small || `https://icones.pro/wp-content/uploads/2021/04/icone-sourire-violet.png`} alt='MyProfile' style={imgStyle} />
