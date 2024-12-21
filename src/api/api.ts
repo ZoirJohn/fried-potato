@@ -1,10 +1,12 @@
 import { default as axios } from 'axios'
+import { API_KEY } from '../components/login/Login'
 
-const KEYS = ['7eb291b4-dad0-4e4f-9b01-2c556d91e838', '471a4f85-ebaf-497e-8659-6013051cea8a']
+// 7eb291b4-dad0-4e4f-9b01-2c556d91e838 mine
+
 export const instance = axios.create({
       baseURL: 'https://social-network.samuraijs.com/api/1.0',
       withCredentials: true,
-      headers: { 'API-KEY': '7eb291b4-dad0-4e4f-9b01-2c556d91e838' },
+      headers: { 'API-KEY': API_KEY },
 })
 
 export enum ResultCodeSuccessError {

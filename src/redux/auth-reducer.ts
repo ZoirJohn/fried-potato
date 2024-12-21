@@ -75,8 +75,9 @@ const setUserData = (): ThunkAction<Promise<void>, rootStateType, unknown, AuthA
       }
 }
 const sendAuthData =
-      (email: string, password: string, captcha: string): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsTypes> =>
+      (email: string, password: string, captcha: string, apiKey: string): ThunkAction<Promise<void>, rootStateType, unknown, AuthActionsTypes> =>
       async (dispatch: Function) => {
+            console.log(email, password, captcha, apiKey)
             const data = await loginAPI.LOGIN(email, password, captcha)
             if (data.resultCode === ResultCodeSuccessError.Success) {
                   dispatch(setUserData())
