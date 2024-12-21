@@ -4,7 +4,7 @@ const KEYS = ['7eb291b4-dad0-4e4f-9b01-2c556d91e838', '471a4f85-ebaf-497e-8659-6
 export const instance = axios.create({
       baseURL: 'https://social-network.samuraijs.com/api/1.0',
       withCredentials: true,
-      headers: { 'API-KEY': KEYS[localStorage.getItem('id') === 'ZoirJon' ? 0 : 1] },
+      headers: { 'API-KEY': '7eb291b4-dad0-4e4f-9b01-2c556d91e838' },
 })
 
 export enum ResultCodeSuccessError {
