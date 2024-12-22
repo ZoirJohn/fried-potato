@@ -18,6 +18,11 @@
 .usersBox {
       height: calc(100vh - 54px - 24px - 64px - 64px - 21px);
 }
+.searchBox {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+}
 @media (max-width: 575px) {
       .card {
             width: 70% !important;
@@ -44,5 +49,10 @@
             display: flex;
             align-items: center;
             gap: 0 0.5em;
+      }
+}
+@media (max-width: 768px) {
+      .usersBox {
+            overflow-y: auto;
       }
 }
